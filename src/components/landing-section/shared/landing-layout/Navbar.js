@@ -2,8 +2,8 @@ import NavbarResponsive from "../../../../lib/components/NavbarResponsive";
 
 const links = [
   {
-    title: "Github",
-    url: "//github.io/jo_geek",
+    title: "Home",
+    url: "/",
   },
   {
     title: "Stackoverflow",
