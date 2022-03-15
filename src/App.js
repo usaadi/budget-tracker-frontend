@@ -1,24 +1,31 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import LandingPage from "./components/landing-section/pages/LandingPage";
-import LandingLayout from "./components/landing-section/shared/LandingLayout";
+import AppPage from "./components/app/pages/AppPage";
+import MainLayout from "./components/shared/MainLayout";
 
 import "./styles/tailwind-output.css";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <LandingLayout>
-              <LandingPage />
-            </LandingLayout>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <MainLayout>
+            <LandingPage />
+          </MainLayout>
+        }
+      />
+      <Route
+        path="/app"
+        element={
+          <MainLayout>
+            <AppPage />
+          </MainLayout>
+        }
+      />
+    </Routes>
   );
 };
 

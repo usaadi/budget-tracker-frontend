@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const linksSample = [
+const itemsSample = [
   {
     title: "Github",
     url: "//github.io/jo_geek",
+  },
+  {
+    isComponent: true,
+    component: <div>Test</div>,
   },
   {
     title: "Stackoverflow",
@@ -17,10 +21,6 @@ const linksSample = [
   {
     title: "Stackoverflow",
     url: "http://stackoverflow.com/users/4084003/",
-  },
-  {
-    title: "Github",
-    url: "//github.io/jo_geek",
   },
   {
     title: "Stackoverflow",
@@ -46,7 +46,7 @@ const NavbarResponsive = ({
   hamburgerSmBgColorClass = hamburgerSmBgColorClassSample,
   hamburgerSmHoverBgColorClass = hamburgerSmHoverBgColorClassSample,
   hamburgerSmBorderColorClass = hamburgerSmBorderColorClassSample,
-  links = linksSample,
+  items = itemsSample,
 }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const linkClass = `${linkHoverColorClass} tw-inline-flex-center tw-px-10px sm-max:tw-block sm-max:tw-w-full
@@ -92,12 +92,24 @@ const NavbarResponsive = ({
             sm-max:tw-top-50px sm-max:tw-left-0`}
       >
         <>
-          {links?.map((item, index) => {
-            return (
-              <Link key={index} to={item.url} className={linkClass}>
-                {item.title}
-              </Link>
-            );
+          {items?.map((item, index) => {
+            if (item.isHidden) {
+              return null;
+            }
+            if (item.isComponent) {
+              const className = item.className ?? "";
+              return (
+                <div key={index} className={className}>
+                  {item.component}
+                </div>
+              );
+            } else {
+              return (
+                <Link key={index} to={item.url} className={linkClass}>
+                  {item.title}
+                </Link>
+              );
+            }
           })}
         </>
       </div>
