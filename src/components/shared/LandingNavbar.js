@@ -10,7 +10,7 @@ const hamburgerSmBgColorClass = "sm-max:tw-bg-bt-dark-beige";
 const hamburgerSmHoverBgColorClass = "sm-max:hover:tw-bg-bt-dark-beige";
 const hamburgerSmBorderColorClass = "sm-max:tw-border-black/80";
 
-const Navbar = () => {
+const LandingNavbar = () => {
   const { isAuthenticated } = useAuth0();
 
   const items = [
@@ -45,4 +45,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default LandingNavbar;

@@ -2,7 +2,8 @@ import { Route, Routes } from "react-router-dom";
 
 import LandingPage from "./components/landing-section/pages/LandingPage";
 import AppPage from "./components/app/pages/AppPage";
-import MainLayout from "./components/shared/MainLayout";
+import LandingLayout from "./components/shared/LandingLayout";
+import AppLayout from "./components/shared/AppLayout";
 
 import "./styles/tailwind-output.css";
 
@@ -12,17 +13,17 @@ const App = () => {
       <Route
         path="/"
         element={
-          <MainLayout>
+          <LandingLayout>
             <LandingPage />
-          </MainLayout>
+          </LandingLayout>
         }
       />
       <Route
         path="/app"
         element={
-          <MainLayout>
+          <AppLayout>
             <AppPage />
-          </MainLayout>
+          </AppLayout>
         }
       />
     </Routes>
