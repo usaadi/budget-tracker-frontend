@@ -149,6 +149,8 @@ module.exports = {
           "linear-gradient(to bottom, #0087f8, #0062f2)",
         "standard-btn-gradient-green":
           "linear-gradient(to bottom, #0fb269, #0fb269)",
+        "standard-btn-gradient-green-2":
+          "linear-gradient(to bottom, #8d9660, #8da660)",
         "standard-btn-gradient-red":
           "linear-gradient(to bottom, #d8202e, #d8202e)",
         "blue-label-gradient": "linear-gradient(to bottom, #1a89f0, #1065e8)",
@@ -167,6 +169,7 @@ module.exports = {
         "2-1": "2fr 1fr",
         "1-2": "1fr 2fr",
         "1-340px": "1fr 340px",
+        "max-2": "max-content max-content",
         "auto-fit-200px": "repeat(auto-fit, minmax(250px, 1fr))",
       },
       boxShadow: {
@@ -253,6 +256,7 @@ module.exports = {
         "620px": "620px",
         "668px": "668px",
         "720px": "720px",
+        "800px": "800px",
         "1006px": "1006px",
         "10pct": "10%",
         "20pct": "20%",

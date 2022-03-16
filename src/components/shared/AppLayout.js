@@ -1,5 +1,5 @@
 const AppLayout = ({ children }) => {
-  return <div className="tw-select-none tw-text-black/80">{children}</div>;
+  return <div className="tw-text-black/80">{children}</div>;
 };
 
 export default AppLayout;

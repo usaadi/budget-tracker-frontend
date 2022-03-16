@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
 import LandingPage from "./components/landing-section/pages/LandingPage";
-import AppPage from "./components/app/pages/AppPage";
+import AppPage from "./components/app/AppPage";
 import LandingLayout from "./components/shared/LandingLayout";
 import AppLayout from "./components/shared/AppLayout";
 

@@ -9,4 +9,7 @@
   .tw-inline-flex-center {
     @apply tw-inline-flex tw-justify-center tw-items-center;
   }
+  .tw-border-black-1 {
+    @apply tw-border tw-border-solid tw-border-black;
+  }
 }
