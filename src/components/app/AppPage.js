@@ -45,7 +45,7 @@ const AppPage = () => {
   return (
     <div
       className="tw-border-2 tw-border-solid tw-border-black/40 tw-p-10px tw-mt-10px tw-mx-10px
-      lg:tw-w-800px lg:tw-mr-auto lg:tw-ml-auto tw-rounded"
+      lg:tw-w-800px lg:tw-mr-auto lg:tw-ml-auto tw-rounded tw-text-black/80"
     >
       <div>
         <AppToolbar
