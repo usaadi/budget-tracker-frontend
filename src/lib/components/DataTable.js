@@ -1,6 +1,9 @@
 import { useTable, usePagination } from "react-table";
 
-const DataTable = ({ columns, data }) => {
+const DataTable = ({ columns, data, noHeader, noPagination }) => {
+  const showHeader = !noHeader;
+  const showPagination = !noPagination && data?.length > 10;
+  const includePagination = showPagination ? usePagination : null;
   const {
     getTableProps,
     getTableBodyProps,
@@ -10,6 +13,7 @@ const DataTable = ({ columns, data }) => {
     // which has only the rows for the active page
 
     // The rest of these things are super handy, too ;)
+    rows,
     canPreviousPage,
     canNextPage,
     pageOptions,
@@ -24,8 +28,11 @@ const DataTable = ({ columns, data }) => {
       columns,
       data,
     },
-    usePagination
+    includePagination
   );
+
+  const ddata = showPagination ? page : rows;
+
   const className = "tw-bg-zinc-200/50";
 
   const tableClass = "tw-min-w-full";
@@ -41,19 +48,21 @@ const DataTable = ({ columns, data }) => {
   return (
     <div className="tw-border tw-border-solid tw-border-black/30 tw-rounded tw-p-8px">
       <table {...getTableProps()} className={`${tableClass}`}>
-        <thead className={`${theadClass}`}>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th className={`${thClass}`} {...column.getHeaderProps()}>
-                  {column.render("Header")}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
+        {showHeader && (
+          <thead className={`${theadClass}`}>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th className={`${thClass}`} {...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+        )}
         <tbody {...getTableBodyProps()}>
-          {page.map((row, i) => {
+          {ddata.map((row, i) => {
             prepareRow(row);
             return (
               <tr className={`${rowClass}`} {...row.getRowProps()}>
@@ -69,50 +78,55 @@ const DataTable = ({ columns, data }) => {
           })}
         </tbody>
       </table>
-      <div className={`${paginationClass}`}>
-        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-          {"<<"}
-        </button>{" "}
-        <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-          {"<"}
-        </button>{" "}
-        <button onClick={() => nextPage()} disabled={!canNextPage}>
-          {">"}
-        </button>{" "}
-        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-          {">>"}
-        </button>{" "}
-        <span>
-          Page{" "}
-          <strong>
-            {pageIndex + 1} of {pageOptions.length}
-          </strong>{" "}
-        </span>
-        <span>
-          | Go to page:{" "}
-          <input
-            type="number"
-            defaultValue={pageIndex + 1}
+      {showPagination && (
+        <div className={`${paginationClass}`}>
+          <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+            {"<<"}
+          </button>{" "}
+          <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+            {"<"}
+          </button>{" "}
+          <button onClick={() => nextPage()} disabled={!canNextPage}>
+            {">"}
+          </button>{" "}
+          <button
+            onClick={() => gotoPage(pageCount - 1)}
+            disabled={!canNextPage}
+          >
+            {">>"}
+          </button>{" "}
+          <span>
+            Page{" "}
+            <strong>
+              {pageIndex + 1} of {pageOptions.length}
+            </strong>{" "}
+          </span>
+          <span>
+            | Go to page:{" "}
+            <input
+              type="number"
+              defaultValue={pageIndex + 1}
+              onChange={(e) => {
+                const page = e.target.value ? Number(e.target.value) - 1 : 0;
+                gotoPage(page);
+              }}
+              style={{ width: "100px" }}
+            />
+          </span>{" "}
+          <select
+            value={pageSize}
             onChange={(e) => {
-              const page = e.target.value ? Number(e.target.value) - 1 : 0;
-              gotoPage(page);
+              setPageSize(Number(e.target.value));
             }}
-            style={{ width: "100px" }}
-          />
-        </span>{" "}
-        <select
-          value={pageSize}
-          onChange={(e) => {
-            setPageSize(Number(e.target.value));
-          }}
-        >
-          {[10, 20, 30, 40, 50].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
-      </div>
+          >
+            {[10, 20, 30, 40, 50].map((pageSize) => (
+              <option key={pageSize} value={pageSize}>
+                Show {pageSize}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
     </div>
   );
 };
