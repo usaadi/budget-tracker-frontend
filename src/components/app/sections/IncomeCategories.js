@@ -1,18 +1,28 @@
 import { useMemo } from "react";
 import DataTable from "../../../lib/components/DataTable";
 
+import useCategories from "../../../api/categories/useCategories";
+
 const IncomeCategories = () => {
+  const categoriesInfo = useCategories("income");
+  const categories = categoriesInfo.isSuccess ? categoriesInfo.data.data : null;
+
   const data = useMemo(
-    () => [
-      {
-        category: "Salary",
-      },
-      {
-        category: "Collected Rent",
-      },
-    ],
-    []
+    () => categories?.map((cat) => ({ category: cat })),
+    [categories]
   );
+
+  // const data = useMemo(
+  //   () => [
+  //     {
+  //       category: "Salary",
+  //     },
+  //     {
+  //       category: "Collected Rent",
+  //     },
+  //   ],
+  //   []
+  // );
 
   const columns = useMemo(
     () => [

@@ -1,8 +1,9 @@
 import { useTable, usePagination } from "react-table";
 
 const DataTable = ({ columns, data, noHeader, noPagination }) => {
+  const data_data = data ?? [];
   const showHeader = !noHeader;
-  const showPagination = !noPagination && data?.length > 10;
+  const showPagination = !noPagination && data_data?.length > 10;
   const includePagination = showPagination ? usePagination : null;
   const {
     getTableProps,
@@ -26,7 +27,7 @@ const DataTable = ({ columns, data, noHeader, noPagination }) => {
   } = useTable(
     {
       columns,
-      data,
+      data: data_data,
     },
     includePagination
   );

@@ -4,14 +4,23 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Auth0ProviderWithHistory from "./lib/auth/Auth0ProviderWithHistory";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+//import setupAxios from "./services/api/setupAxios";
+
+const queryClient = new QueryClient();
+//setupAxios();
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Auth0ProviderWithHistory>
-        <App />
-      </Auth0ProviderWithHistory>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Auth0ProviderWithHistory>
+          <App />
+        </Auth0ProviderWithHistory>
+      </Router>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
