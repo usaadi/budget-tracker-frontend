@@ -1,7 +1,7 @@
 import Picker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const DatePicker = ({ selectedMonth, setSelectedMonth }) => {
+const DatePicker = ({ selectedMonth, setSelectedMonth, disabled }) => {
   return (
     <Picker
       selected={selectedMonth}
@@ -10,6 +10,7 @@ const DatePicker = ({ selectedMonth, setSelectedMonth }) => {
       showMonthYearPicker
       showFullMonthYearPicker
       showFourColumnMonthYearPicker
+      disabled={disabled}
     />
   );
 };

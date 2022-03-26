@@ -5,6 +5,10 @@ import AppToolbar from "../shared/AppToolbar";
 import Summary from "./sections/Summary";
 import Expenses from "./sections/Expenses";
 import Income from "./sections/Income";
+import ExpensesSummary from "./sections/ExpensesSummary";
+import IncomeSummary from "./sections/IncomeSummary";
+import ExpensesCategories from "./sections/ExpensesCategories";
+import IncomeCategories from "./sections/IncomeCategories";
 
 import { appSections } from "../shared/defines/consts";
 
@@ -24,6 +28,22 @@ const AppPage = () => {
     {
       name: appSections.income,
       component: <Income selectedMonth={selectedMonth} />,
+    },
+    {
+      name: appSections.expensesSummary,
+      component: <ExpensesSummary selectedMonth={selectedMonth} />,
+    },
+    {
+      name: appSections.incomeSummary,
+      component: <IncomeSummary selectedMonth={selectedMonth} />,
+    },
+    {
+      name: appSections.expensesCategories,
+      component: <ExpensesCategories selectedMonth={selectedMonth} />,
+    },
+    {
+      name: appSections.incomeCategories,
+      component: <IncomeCategories selectedMonth={selectedMonth} />,
     },
   ]);
 
@@ -50,6 +70,7 @@ const AppPage = () => {
       <div>
         <AppToolbar
           selectedMonth={selectedMonth}
+          currentSection={currentSection}
           setSelectedMonth={setSelectedMonth}
           onSectionChanged={onSectionChanged}
           onLogout={onLogout}
