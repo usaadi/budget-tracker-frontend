@@ -1,6 +1,6 @@
-2022-03-(17-24):
-================
- - add backend api and database (mongodb)
+2022-03-17 - 2022-04-02:
+========================
+ - add backend api and database (mongodb)x +(postgres)
  ✅ add tabular style to summary page
  ✅ add income page with dummy data
  ✅ add summary by category page
@@ -8,4 +8,4 @@
  - add globalization/localization
  - add pie chart or bar graph for summary by category pages
  - add collapse/expand for the two sections in each summary by cat page
- 
+ - add compare page to compare two or more months

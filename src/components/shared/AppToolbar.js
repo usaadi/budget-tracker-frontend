@@ -26,7 +26,7 @@ const AppToolbar = ({
             "tw-min-h-35px tw-text-14px tw-px-20px tw-rounded-t-11px tw-mr-2px";
           const activeClassName =
             "tw-text-white tw-bg-standard-btn-gradient-green-2";
-          const inactiveClassName = "tw-bg-black/20";
+          const inactiveClassName = "tw-bg-black/10";
           return (
             <>
               <div className="tw-flex tw-flex-wrap tw-gap-y-5px">
