@@ -3,19 +3,31 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@auth0/auth0-react": "^1.9.0",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.26.1",
     "react": "^17.0.2",
+    "react-datepicker": "^4.7.0",
     "react-dom": "^17.0.2",
+    "react-month-picker": "^2.2.1",
+    "react-query": "^3.34.16",
+    "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
+    "react-table": "^7.7.0",
+    "react-tabs": "^4.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "run-p watch:css start:cmd",
+    "start:cmd": "react-scripts start",
+    "watch:css": "(cd tailwind && tailwind -i ../src/styles/tailwind.css -o ../src/styles/tailwind-output.css --watch)",
+    "build:css": "(cd tailwind && tailwind -i ../src/styles/tailwind.css -o ../src/styles/tailwind-output.css)",
+    "build": "npm run build:css && react-scripts build",
+    "test": "npm run build:css && react-scripts test",
+    "eject": "react-scripts eject",
+    "json:server": "json-server -p 4000 --watch mock-db.json"
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
   }
 }
