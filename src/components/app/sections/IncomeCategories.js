@@ -5,10 +5,10 @@ import useCategories from "../../../api/categories/useCategories";
 
 const IncomeCategories = () => {
   const categoriesInfo = useCategories("income");
-  const categories = categoriesInfo.isSuccess ? categoriesInfo.data.data : null;
+  const categories = categoriesInfo.isSuccess ? categoriesInfo.data : null;
 
   const data = useMemo(
-    () => categories?.map((cat) => ({ category: cat })),
+    () => categories?.items?.map((cat) => ({ category: cat })),
     [categories]
   );
 
