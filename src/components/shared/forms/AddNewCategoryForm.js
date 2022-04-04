@@ -6,7 +6,7 @@ import useCreateCategory from "../../../api/categories/useCreateCategory";
 import StandardInput from "../../../lib/components/input/StandardInput";
 import Spinner from "../../../lib/components/Spinner";
 
-const AddNewCategoryForm = (categoryType, closeMe) => {
+const AddNewCategoryForm = ({ categoryType, closeMe }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -27,11 +27,35 @@ const AddNewCategoryForm = (categoryType, closeMe) => {
     },
   });
 
-  const doSubmit = async (data) => {
+  const BuildErrorMessage = (error) => {
+    const errorData = error?.response?.data;
+    let message = "";
+    if (errorData && errorData.status === 400) {
+      message += errorData.title;
+      console.log("keys");
+      for (var item in errorData.errors) {
+        console.log(item);
+        console.log("arr");
+        var arr = errorData.errors[item];
+        console.log(arr);
+        console.log("messages");
+        arr.forEach((msg) => {
+          console.log(msg);
+          message += " " + msg;
+        });
+      }
+    } else {
+      message = "Error";
+    }
+    setErrorMessage(message);
+  };
+
+  const onSubmit = async (data) => {
     setIsLoading(true);
+    setErrorMessage("");
     const result = await createCategoryMutation.mutateAsync(
       {
-        categoryType,
+        categoryType: categoryType,
         name: data.name,
         description: data.description,
       },
@@ -40,33 +64,13 @@ const AddNewCategoryForm = (categoryType, closeMe) => {
           closeMe();
         },
         onError: async (error) => {
-          setErrorMessage("Error");
+          BuildErrorMessage(error);
         },
         onSettled: async (data) => {
           setIsLoading(false);
         },
       }
     );
-  };
-
-  const onSubmit = async (data) => {
-    setIsLoading(true);
-    setErrorMessage("");
-    //const result = await Auth.login(data.email, data.password);
-    //const result = true;
-    const result = await doSubmit(data);
-    setIsLoading(false);
-    if (result === true) {
-      //onLogin();
-    } else if (result?.data?.detail) {
-      let msg = result.data.detail;
-      if (result.data.detail === "LOGIN_BAD_CREDENTIALS") {
-        msg = "Wrong email or password.";
-      }
-      setErrorMessage(msg);
-    } else {
-      setErrorMessage("Login failed.");
-    }
   };
 
   const onErrorSubmit = async (error) => {

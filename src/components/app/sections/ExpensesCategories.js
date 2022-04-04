@@ -7,6 +7,8 @@ import Button from "../../../lib/components/buttons/Button";
 import ModalPopup from "../../../lib/components/ModalPopup";
 import AddNewCategoryForm from "../../shared/forms/AddNewCategoryForm";
 
+import { categoryTypeEnum } from "../../../constants/enums";
+
 const ExpensesCategories = () => {
   const [showAddNew, setShowAddNew] = useState(false);
 
@@ -15,10 +17,16 @@ const ExpensesCategories = () => {
   };
 
   const categoriesInfo = useCategories("expenses");
-  const categories = categoriesInfo.isSuccess ? categoriesInfo.data : null;
+  const categories = categoriesInfo.isSuccess
+    ? categoriesInfo.data?.data?.items
+    : null;
 
   const data = useMemo(
-    () => categories?.items?.map((cat) => ({ category: cat })),
+    () =>
+      categories?.map((cat) => ({
+        category: cat.name,
+        description: cat.description,
+      })),
     [categories]
   );
 
@@ -52,6 +60,10 @@ const ExpensesCategories = () => {
         Header: "Category",
         accessor: "category",
       },
+      {
+        Header: "Description",
+        accessor: "description",
+      },
     ],
     []
   );
@@ -69,11 +81,14 @@ const ExpensesCategories = () => {
         </Button>
         {showAddNew && (
           <ModalPopup removePopup={() => setShowAddNew(false)}>
-            <AddNewCategoryForm />
+            <AddNewCategoryForm
+              categoryType={categoryTypeEnum.expenses}
+              closeMe={() => setShowAddNew(false)}
+            />
           </ModalPopup>
         )}
       </div>
-      <DataTable columns={columns} data={data} noHeader={true} />
+      <DataTable columns={columns} data={data} noHeader={false} />
     </div>
   );
 };
