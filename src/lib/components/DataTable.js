@@ -1,10 +1,17 @@
 import { useTable, usePagination } from "react-table";
 
-const DataTable = ({ columns, data, noHeader, noPagination }) => {
+const DataTable = ({
+  columns,
+  data,
+  hiddenColumns = [],
+  noHeader,
+  noPagination,
+}) => {
   const data_data = data ?? [];
   const showHeader = !noHeader;
   const showPagination = !noPagination && data_data?.length > 10;
   const includePagination = showPagination ? usePagination : null;
+  const initialState = { hiddenColumns };
   const {
     getTableProps,
     getTableBodyProps,
@@ -28,6 +35,7 @@ const DataTable = ({ columns, data, noHeader, noPagination }) => {
     {
       columns,
       data: data_data,
+      initialState,
     },
     includePagination
   );
@@ -39,7 +47,7 @@ const DataTable = ({ columns, data, noHeader, noPagination }) => {
   const tableClass = "tw-min-w-full";
   const theadClass = "tw-bg-zinc-200/50";
   const thClass =
-    "tw-py-2 tw-px-6 tw-text-xs tw-font-medium tw-tracking-wider tw-text-left tw-text-gray-700 tw-uppercase";
+    "tw-py-2 tw-px-6 tw-text-xs tw-font-medium tw-tracking-wider tw-text-gray-700 tw-uppercase";
   const rowClass = "tw-border-b odd:tw-bg-white/40 even:tw-bg-zinc-200/50";
   const cellClass =
     "tw-py-2 tw-px-6 tw-text-sm tw-font-medium tw-text-gray-900 tw-whitespace-nowrap";

@@ -8,4 +8,5 @@
  - add globalization/localization
  - add pie chart or bar graph for summary by category pages
  - add collapse/expand for the two sections in each summary by cat page
- - add compare page to compare two or more months
+ - add compare page to compare two or more months\
+ - add propTypes and defaults

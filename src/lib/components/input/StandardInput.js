@@ -2,7 +2,10 @@ import { useState } from "react";
 
 const StandardInput = ({
   placeholder,
-  className,
+  className = "",
+  value,
+  reset,
+  clear,
   register,
   errorMessage,
   borderColorClass = "tw-border-wf-light-slate-grey-2",
@@ -11,15 +14,16 @@ const StandardInput = ({
   isPassword,
   autoComplete,
 }) => {
-  const [input, setInput] = useState("");
+  //const [input, setInput] = useState("");
   const onClear = () => {
-    setInput("");
+    clear();
+    //setInput("");
   };
   const type = isPassword ? "password" : "text";
   return (
     <div
-      className={`form-element form-input ${className ? className : ""} ${
-        input ? "has-text" : ""
+      className={`form-element form-input ${className} ${
+        value ? "has-text" : ""
       }`}
     >
       <div
@@ -29,15 +33,15 @@ const StandardInput = ({
         <div className="tw-w-[26px] tw-h-[50px]"></div>
         <input
           size={1}
-          value={input}
-          onInput={(e) => setInput(e.target.value)}
+          //value={input}
+          //onInput={(e) => setInput(e.target.value)}
           placeholder={placeholder}
           autoComplete={autoComplete ? autoComplete : "off"}
           type={type}
           {...register}
           className={`${textClass} ${placeholderClass}
           tw-grow tw-border-none tw-outline-none tw-bg-transparent ${
-            input ? "tw-text-black" : "tw-text-wf-light-slate-grey-2"
+            value ? "tw-text-black" : "tw-text-wf-light-slate-grey-2"
           }`}
         />
         <div className="clear-btn" onClick={onClear}></div>
