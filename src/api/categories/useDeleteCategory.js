@@ -1,10 +1,11 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import useApiConfig from "../useApiConfig";
+import { getCategoryTypeName } from "../../util/getEnumName";
 
 const baseUrl = process.env.REACT_APP_BASE_API_URL;
 
-const useEditCategory = () => {
+const useDeleteCategory = () => {
   const { getApiConfig } = useApiConfig();
 
   const queryClient = useQueryClient();
@@ -12,11 +13,11 @@ const useEditCategory = () => {
     async (value) => {
       const url = `${baseUrl}categories/${value.uniqueId}`;
       const config = await getApiConfig();
-      return await axios.patch(url, value, config);
+      return await axios.delete(url, config);
     },
     {
-      onSuccess: (data) => {
-        const categoryTypeName = getCategoryTypeName(data.categoryType);
+      onSuccess: (_, variables) => {
+        const categoryTypeName = getCategoryTypeName(variables.categoryType);
         queryClient.refetchQueries("categories", categoryTypeName);
         queryClient.refetchQueries(categoryTypeName);
       },
@@ -24,4 +25,4 @@ const useEditCategory = () => {
   );
 };
 
-export default useEditCategory;
+export default useDeleteCategory;

@@ -4,6 +4,7 @@ import DataTable from "../../../lib/components/DataTable";
 
 import useConfirm from "../../../lib/components/confirm/useConfirm";
 import useCategories from "../../../api/categories/useCategories";
+import useDeleteCategory from "../../../api/categories/useDeleteCategory";
 
 import Button from "../../../lib/components/buttons/Button";
 import ModalPopup from "../../../lib/components/ModalPopup";
@@ -27,6 +28,8 @@ const Categories = ({ categoryType }) => {
     ? categoriesInfo.data?.data?.items
     : null;
 
+  const deleteCategoryMutation = useDeleteCategory();
+
   const { isConfirmed } = useConfirm();
 
   const handleDeleteRow = async (row) => {
@@ -37,7 +40,14 @@ const Categories = ({ categoryType }) => {
       "NO"
     );
     if (ok) {
-      console.log("Ok was pressed");
+      deleteCategoryMutation.mutate(
+        { uniqueId: row.row.values.uniqueId },
+        {
+          onError: (error) => {
+            console.log(error);
+          },
+        }
+      );
     } else {
       console.log("Cancel was pressed");
     }

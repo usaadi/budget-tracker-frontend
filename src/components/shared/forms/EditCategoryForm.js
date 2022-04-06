@@ -14,10 +14,7 @@ const EditCategoryForm = ({ category, categoryType, closeMe }) => {
   const categoryTypeName =
     categoryType == categoryTypeEnum.expenses ? "expenses" : "income";
 
-  const editCategoryMutation = useEditCategory(
-    categoryTypeName,
-    category.uniqueId
-  );
+  const editCategoryMutation = useEditCategory();
 
   const {
     register,
