@@ -59,6 +59,7 @@ const EditCategoryForm = ({ category, categoryType, closeMe }) => {
     setErrorMessage("");
     const result = await editCategoryMutation.mutateAsync(
       {
+        uniqueId: category.uniqueId,
         name: data.name,
         description: data.description,
       },

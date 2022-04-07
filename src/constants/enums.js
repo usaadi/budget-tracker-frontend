@@ -1,6 +1,6 @@
 const categoryTypeEnum = {
-  expenses: 0,
-  income: 1,
+  expenses: 1,
+  income: 2,
 };
 
 export { categoryTypeEnum };
