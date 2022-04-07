@@ -1,86 +1,44 @@
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 import DataTable from "../../../lib/components/DataTable";
+
+import useTransactions from "../../../api/transactions/useTransactions";
+
+import Button from "../../../lib/components/buttons/Button";
+import ModalPopup from "../../../lib/components/ModalPopup";
+// import AddNewTransactionForm from "../../shared/forms/AddNewTransactionForm";
+// import EditTransactionForm from "../../shared/forms/EditTransactionForm";
 
 import { getMonthYear } from "../../../lib/util/formatting/dateFormatting";
 
 const Expenses = ({ selectedMonth }) => {
+  const [showAddNew, setShowAddNew] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+
+  const transactionsInfo = useTransactions("expenses");
+  const transactions = transactionsInfo.isSuccess
+    ? transactionsInfo.data.data.items
+    : [];
+
   const strDate = getMonthYear(selectedMonth);
   const data = useMemo(
-    () => [
-      {
-        category: "Food",
-        description: "Some food",
-        amount: 120,
-      },
-      {
-        category: "Entertainment",
-        description: "Movie tickets",
-        amount: 600,
-      },
-      {
-        category: "Education",
-        description: "some book",
-        amount: 65,
-      },
-      {
-        category: "Trasportation",
-        description: "Uber",
-        amount: 350,
-      },
-      {
-        category: "Shopping",
-        description: "Some clothes",
-        amount: 350,
-      },
-      {
-        category: "Transportion",
-        description: "taxi",
-        amount: 50,
-      },
-      {
-        category: "Eating Out",
-        description: "McDonalds",
-        amount: 75,
-      },
-      {
-        category: "Entertainment",
-        description: "Movie tickets",
-        amount: 450,
-      },
-      {
-        category: "Education",
-        description: "some book",
-        amount: 880,
-      },
-      {
-        category: "Trasportation",
-        description: "Uber",
-        amount: 667,
-      },
-      {
-        category: "Transportion",
-        description: "taxi",
-        amount: 50,
-      },
-      {
-        category: "Eating Out",
-        description: "McDonalds",
-        amount: 75,
-      },
-      {
-        category: "Entertainment",
-        description: "Movie tickets",
-        amount: 450,
-      },
-    ],
+    () =>
+      transactions?.map((item) => ({
+        category: item.categoryName,
+        description: item.description,
+        amount: item.amount,
+      })),
     []
   );
+
+  const handleAddNew = () => {
+    setShowAddNew(true);
+  };
 
   const columns = useMemo(
     () => [
       {
         Header: "Category",
-        accessor: "category", // accessor is the "key" in the data
+        accessor: "category",
       },
       {
         Header: "Description",
@@ -96,7 +54,34 @@ const Expenses = ({ selectedMonth }) => {
 
   return (
     <div>
-      <div className="tw-mb-10px">Expenses for month: {strDate}</div>
+      <div className="tw-mb-10px">
+        Expenses for month: {strDate}
+        <Button
+          onClick={handleAddNew}
+          className="tw-min-h-25px tw-px-5px tw-bg-standard-btn-gradient-green-2 tw-rounded-md 
+          tw-text-12px tw-text-white tw-font-bold tw-ml-10px"
+        >
+          Add New
+        </Button>
+        {showAddNew && (
+          <ModalPopup removePopup={() => setShowAddNew(false)}>
+            {/* <AddNewTransactionForm
+              categoryType={categoryType}
+              closeMe={() => setShowAddNew(false)}
+            /> */}
+          </ModalPopup>
+        )}
+        {showEdit && (
+          <ModalPopup removePopup={() => setShowEdit(false)}>
+            {/* <EditTransactionForm
+              categoryType={categoryType}
+              category={currentCategory}
+              closeMe={() => setShowEdit(false)}
+            /> */}
+          </ModalPopup>
+        )}
+      </div>
+
       <DataTable columns={columns} data={data} />
     </div>
   );
