@@ -6,13 +6,13 @@ import { defaultQueryStaleTimeMs } from "../../constants/queryParameters";
 
 const baseUrl = process.env.REACT_APP_BASE_API_URL;
 
-const useTransactions = (categoryTypeName) => {
+const useTransactions = (transactionTypeName) => {
   const { getApiConfig } = useApiConfig();
 
   return useQuery(
-    ["transactions", categoryTypeName],
+    ["transactions", transactionTypeName],
     async () => {
-      const url = `${baseUrl}transactions/${categoryTypeName}`;
+      const url = `${baseUrl}transactions/${transactionTypeName}`;
       const config = await getApiConfig();
       return await axios.get(url, config);
     },

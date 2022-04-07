@@ -1,6 +1,6 @@
-const categoryTypeEnum = {
+const transactionTypeEnum = {
   expenses: 1,
   income: 2,
 };
 
-export { categoryTypeEnum };
+export { transactionTypeEnum };

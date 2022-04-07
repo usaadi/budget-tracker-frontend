@@ -1,12 +1,21 @@
-import { categoryTypeEnum } from "../constants/enums";
+import { transactionTypeEnum } from "../constants/enums";
 
-const getCategoryTypeName = (categoryType) => {
-  switch (categoryType) {
-    case categoryTypeEnum.expenses:
+const getTransactionTypeName = (transactionType) => {
+  switch (transactionType) {
+    case transactionTypeEnum.expenses:
       return "expenses";
-    case categoryTypeEnum.income:
+    case transactionTypeEnum.income:
       return "income";
   }
 };
 
-export { getCategoryTypeName };
+const getTransactionTypeNameCapital = (transactionType) => {
+  switch (transactionType) {
+    case transactionTypeEnum.expenses:
+      return "Expenses";
+    case transactionTypeEnum.income:
+      return "Income";
+  }
+};
+
+export { getTransactionTypeName, getTransactionTypeNameCapital };

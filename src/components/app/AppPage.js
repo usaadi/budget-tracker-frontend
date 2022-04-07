@@ -10,7 +10,7 @@ import IncomeSummary from "./sections/IncomeSummary";
 import Categories from "./sections/Categories";
 
 import { appSections } from "../shared/defines/consts";
-import { categoryTypeEnum } from "../../constants/enums";
+import { transactionTypeEnum } from "../../constants/enums";
 
 const AppPage = () => {
   const [currentSection, setCurrentSection] = useState(appSections.summary);
@@ -41,7 +41,7 @@ const AppPage = () => {
       name: appSections.expensesCategories,
       component: (
         <Categories
-          categoryType={categoryTypeEnum.expenses}
+          transactionType={transactionTypeEnum.expenses}
           selectedMonth={selectedMonth}
         />
       ),
@@ -50,7 +50,7 @@ const AppPage = () => {
       name: appSections.incomeCategories,
       component: (
         <Categories
-          categoryType={categoryTypeEnum.income}
+          transactionType={transactionTypeEnum.income}
           selectedMonth={selectedMonth}
         />
       ),

@@ -5,8 +5,10 @@ import useTransactions from "../../../api/transactions/useTransactions";
 
 import Button from "../../../lib/components/buttons/Button";
 import ModalPopup from "../../../lib/components/ModalPopup";
-// import AddNewTransactionForm from "../../shared/forms/AddNewTransactionForm";
+import AddNewTransactionForm from "../../shared/forms/AddNewTransactionForm";
 // import EditTransactionForm from "../../shared/forms/EditTransactionForm";
+
+import { transactionTypeEnum } from "../../../constants/enums";
 
 import { getMonthYear } from "../../../lib/util/formatting/dateFormatting";
 
@@ -23,11 +25,11 @@ const Expenses = ({ selectedMonth }) => {
   const data = useMemo(
     () =>
       transactions?.map((item) => ({
-        category: item.categoryName,
+        category: item.category.name,
         description: item.description,
         amount: item.amount,
       })),
-    []
+    [transactions]
   );
 
   const handleAddNew = () => {
@@ -65,16 +67,16 @@ const Expenses = ({ selectedMonth }) => {
         </Button>
         {showAddNew && (
           <ModalPopup removePopup={() => setShowAddNew(false)}>
-            {/* <AddNewTransactionForm
-              categoryType={categoryType}
+            <AddNewTransactionForm
+              transactionType={transactionTypeEnum.expenses}
               closeMe={() => setShowAddNew(false)}
-            /> */}
+            />
           </ModalPopup>
         )}
         {showEdit && (
           <ModalPopup removePopup={() => setShowEdit(false)}>
             {/* <EditTransactionForm
-              categoryType={categoryType}
+              transactionType={transactionTypeEnum.expenses}
               category={currentCategory}
               closeMe={() => setShowEdit(false)}
             /> */}

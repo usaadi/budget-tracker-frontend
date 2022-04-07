@@ -11,19 +11,21 @@ import ModalPopup from "../../../lib/components/ModalPopup";
 import AddNewCategoryForm from "../../shared/forms/AddNewCategoryForm";
 import EditCategoryForm from "../../shared/forms/EditCategoryForm";
 
-import { categoryTypeEnum } from "../../../constants/enums";
+import {
+  getTransactionTypeName,
+  getTransactionTypeNameCapital,
+} from "../../../util/getEnumName";
 
-const Categories = ({ categoryType }) => {
+const Categories = ({ transactionType }) => {
   const [showAddNew, setShowAddNew] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [currentCategory, setCurrentCategory] = useState("");
 
-  const categoryTypeName =
-    categoryType == categoryTypeEnum.expenses ? "expenses" : "income";
-  const categoryTypeNameCapital =
-    categoryType == categoryTypeEnum.expenses ? "Expenses" : "Income";
+  const transactionTypeName = getTransactionTypeName(transactionType);
+  const transactionTypeNameCapital =
+    getTransactionTypeNameCapital(transactionType);
 
-  const categoriesInfo = useCategories(categoryTypeName);
+  const categoriesInfo = useCategories(transactionTypeName);
   const categories = categoriesInfo.isSuccess
     ? categoriesInfo.data?.data?.items
     : null;
@@ -101,7 +103,7 @@ const Categories = ({ categoryType }) => {
   return (
     <div>
       <div className="tw-mb-10px">
-        {categoryTypeNameCapital} Categories
+        {transactionTypeNameCapital} Categories
         <Button
           onClick={handleAddNew}
           className="tw-min-h-25px tw-px-5px tw-bg-standard-btn-gradient-green-2 tw-rounded-md 
@@ -112,7 +114,7 @@ const Categories = ({ categoryType }) => {
         {showAddNew && (
           <ModalPopup removePopup={() => setShowAddNew(false)}>
             <AddNewCategoryForm
-              categoryType={categoryType}
+              transactionType={transactionType}
               closeMe={() => setShowAddNew(false)}
             />
           </ModalPopup>
@@ -120,7 +122,7 @@ const Categories = ({ categoryType }) => {
         {showEdit && (
           <ModalPopup removePopup={() => setShowEdit(false)}>
             <EditCategoryForm
-              categoryType={categoryType}
+              transactionType={transactionType}
               category={currentCategory}
               closeMe={() => setShowEdit(false)}
             />

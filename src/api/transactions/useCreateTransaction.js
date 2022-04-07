@@ -5,13 +5,13 @@ import { getTransactionTypeName } from "../../util/getEnumName";
 
 const baseUrl = process.env.REACT_APP_BASE_API_URL;
 
-const useCreateCategory = () => {
+const useCreateTransaction = () => {
   const { getApiConfig } = useApiConfig();
 
   const queryClient = useQueryClient();
   return useMutation(
     async (value) => {
-      const url = `${baseUrl}categories`;
+      const url = `${baseUrl}transactions`;
       const config = await getApiConfig();
       return await axios.post(url, value, config);
     },
@@ -20,10 +20,10 @@ const useCreateCategory = () => {
         const transactionTypeName = getTransactionTypeName(
           data.transactionType
         );
-        queryClient.refetchQueries("categories", transactionTypeName);
+        queryClient.refetchQueries("transactions", transactionTypeName);
       },
     }
   );
 };
 
-export default useCreateCategory;
+export default useCreateTransaction;

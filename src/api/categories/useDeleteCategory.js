@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import useApiConfig from "../useApiConfig";
-import { getCategoryTypeName } from "../../util/getEnumName";
+import { getTransactionTypeName } from "../../util/getEnumName";
 
 const baseUrl = process.env.REACT_APP_BASE_API_URL;
 
@@ -17,9 +17,11 @@ const useDeleteCategory = () => {
     },
     {
       onSuccess: (_, variables) => {
-        const categoryTypeName = getCategoryTypeName(variables.categoryType);
-        queryClient.refetchQueries("categories", categoryTypeName);
-        queryClient.refetchQueries(categoryTypeName);
+        const transactionTypeName = getTransactionTypeName(
+          variables.transactionType
+        );
+        queryClient.refetchQueries("categories", transactionTypeName);
+        queryClient.refetchQueries(transactionTypeName);
       },
     }
   );

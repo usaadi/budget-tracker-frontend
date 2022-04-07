@@ -1,16 +1,38 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import useEditCategory from "../../../api/categories/useEditCategory";
+import useCreateTransaction from "../../../api/transactions/useCreateTransaction";
+import useCategories from "../../../api/categories/useCategories";
 
 import StandardInput from "../../../lib/components/input/StandardInput";
-import Spinner from "../../../lib/components/Spinner";
+import StandardSelect from "../../../lib/components/select/StandardSelect";
+import StandardDatePicker from "../../../lib/components/date-picker/StandardDatePicker";
 
-const EditCategoryForm = ({ category, transactionType, closeMe }) => {
+import Spinner from "../../../lib/components/Spinner";
+import { getTransactionTypeName } from "../../../util/getEnumName";
+import patterns from "../../../constants/patterns";
+
+const AddNewTransactionForm = ({ transactionType, closeMe }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const editCategoryMutation = useEditCategory();
+  const transactionTypeName = getTransactionTypeName(transactionType);
+  console.log(transactionType);
+  console.log(transactionTypeName);
+
+  const categoriesInfo = useCategories(transactionTypeName);
+  const categories = categoriesInfo.isSuccess
+    ? categoriesInfo.data.data.items
+    : [];
+
+  const categoriesOptions = categories.map((category) => ({
+    value: category.uniqueId,
+    label: category.name,
+  }));
+
+  console.log(categoriesOptions);
+
+  const createTransactionMutation = useCreateTransaction();
 
   const {
     register,
@@ -22,8 +44,10 @@ const EditCategoryForm = ({ category, transactionType, closeMe }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: category.name,
-      description: category.description,
+      amount: "",
+      categoryUniqueId: "",
+      transactionDate: "",
+      description: "",
     },
   });
 
@@ -47,10 +71,11 @@ const EditCategoryForm = ({ category, transactionType, closeMe }) => {
   const onSubmit = async (data) => {
     setIsLoading(true);
     setErrorMessage("");
-    const result = await editCategoryMutation.mutateAsync(
+    const result = await createTransactionMutation.mutateAsync(
       {
-        uniqueId: category.uniqueId,
-        name: data.name,
+        amount: data.amount,
+        categoryUniqueId: data.categoryUniqueId,
+        transactionDate: data.transactionDate,
         description: data.description,
       },
       {
@@ -77,23 +102,45 @@ const EditCategoryForm = ({ category, transactionType, closeMe }) => {
       className="tw-flex tw-flex-col tw-items-stretch tw-w-668px tw-mt-40px tw-pb-36px"
     >
       <StandardInput
-        placeholder="Category Name"
-        register={register("name", { required: "This is required" })}
-        value={watch("name")}
-        errorMessage={errors.name?.message}
+        placeholder="Amount"
+        register={register("amount", {
+          required: "This field is required",
+          pattern: patterns.decimal_3p,
+          valueAsNumber: true,
+        })}
+        errorMessage={errors.amount?.message}
         borderColorClass="tw-border-db-blue-gray-1/50"
         textClass="tw-font-roboto tw-text-16px"
         placeholderClass="placeholder:tw-text-db-gray-27"
         className="tw-mb-20px"
       />
+      <StandardDatePicker
+        control={control}
+        validationRules={{ required: "This field is required" }}
+        name="transactionDate"
+        errorMessage={errors.transactionDate?.message}
+      />
       <StandardInput
-        placeholder="Category Description"
+        placeholder="Description"
         register={register("description")}
-        value={watch("description")}
         errorMessage={errors.description?.message}
         borderColorClass="tw-border-db-blue-gray-1/50"
         textClass="tw-font-roboto tw-text-16px"
         placeholderClass="placeholder:tw-text-db-gray-27"
+        className="tw-mb-20px"
+      />
+      <StandardSelect
+        options={categoriesOptions}
+        control={control}
+        name="categoryUniqueId"
+        validationRules={{ required: "This field is required" }}
+        allowCreate={false}
+        placeholder="Category"
+        errorMessage={errors.categoryUniqueId?.message}
+        borderColorClass="tw-border-db-blue-gray-1/50"
+        fontSize="16px"
+        fontFamily="Roboto"
+        placeholderColor="#7d86a9"
         className="tw-mb-20px"
       />
       <button
@@ -101,11 +148,11 @@ const EditCategoryForm = ({ category, transactionType, closeMe }) => {
         className="tw-self-center tw-bg-standard-btn-gradient-green-2 tw-px-10px tw-rounded-md"
       >
         {isLoading && <Spinner strokeColor="black" />}
-        SAVE
+        ADD
       </button>
       {errorMessage && <div>{errorMessage}</div>}
     </form>
   );
 };
 
-export default EditCategoryForm;
+export default AddNewTransactionForm;

@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 import useApiConfig from "../useApiConfig";
-import { getCategoryTypeName } from "../../util/getEnumName";
+import { getTransactionTypeName } from "../../util/getEnumName";
 
 const baseUrl = process.env.REACT_APP_BASE_API_URL;
 
@@ -17,9 +17,11 @@ const useEditCategory = () => {
     },
     {
       onSuccess: (data) => {
-        const categoryTypeName = getCategoryTypeName(data.categoryType);
-        queryClient.refetchQueries("categories", categoryTypeName);
-        queryClient.refetchQueries(categoryTypeName);
+        const transactionTypeName = getTransactionTypeName(
+          data.transactionType
+        );
+        queryClient.refetchQueries("categories", transactionTypeName);
+        queryClient.refetchQueries(transactionTypeName);
       },
     }
   );
