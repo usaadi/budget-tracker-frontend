@@ -10,3 +10,5 @@
  - add collapse/expand for the two sections in each summary by cat page
  - add compare page to compare two or more months\
  - add propTypes and defaults
+ - check the issue of utc vs local dates
+ - in add transaction form, open the date picker to show the month selected by the main date picker.

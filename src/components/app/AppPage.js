@@ -14,6 +14,7 @@ import { transactionTypeEnum } from "../../constants/enums";
 
 const AppPage = () => {
   const [currentSection, setCurrentSection] = useState(appSections.summary);
+  const date = new Date();
   const [selectedMonth, setSelectedMonth] = useState(new Date());
 
   const sections = useMemo(() => [

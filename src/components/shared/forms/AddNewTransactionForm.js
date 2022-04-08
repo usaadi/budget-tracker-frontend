@@ -12,7 +12,7 @@ import Spinner from "../../../lib/components/Spinner";
 import { getTransactionTypeName } from "../../../util/getEnumName";
 import patterns from "../../../constants/patterns";
 
-const AddNewTransactionForm = ({ transactionType, closeMe }) => {
+const AddNewTransactionForm = ({ transactionType, openToDate, closeMe }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -121,6 +121,7 @@ const AddNewTransactionForm = ({ transactionType, closeMe }) => {
         className="tw-mb-20px"
       />
       <StandardDatePicker
+        openToDate={openToDate}
         control={control}
         validationRules={{ required: "This field is required" }}
         name="transactionDate"

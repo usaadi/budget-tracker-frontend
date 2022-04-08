@@ -9,14 +9,20 @@ import AddNewTransactionForm from "../../shared/forms/AddNewTransactionForm";
 // import EditTransactionForm from "../../shared/forms/EditTransactionForm";
 
 import { transactionTypeEnum } from "../../../constants/enums";
+import { getRangeFromMonth } from "../../../lib/util/formatting/dateFormatting";
 
-import { getMonthYear } from "../../../lib/util/formatting/dateFormatting";
+import {
+  getMonthYear,
+  shortDateFormatter,
+} from "../../../lib/util/formatting/dateFormatting";
 
 const Expenses = ({ selectedMonth }) => {
   const [showAddNew, setShowAddNew] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
 
-  const transactionsInfo = useTransactions("expenses");
+  const { fromDate, toDate } = getRangeFromMonth(selectedMonth);
+
+  const transactionsInfo = useTransactions("expenses", fromDate, toDate);
   const transactions = transactionsInfo.isSuccess
     ? transactionsInfo.data.data.items
     : [];
@@ -25,6 +31,7 @@ const Expenses = ({ selectedMonth }) => {
   const data = useMemo(
     () =>
       transactions?.map((item) => ({
+        transactionDate: shortDateFormatter(item.transactionDate),
         category: item.category.name,
         description: item.description,
         amount: item.amount,
@@ -39,16 +46,20 @@ const Expenses = ({ selectedMonth }) => {
   const columns = useMemo(
     () => [
       {
-        Header: "Category",
-        accessor: "category",
+        Header: "Date",
+        accessor: "transactionDate",
+      },
+      {
+        Header: "Amount",
+        accessor: "amount",
       },
       {
         Header: "Description",
         accessor: "description",
       },
       {
-        Header: "Amount",
-        accessor: "amount",
+        Header: "Category",
+        accessor: "category",
       },
     ],
     []
@@ -68,6 +79,7 @@ const Expenses = ({ selectedMonth }) => {
         {showAddNew && (
           <ModalPopup removePopup={() => setShowAddNew(false)}>
             <AddNewTransactionForm
+              openToDate={fromDate}
               transactionType={transactionTypeEnum.expenses}
               closeMe={() => setShowAddNew(false)}
             />
