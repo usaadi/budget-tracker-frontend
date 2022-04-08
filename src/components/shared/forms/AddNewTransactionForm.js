@@ -49,6 +49,7 @@ const AddNewTransactionForm = ({ transactionType, closeMe }) => {
       transactionDate: "",
       description: "",
     },
+    mode: "onChange",
   });
 
   const BuildErrorMessage = (error) => {
@@ -104,10 +105,15 @@ const AddNewTransactionForm = ({ transactionType, closeMe }) => {
       <StandardInput
         placeholder="Amount"
         register={register("amount", {
-          required: "This field is required",
-          pattern: patterns.decimal_3p,
-          valueAsNumber: true,
+          required: { value: true, message: "This field is required" },
+          pattern: {
+            value: patterns.decimal_3p,
+            message: "Must be a valid amount",
+          },
+          //valueAsNumber: true,
         })}
+        //name="amount"
+        //errorMessage={errors.amount ? "error" : "no-error"}
         errorMessage={errors.amount?.message}
         borderColorClass="tw-border-db-blue-gray-1/50"
         textClass="tw-font-roboto tw-text-16px"
@@ -119,6 +125,7 @@ const AddNewTransactionForm = ({ transactionType, closeMe }) => {
         validationRules={{ required: "This field is required" }}
         name="transactionDate"
         errorMessage={errors.transactionDate?.message}
+        className="tw-mb-20px"
       />
       <StandardInput
         placeholder="Description"

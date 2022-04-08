@@ -3,6 +3,7 @@ import { useState } from "react";
 const StandardInput = ({
   placeholder,
   className = "",
+  name,
   value,
   reset,
   clear,
@@ -38,6 +39,7 @@ const StandardInput = ({
           placeholder={placeholder}
           autoComplete={autoComplete ? autoComplete : "off"}
           type={type}
+          //name={name}
           {...register}
           className={`${textClass} ${placeholderClass}
           tw-grow tw-border-none tw-outline-none tw-bg-transparent ${
