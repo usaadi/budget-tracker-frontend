@@ -23,3 +23,4 @@ yarn-debug.log*
 yarn-error.log*
 src/styles/tailwind-output.css
 tailwind/tailwind.exe
+compose/docker-compose.override.yml

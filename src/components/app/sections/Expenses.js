@@ -54,12 +54,12 @@ const Expenses = ({ selectedMonth }) => {
         accessor: "amount",
       },
       {
-        Header: "Description",
-        accessor: "description",
-      },
-      {
         Header: "Category",
         accessor: "category",
+      },
+      {
+        Header: "Description",
+        accessor: "description",
       },
     ],
     []
