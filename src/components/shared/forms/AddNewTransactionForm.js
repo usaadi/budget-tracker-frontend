@@ -48,7 +48,7 @@ const AddNewTransactionForm = ({ transactionType, openToDate, closeMe }) => {
     defaultValues: {
       amount: "",
       categoryUniqueId: "",
-      transactionDate: "",
+      transactionDate: openToDate,
       description: "",
     },
     mode: "onChange",
@@ -104,7 +104,7 @@ const AddNewTransactionForm = ({ transactionType, openToDate, closeMe }) => {
         className="tw-mb-20px"
       />
       <StandardDatePicker
-        openToDate={openToDate}
+        //openToDate={openToDate}
         control={control}
         validationRules={{ required: "This field is required" }}
         name="transactionDate"

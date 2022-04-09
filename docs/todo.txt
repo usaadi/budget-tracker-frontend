@@ -12,13 +12,14 @@ todo list:
  - add propTypes and defaults
  - check the issue of utc vs local dates - (allow user to select their preferred time zone)
  - in add transaction form, open the date picker to show the month selected by the main date picker.
+ - fix for "the popups (add transaction) are clipped if the screen height is small".
 
 Focused todo list:
 ==================
  ✅ Edit/Delete Expense
  ✅ Add Income Categories page
  ✅ Add Income page
- - Paging for expenses and income. (client-side)
+ ✅ Paging for expenses and income. (client-side)
  - Add Income and Expenses Summary pages
  - Add ability to select preferred time zone
  - Add Compare page to compare months with charts

@@ -37,7 +37,9 @@ const IncomeSummary = ({ selectedMonth }) => {
 
   return (
     <div>
-      <div className="tw-mb-10px">Income Summary for month: {strDate}</div>
+      <div className="tw-flex tw-flex-wrap tw-mb-10px">
+        Income Summary for month: {strDate}
+      </div>
       <DataTable columns={columns} data={sortedData} />
     </div>
   );

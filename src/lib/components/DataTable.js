@@ -6,11 +6,12 @@ const DataTable = ({
   hiddenColumns = [],
   noHeader,
   noPagination,
+  noPaginationForTenItems,
 }) => {
   const data_data = data ?? [];
   const showHeader = !noHeader;
-  const showPagination = !noPagination && data_data?.length > 10;
-  const includePagination = showPagination ? usePagination : null;
+  const showPagination =
+    !noPagination && (data_data?.length > 10 || !noPaginationForTenItems);
   const initialState = { hiddenColumns };
   const {
     getTableProps,
@@ -37,7 +38,7 @@ const DataTable = ({
       data: data_data,
       initialState,
     },
-    includePagination
+    usePagination
   );
 
   const ddata = showPagination ? page : rows;
@@ -52,41 +53,43 @@ const DataTable = ({
   const cellClass =
     "tw-py-2 tw-px-6 tw-text-sm tw-font-medium tw-text-gray-900 tw-whitespace-nowrap";
 
-  const paginationClass = "tw-mt-10px tw-flex tw-gap-x-5px";
+  const paginationClass = "tw-mt-10px tw-flex tw-gap-5px tw-flex-wrap";
 
   return (
     <div className="tw-border tw-border-solid tw-border-black/30 tw-rounded tw-p-8px">
-      <table {...getTableProps()} className={`${tableClass}`}>
-        {showHeader && (
-          <thead className={`${theadClass}`}>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th className={`${thClass}`} {...column.getHeaderProps()}>
-                    {column.render("Header")}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-        )}
-        <tbody {...getTableBodyProps()}>
-          {ddata.map((row, i) => {
-            prepareRow(row);
-            return (
-              <tr className={`${rowClass}`} {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td className={`${cellClass}`} {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div className="tw-overflow-y-auto">
+        <table {...getTableProps()} className={`${tableClass}`}>
+          {showHeader && (
+            <thead className={`${theadClass}`}>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th className={`${thClass}`} {...column.getHeaderProps()}>
+                      {column.render("Header")}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+          )}
+          <tbody {...getTableBodyProps()}>
+            {ddata.map((row, i) => {
+              prepareRow(row);
+              return (
+                <tr className={`${rowClass}`} {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td className={`${cellClass}`} {...cell.getCellProps()}>
+                        {cell.render("Cell")}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
       {showPagination && (
         <div className={`${paginationClass}`}>
           <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
@@ -123,6 +126,7 @@ const DataTable = ({
             />
           </span>{" "}
           <select
+            className="tw-ml-5px"
             value={pageSize}
             onChange={(e) => {
               setPageSize(Number(e.target.value));

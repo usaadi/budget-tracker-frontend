@@ -84,7 +84,7 @@ const Transactions = ({ selectedMonth, transactionType }) => {
       transactions?.map((item) => ({
         uniqueId: item.uniqueId,
         transactionDate: shortDateFormatter(item.transactionDate),
-        categoryUniqueId: item.category.uniqueId,
+        categoryName: item.category.name,
         description: item.description,
         amount: item.amount,
       })),

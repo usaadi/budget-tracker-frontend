@@ -101,7 +101,7 @@ const Categories = ({ transactionType }) => {
 
   return (
     <div>
-      <div className="tw-mb-10px">
+      <div className="tw-flex tw-flex-wrap tw-mb-10px">
         {transactionTypeNameCapital} Categories
         <Button
           onClick={handleAddNew}
