@@ -15,9 +15,9 @@ todo list:
 
 Focused todo list:
 ==================
- - Edit/Delete Expense
- - Add Income Categories page
- - Add Income page
+ ✅ Edit/Delete Expense
+ ✅ Add Income Categories page
+ ✅ Add Income page
  - Paging for expenses and income. (client-side)
  - Add Income and Expenses Summary pages
  - Add ability to select preferred time zone

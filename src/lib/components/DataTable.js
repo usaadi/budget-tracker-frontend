@@ -45,7 +45,7 @@ const DataTable = ({
   const className = "tw-bg-zinc-200/50";
 
   const tableClass = "tw-min-w-full";
-  const theadClass = "tw-bg-zinc-200/50";
+  const theadClass = "tw-bg-zinc-200/50 tw-select-none";
   const thClass = `tw-py-2 tw-px-6 tw-text-xs tw-font-medium tw-tracking-wider 
     tw-text-gray-700 tw-uppercase tw-text-left`;
   const rowClass = "tw-border-b odd:tw-bg-white/40 even:tw-bg-zinc-200/50";

@@ -19,14 +19,11 @@ import {
   shortDateFormatter,
   getRangeFromMonth,
 } from "../../../lib/util/formatting/dateFormatting";
-import { transactionTypeEnum } from "../../../constants/enums";
 
 const Transactions = ({ selectedMonth, transactionType }) => {
   const [showAddNew, setShowAddNew] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [currentTransaction, setCurrentTransaction] = useState("");
-  const [transactionsCopy, setTransactionsCopy] = useState(null);
-  const [refreshTrigger, setRefreshTrigger] = useState(false);
 
   const { fromDate, toDate } = getRangeFromMonth(selectedMonth);
 
@@ -42,29 +39,6 @@ const Transactions = ({ selectedMonth, transactionType }) => {
   const transactions = transactionsInfo.data?.data?.items ?? [];
 
   const strDate = getMonthYear(selectedMonth);
-  const data = useMemo(
-    () =>
-      transactions?.map((item) => ({
-        uniqueId: item.uniqueId,
-        transactionDate: shortDateFormatter(item.transactionDate),
-        transactionType: item.transactionType,
-        categoryName: item.category.name,
-        categoryUniqueId: item.category.uniqueId,
-        description: item.description,
-        amount: item.amount,
-      })),
-    [transactions]
-  );
-
-  if (transactionType == transactionTypeEnum.expenses) {
-    console.log("from outside (transactions)");
-    console.log(transactions);
-    console.log(data);
-  }
-
-  useEffect(() => {
-    setTransactionsCopy(transactions);
-  }, [transactions]);
 
   const { isConfirmed } = useConfirm();
 
@@ -75,17 +49,10 @@ const Transactions = ({ selectedMonth, transactionType }) => {
   };
 
   const handleEditRow = (row) => {
-    //setRefreshTrigger((prev) => !prev);
     const transaction = transactions.find(
       (x) => x.uniqueId === row.values.uniqueId
     );
     if (!transaction) {
-      console.log("inside handleEditRow");
-      console.log(row.values.uniqueId);
-      console.log(transactions);
-      console.log(transactionsInfo.data);
-      console.log(data);
-      console.log("leaving handleEditRow");
       return;
     }
 
@@ -109,10 +76,20 @@ const Transactions = ({ selectedMonth, transactionType }) => {
           },
         }
       );
-    } else {
-      //console.log("Cancel was pressed");
     }
   };
+
+  const data = useMemo(
+    () =>
+      transactions?.map((item) => ({
+        uniqueId: item.uniqueId,
+        transactionDate: shortDateFormatter(item.transactionDate),
+        categoryUniqueId: item.category.uniqueId,
+        description: item.description,
+        amount: item.amount,
+      })),
+    [transactions]
+  );
 
   const columns = useMemo(
     () => [
@@ -151,7 +128,6 @@ const Transactions = ({ selectedMonth, transactionType }) => {
 
   return (
     <div>
-      {refreshTrigger && <div>temp</div>}
       <div className="tw-mb-10px">
         {transactionTypeNameCapital} for month: {strDate}
         <Button
