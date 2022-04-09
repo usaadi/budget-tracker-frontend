@@ -3,8 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import AppToolbar from "../shared/AppToolbar";
 import Summary from "./sections/Summary";
-import Expenses from "./sections/Expenses";
-import Income from "./sections/Income";
+import Transactions from "./sections/Transactions";
 import ExpensesSummary from "./sections/ExpensesSummary";
 import IncomeSummary from "./sections/IncomeSummary";
 import Categories from "./sections/Categories";
@@ -24,11 +23,21 @@ const AppPage = () => {
     },
     {
       name: appSections.expenses,
-      component: <Expenses selectedMonth={selectedMonth} />,
+      component: (
+        <Transactions
+          transactionType={transactionTypeEnum.expenses}
+          selectedMonth={selectedMonth}
+        />
+      ),
     },
     {
       name: appSections.income,
-      component: <Income selectedMonth={selectedMonth} />,
+      component: (
+        <Transactions
+          transactionType={transactionTypeEnum.income}
+          selectedMonth={selectedMonth}
+        />
+      ),
     },
     {
       name: appSections.expensesSummary,

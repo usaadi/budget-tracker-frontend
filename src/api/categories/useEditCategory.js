@@ -11,7 +11,7 @@ const useEditCategory = () => {
   const queryClient = useQueryClient();
   return useMutation(
     async (value) => {
-      const url = `${baseUrl}categories/${value.uniqueId}`;
+      const url = `${baseUrl}categories`;
       const config = await getApiConfig();
       return await axios.patch(url, value, config);
     },
@@ -21,7 +21,7 @@ const useEditCategory = () => {
           data.transactionType
         );
         queryClient.refetchQueries("categories", transactionTypeName);
-        queryClient.refetchQueries(transactionTypeName);
+        queryClient.refetchQueries("transactions", transactionTypeName);
       },
     }
   );

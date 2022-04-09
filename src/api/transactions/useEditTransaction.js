@@ -5,26 +5,25 @@ import { getTransactionTypeName } from "../../util/getEnumName";
 
 const baseUrl = process.env.REACT_APP_BASE_API_URL;
 
-const useDeleteCategory = () => {
+const useEditTransaction = () => {
   const { getApiConfig } = useApiConfig();
 
   const queryClient = useQueryClient();
   return useMutation(
     async (value) => {
-      const url = `${baseUrl}categories/${value.uniqueId}`;
+      const url = `${baseUrl}transactions`;
       const config = await getApiConfig();
-      return await axios.delete(url, config);
+      return await axios.patch(url, value, config);
     },
     {
-      onSuccess: (_, variables) => {
+      onSuccess: (data) => {
         const transactionTypeName = getTransactionTypeName(
-          variables.transactionType
+          data.transactionType
         );
-        queryClient.refetchQueries("categories", transactionTypeName);
         queryClient.refetchQueries("transactions", transactionTypeName);
       },
     }
   );
 };
 
-export default useDeleteCategory;
+export default useEditTransaction;

@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 
 import useCreateCategory from "../../../api/categories/useCreateCategory";
 
+import buildErrorMessage from "../../../util/buildErrorMessage";
+
 import StandardInput from "../../../lib/components/input/StandardInput";
 import Spinner from "../../../lib/components/Spinner";
 
@@ -27,23 +29,6 @@ const AddNewCategoryForm = ({ transactionType, closeMe }) => {
     },
   });
 
-  const BuildErrorMessage = (error) => {
-    const errorData = error?.response?.data;
-    let message = "";
-    if (errorData && errorData.status === 400) {
-      message += errorData.title;
-      for (var item in errorData.errors) {
-        var arr = errorData.errors[item];
-        arr.forEach((msg) => {
-          message += " " + msg;
-        });
-      }
-    } else {
-      message = "Error";
-    }
-    setErrorMessage(message);
-  };
-
   const onSubmit = async (data) => {
     setIsLoading(true);
     setErrorMessage("");
@@ -58,9 +43,8 @@ const AddNewCategoryForm = ({ transactionType, closeMe }) => {
           closeMe();
         },
         onError: async (error) => {
-          BuildErrorMessage(error);
-        },
-        onSettled: async (data) => {
+          const errorMsg = buildErrorMessage(error);
+          setErrorMessage(errorMsg);
           setIsLoading(false);
         },
       }

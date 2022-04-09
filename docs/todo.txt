@@ -1,5 +1,5 @@
-2022-03-17 - 2022-04-02:
-========================
+todo list:
+==========
  - add backend api and database (mongodb)x +(postgres)
  ✅ add tabular style to summary page
  ✅ add income page with dummy data
@@ -8,7 +8,17 @@
  - add globalization/localization
  - add pie chart or bar graph for summary by category pages
  - add collapse/expand for the two sections in each summary by cat page
- - add compare page to compare two or more months\
+ - add compare page to compare two or more months
  - add propTypes and defaults
- - check the issue of utc vs local dates
+ - check the issue of utc vs local dates - (allow user to select their preferred time zone)
  - in add transaction form, open the date picker to show the month selected by the main date picker.
+
+Focused todo list:
+==================
+ - Edit/Delete Expense
+ - Add Income Categories page
+ - Add Income page
+ - Paging for expenses and income. (client-side)
+ - Add Income and Expenses Summary pages
+ - Add ability to select preferred time zone
+ - Add Compare page to compare months with charts

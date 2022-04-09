@@ -1,26 +1,33 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import useCreateTransaction from "../../../api/transactions/useCreateTransaction";
+import useEditTransaction from "../../../api/transactions/useEditTransaction";
 import useCategories from "../../../api/categories/useCategories";
+
+import buildErrorMessage from "../../../util/buildErrorMessage";
 
 import StandardInput from "../../../lib/components/input/StandardInput";
 import StandardSelect from "../../../lib/components/select/StandardSelect";
 import StandardDatePicker from "../../../lib/components/date-picker/StandardDatePicker";
-
-import buildErrorMessage from "../../../util/buildErrorMessage";
-
 import Spinner from "../../../lib/components/Spinner";
-import { getTransactionTypeName } from "../../../util/getEnumName";
 import patterns from "../../../constants/patterns";
+import { getTransactionTypeName } from "../../../util/getEnumName";
 
-const AddNewTransactionForm = ({ transactionType, openToDate, closeMe }) => {
+const EditTransactionForm = ({ transaction, closeMe }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const transactionType = transaction.transactionType;
   const transactionTypeName = getTransactionTypeName(transactionType);
-  console.log(transactionType);
-  console.log(transactionTypeName);
+
+  // console.log("transaction: " + JSON.stringify(transaction));
+  // console.log("transactionType: " + transactionType);
+  // console.log("transaction.category: " + transaction.category);
+
+  console.log("transaction.transactionDate " + transaction.transactionDate);
+  console.log(
+    "transaction.transactionDate type  " + typeof transaction.transactionDate
+  );
 
   const categoriesInfo = useCategories(transactionTypeName);
   const categories = categoriesInfo.isSuccess
@@ -32,9 +39,7 @@ const AddNewTransactionForm = ({ transactionType, openToDate, closeMe }) => {
     label: category.name,
   }));
 
-  console.log(categoriesOptions);
-
-  const createTransactionMutation = useCreateTransaction();
+  const editTransactionMutation = useEditTransaction();
 
   const {
     register,
@@ -46,25 +51,24 @@ const AddNewTransactionForm = ({ transactionType, openToDate, closeMe }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      amount: "",
-      categoryUniqueId: "",
-      transactionDate: "",
-      description: "",
+      categoryUniqueId: transaction.category.uniqueId,
+      amount: transaction.amount,
+      description: transaction.description,
+      transactionDate: transaction.transactionDate,
     },
-    mode: "onChange",
   });
 
   const onSubmit = async (data) => {
     setIsLoading(true);
     setErrorMessage("");
-    // console.log("data.transactionDate " + data.transactionDate);
-    // console.log("type " + typeof data.transactionDate);
-    const result = await createTransactionMutation.mutateAsync(
+    console.log("data.transactionDate " + typeof data.transactionDate);
+    const result = await editTransactionMutation.mutateAsync(
       {
-        amount: data.amount,
-        categoryUniqueId: data.categoryUniqueId,
-        transactionDate: data.transactionDate,
+        uniqueId: transaction.uniqueId,
         description: data.description,
+        categoryUniqueId: data.categoryUniqueId,
+        amount: data.amount,
+        transactionDate: data.transactionDate,
       },
       {
         onSuccess: async (data) => {
@@ -104,7 +108,7 @@ const AddNewTransactionForm = ({ transactionType, openToDate, closeMe }) => {
         className="tw-mb-20px"
       />
       <StandardDatePicker
-        openToDate={openToDate}
+        //openToDate={openToDate}
         control={control}
         validationRules={{ required: "This field is required" }}
         name="transactionDate"
@@ -139,11 +143,11 @@ const AddNewTransactionForm = ({ transactionType, openToDate, closeMe }) => {
         className="tw-self-center tw-bg-standard-btn-gradient-green-2 tw-px-10px tw-rounded-md"
       >
         {isLoading && <Spinner strokeColor="black" />}
-        ADD
+        SAVE
       </button>
       {errorMessage && <div>{errorMessage}</div>}
     </form>
   );
 };
 
-export default AddNewTransactionForm;
+export default EditTransactionForm;

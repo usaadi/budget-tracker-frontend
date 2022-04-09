@@ -51,7 +51,7 @@ const Categories = ({ transactionType }) => {
         }
       );
     } else {
-      console.log("Cancel was pressed");
+      //console.log("Cancel was pressed");
     }
   };
 
@@ -60,7 +60,6 @@ const Categories = ({ transactionType }) => {
   };
 
   const handleEditRow = (row) => {
-    console.log(row.row.values);
     setCurrentCategory(row.row.values);
     setShowEdit(true);
   };

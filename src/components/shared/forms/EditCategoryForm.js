@@ -6,6 +6,8 @@ import useEditCategory from "../../../api/categories/useEditCategory";
 import StandardInput from "../../../lib/components/input/StandardInput";
 import Spinner from "../../../lib/components/Spinner";
 
+import buildErrorMessage from "../../../util/buildErrorMessage";
+
 const EditCategoryForm = ({ category, transactionType, closeMe }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -27,23 +29,6 @@ const EditCategoryForm = ({ category, transactionType, closeMe }) => {
     },
   });
 
-  const BuildErrorMessage = (error) => {
-    const errorData = error?.response?.data;
-    let message = "";
-    if (errorData && errorData.status === 400) {
-      message += errorData.title;
-      for (var item in errorData.errors) {
-        var arr = errorData.errors[item];
-        arr.forEach((msg) => {
-          message += " " + msg;
-        });
-      }
-    } else {
-      message = "Error";
-    }
-    setErrorMessage(message);
-  };
-
   const onSubmit = async (data) => {
     setIsLoading(true);
     setErrorMessage("");
@@ -58,9 +43,8 @@ const EditCategoryForm = ({ category, transactionType, closeMe }) => {
           closeMe();
         },
         onError: async (error) => {
-          BuildErrorMessage(error);
-        },
-        onSettled: async (data) => {
+          const errorMsg = buildErrorMessage(error);
+          setErrorMessage(errorMsg);
           setIsLoading(false);
         },
       }
