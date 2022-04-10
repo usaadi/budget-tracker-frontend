@@ -4,8 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import AppToolbar from "../shared/AppToolbar";
 import Summary from "./sections/Summary";
 import Transactions from "./sections/Transactions";
-import ExpensesSummary from "./sections/ExpensesSummary";
-import IncomeSummary from "./sections/IncomeSummary";
+import TransactionsSummary from "./sections/TransactionsSummary";
 import Categories from "./sections/Categories";
 
 import { appSections } from "../shared/defines/consts";
@@ -13,59 +12,71 @@ import { transactionTypeEnum } from "../../constants/enums";
 
 const AppPage = () => {
   const [currentSection, setCurrentSection] = useState(appSections.summary);
-  const date = new Date();
   const [selectedMonth, setSelectedMonth] = useState(new Date());
 
-  const sections = useMemo(() => [
-    {
-      name: appSections.summary,
-      component: <Summary selectedMonth={selectedMonth} />,
-    },
-    {
-      name: appSections.expenses,
-      component: (
-        <Transactions
-          transactionType={transactionTypeEnum.expenses}
-          selectedMonth={selectedMonth}
-        />
-      ),
-    },
-    {
-      name: appSections.income,
-      component: (
-        <Transactions
-          transactionType={transactionTypeEnum.income}
-          selectedMonth={selectedMonth}
-        />
-      ),
-    },
-    {
-      name: appSections.expensesSummary,
-      component: <ExpensesSummary selectedMonth={selectedMonth} />,
-    },
-    {
-      name: appSections.incomeSummary,
-      component: <IncomeSummary selectedMonth={selectedMonth} />,
-    },
-    {
-      name: appSections.expensesCategories,
-      component: (
-        <Categories
-          transactionType={transactionTypeEnum.expenses}
-          selectedMonth={selectedMonth}
-        />
-      ),
-    },
-    {
-      name: appSections.incomeCategories,
-      component: (
-        <Categories
-          transactionType={transactionTypeEnum.income}
-          selectedMonth={selectedMonth}
-        />
-      ),
-    },
-  ]);
+  const sections = useMemo(
+    () => [
+      {
+        name: appSections.summary,
+        component: <Summary selectedMonth={selectedMonth} />,
+      },
+      {
+        name: appSections.expenses,
+        component: (
+          <Transactions
+            transactionType={transactionTypeEnum.expenses}
+            selectedMonth={selectedMonth}
+          />
+        ),
+      },
+      {
+        name: appSections.income,
+        component: (
+          <Transactions
+            transactionType={transactionTypeEnum.income}
+            selectedMonth={selectedMonth}
+          />
+        ),
+      },
+      {
+        name: appSections.expensesSummary,
+        component: (
+          <TransactionsSummary
+            transactionType={transactionTypeEnum.expenses}
+            selectedMonth={selectedMonth}
+          />
+        ),
+      },
+      {
+        name: appSections.incomeSummary,
+        component: (
+          <TransactionsSummary
+            transactionType={transactionTypeEnum.income}
+            selectedMonth={selectedMonth}
+          />
+        ),
+      },
+      {
+        name: appSections.expensesCategories,
+        component: (
+          <Categories
+            transactionType={transactionTypeEnum.expenses}
+            selectedMonth={selectedMonth}
+          />
+        ),
+      },
+      {
+        name: appSections.incomeCategories,
+        component: (
+          <Categories
+            transactionType={transactionTypeEnum.income}
+            selectedMonth={selectedMonth}
+          />
+        ),
+      },
+    ],
+    [selectedMonth]
+  );
 
   const { logout } = useAuth0();
 

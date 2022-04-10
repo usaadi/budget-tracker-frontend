@@ -22,6 +22,7 @@ const useDeleteCategory = () => {
         );
         queryClient.refetchQueries("categories", transactionTypeName);
         queryClient.refetchQueries("transactions", transactionTypeName);
+        queryClient.refetchQueries("transactions-summary", transactionTypeName);
       },
     }
   );

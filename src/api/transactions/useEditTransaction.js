@@ -21,6 +21,7 @@ const useEditTransaction = () => {
           data.transactionType
         );
         queryClient.refetchQueries("transactions", transactionTypeName);
+        queryClient.refetchQueries("transactions-summary", transactionTypeName);
       },
     }
   );
