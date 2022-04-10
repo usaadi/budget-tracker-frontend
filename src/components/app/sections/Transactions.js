@@ -10,6 +10,8 @@ import ModalPopup from "../../../lib/components/ModalPopup";
 import AddNewTransactionForm from "../../shared/forms/AddNewTransactionForm";
 import EditTransactionForm from "../../shared/forms/EditTransactionForm";
 
+import { transactionTypeEnum } from "../../../constants/enums";
+
 import {
   getTransactionTypeName,
   getTransactionTypeNameCapital,

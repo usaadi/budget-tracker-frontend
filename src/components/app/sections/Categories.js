@@ -28,7 +28,7 @@ const Categories = ({ transactionType }) => {
   const categoriesInfo = useCategories(transactionTypeName);
   const categories = categoriesInfo.isSuccess
     ? categoriesInfo.data?.data?.items
-    : null;
+    : [];
 
   const deleteCategoryMutation = useDeleteCategory();
 

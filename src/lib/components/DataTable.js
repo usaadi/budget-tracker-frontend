@@ -13,6 +13,17 @@ const DataTable = ({
   const showPagination =
     !noPagination && (data_data?.length > 10 || !noPaginationForTenItems);
   const initialState = { hiddenColumns };
+
+  const tableInstance = useTable(
+    {
+      columns,
+      data: data_data,
+      initialState,
+      autoResetHiddenColumns: false,
+    },
+    usePagination
+  );
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -32,14 +43,7 @@ const DataTable = ({
     previousPage,
     setPageSize,
     state: { pageIndex, pageSize },
-  } = useTable(
-    {
-      columns,
-      data: data_data,
-      initialState,
-    },
-    usePagination
-  );
+  } = tableInstance;
 
   const ddata = showPagination ? page : rows;
 
