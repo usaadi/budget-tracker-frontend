@@ -22,6 +22,7 @@ const useCreateTransaction = () => {
         );
         queryClient.refetchQueries("transactions", transactionTypeName);
         queryClient.refetchQueries("transactions-summary", transactionTypeName);
+        queryClient.refetchQueries("summary", transactionTypeName);
       },
     }
   );
