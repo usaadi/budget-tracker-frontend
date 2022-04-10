@@ -11,7 +11,12 @@ const useDeleteCategory = () => {
   const queryClient = useQueryClient();
   return useMutation(
     async (value) => {
-      const url = `${baseUrl}categories/${value.uniqueId}`;
+      let url;
+      if (value.allowDeleteRelatedData) {
+        url = `${baseUrl}categories/with-related-data/${value.uniqueId}`;
+      } else {
+        url = `${baseUrl}categories/${value.uniqueId}`;
+      }
       const config = await getApiConfig();
       return await axios.delete(url, config);
     },

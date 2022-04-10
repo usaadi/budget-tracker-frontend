@@ -21,7 +21,8 @@ Focused todo list:
  ✅ Add Income Categories page
  ✅ Add Income page
  ✅ Paging for expenses and income. (client-side)
- - Add Income and Expenses Summary pages
+ ✅ Add Income and Expenses Summary pages
+ ✅ Delete category with warning if related data
  - Add ability to select preferred time zone
  - Add Compare page to compare months with charts
  - Add currencies

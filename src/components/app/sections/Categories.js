@@ -37,15 +37,38 @@ const Categories = ({ transactionType }) => {
   const handleDeleteRow = async (row) => {
     const ok = await isConfirmed(
       "ARE YOU SURE",
-      "<Add warning about related transactions only if there are any> Are you sure you want to delete this category?",
+      "Are you sure you want to delete this category?",
       "YES DELETE",
       "NO"
     );
     if (ok) {
-      deleteCategoryMutation.mutate(
-        { uniqueId: row.row.values.uniqueId },
+      deleteCategoryMutation.mutateAsync(
+        { uniqueId: row.values.uniqueId },
         {
-          onError: (error) => {
+          onError: async (error) => {
+            if (error?.response?.data?.status === 409) {
+              handleConfirmDeleteRelatedData(row);
+            }
+          },
+        }
+      );
+    } else {
+      //console.log("Cancel was pressed");
+    }
+  };
+
+  const handleConfirmDeleteRelatedData = async (row) => {
+    const ok = await isConfirmed(
+      "ARE YOU SURE",
+      "This category contains related transactions and will also be deleted. Are you sure you want to delete this category and all related transactions?",
+      "YES DELETE",
+      "NO"
+    );
+    if (ok) {
+      deleteCategoryMutation.mutateAsync(
+        { uniqueId: row.values.uniqueId, allowDeleteRelatedData: true },
+        {
+          onError: async (error) => {
             console.log(error);
           },
         }
@@ -60,7 +83,7 @@ const Categories = ({ transactionType }) => {
   };
 
   const handleEditRow = (row) => {
-    setCurrentCategory(row.row.values);
+    setCurrentCategory(row.values);
     setShowEdit(true);
   };
 
@@ -87,16 +110,15 @@ const Categories = ({ transactionType }) => {
       },
       {
         Header: "Actions",
-        //accessor: "actions",
-        Cell: (row) => (
+        Cell: (props) => (
           <div className="tw-flex-center tw-gap-20px">
-            <Button onClick={() => handleEditRow(row)}>edit</Button>
-            <Button onClick={() => handleDeleteRow(row)}>delete</Button>
+            <Button onClick={() => handleEditRow(props.row)}>edit</Button>
+            <Button onClick={() => handleDeleteRow(props.row)}>delete</Button>
           </div>
         ),
       },
     ],
-    []
+    [data]
   );
 
   return (

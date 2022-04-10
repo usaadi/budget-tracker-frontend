@@ -70,10 +70,10 @@ const Transactions = ({ selectedMonth, transactionType }) => {
       "NO"
     );
     if (ok) {
-      deleteTransactionMutation.mutate(
+      deleteTransactionMutation.mutateAsync(
         { uniqueId: row.values.uniqueId },
         {
-          onError: (error) => {
+          onError: async (error) => {
             console.log(error);
           },
         }
