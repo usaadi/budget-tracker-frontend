@@ -7,12 +7,13 @@ todo list:
  ✅ add expenses and income categories
  - add globalization/localization
  - add pie chart or bar graph for summary by category pages
- - add collapse/expand for the two sections in each summary by cat page
+   - and add collapse/expand for the two sections in each summary by cat page
  - add compare page to compare two or more months
  - add propTypes and defaults
  - check the issue of utc vs local dates - (allow user to select their preferred time zone)
- - in add transaction form, open the date picker to show the month selected by the main date picker.
- - fix for "the popups (add transaction) are clipped if the screen height is small".
+ ✅ in add transaction form, open the date picker to show the month selected by the main date picker.
+ ✅ fix for "the popups (add transaction) are clipped if the screen height is small".
+ - add currencies.
 
 Focused todo list:
 ==================
@@ -23,3 +24,4 @@ Focused todo list:
  - Add Income and Expenses Summary pages
  - Add ability to select preferred time zone
  - Add Compare page to compare months with charts
+ - Add currencies
