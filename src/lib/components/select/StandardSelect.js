@@ -13,10 +13,14 @@ const StandardSelect = ({
   fontFamily = "Roboto",
   fontSize = "1rem",
   placeholderColor = "#7d86a9",
+  menuPosition = "fixed",
+  menuPlacement = "auto",
 }) => {
   return (
     <MySelect
       options={options}
+      menuPosition={menuPosition}
+      menuPlacement={menuPlacement}
       className={className}
       placeholder={placeholder}
       control={control}

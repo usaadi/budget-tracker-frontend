@@ -13,7 +13,8 @@
     @apply tw-border tw-border-solid tw-border-black;
   }
   .tw-modal-overlay {
-    @apply tw-fixed tw-w-full tw-h-full tw-top-0 tw-left-0 tw-z-1000 tw-bg-black/50 tw-flex tw-justify-center tw-items-center;
+    @apply tw-fixed tw-w-full tw-h-full tw-top-0 tw-left-0 tw-z-1000 
+    tw-bg-black/50 tw-flex tw-justify-center tw-items-center tw-overflow-y-auto;
   }
   .rp-container {
     @apply tw-flex tw-justify-center tw-items-center tw-gap-[12px];

@@ -14,7 +14,10 @@ const ModalPopup = ({ removePopup, children }) => {
   };
   return (
     <div onClick={onOverlayClick} className="tw-modal-overlay">
-      <div ref={popupRef} className="tw-bg-white tw-rounded-30px">
+      <div
+        ref={popupRef}
+        className="tw-bg-white tw-rounded-30px tw-w-full lg:tw-w-auto tw-mx-5px"
+      >
         <div className="tw-px-15px tw-pt-12px tw-pb-4px tw-flex tw-justify-end tw-items-center">
           <Button onClick={removePopup}>
             <img src={closeIcon} />

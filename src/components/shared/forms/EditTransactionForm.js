@@ -90,7 +90,7 @@ const EditTransactionForm = ({ transaction, closeMe }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onErrorSubmit)}
-      className="tw-flex tw-flex-col tw-items-stretch tw-w-668px tw-mt-40px tw-pb-36px"
+      className="tw-flex tw-flex-col tw-items-stretch lg:tw-w-668px tw-mt-40px tw-pb-36px"
     >
       <StandardInput
         placeholder="Amount"
