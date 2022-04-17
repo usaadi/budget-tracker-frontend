@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { validate as isValidUUID } from "uuid";
+
 import useCreateTransaction from "../../../api/transactions/useCreateTransaction";
 import useCategories from "../../../api/categories/useCategories";
 
@@ -57,12 +59,25 @@ const AddNewTransactionForm = ({ transactionType, openToDate, closeMe }) => {
   const onSubmit = async (data) => {
     setIsLoading(true);
     setErrorMessage("");
+    let categoryUniqueId;
+    let createCategoryCommand;
+    if (isValidUUID(data.categoryUniqueId)) {
+      createCategoryCommand = null;
+      categoryUniqueId = data.categoryUniqueId;
+    } else {
+      categoryUniqueId = null;
+      createCategoryCommand = {
+        name: data.categoryUniqueId,
+        transactionType: transactionType,
+      };
+    }
     // console.log("data.transactionDate " + data.transactionDate);
     // console.log("type " + typeof data.transactionDate);
     const result = await createTransactionMutation.mutateAsync(
       {
         amount: data.amount,
-        categoryUniqueId: data.categoryUniqueId,
+        categoryUniqueId: categoryUniqueId,
+        createCategoryCommand: createCategoryCommand,
         transactionDate: data.transactionDate,
         description: data.description,
       },
