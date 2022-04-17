@@ -10,8 +10,16 @@ const buildErrorMessage = (error) => {
           message += " " + msg;
         });
       }
+    } else if (error.response) {
+      message = "Error. Check console for details.";
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      message = "Error. Check console for details.";
+      console.log(error.request);
     } else {
-      message = "Error";
+      message = `Error. ${error.message}`;
     }
   } catch {
     message = "Error";
