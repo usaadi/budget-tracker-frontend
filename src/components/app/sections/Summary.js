@@ -1,34 +1,42 @@
 import { useMemo } from "react";
 import DataTable from "../../../lib/components/DataTable";
 
-import { getMonthYear } from "../../../lib/util/formatting/dateFormatting";
+import useSummary from "../../../api/summary/useSummary";
+
+import {
+  getMonthYear,
+  getRangeFromMonth,
+} from "../../../lib/util/formatting/dateFormatting";
 
 const Summary = ({ selectedMonth }) => {
   const strDate = getMonthYear(selectedMonth);
+  const { fromDate, toDate } = getRangeFromMonth(selectedMonth);
+  const summaryInfo = useSummary(fromDate, toDate);
+  const summary = summaryInfo.data?.data ?? {};
 
   const data = useMemo(
     () => [
       {
         item: "Expenses",
-        description: "JOD 4000",
+        description: summary?.expensesSum,
       },
       {
         item: "Income",
-        description: "JOD 8000",
+        description: summary?.incomeSum,
       },
       {
         item: "Balance",
-        description: "JOD 4000",
+        description: summary?.balance,
       },
     ],
-    []
+    [summary]
   );
 
   const columns = useMemo(
     () => [
       {
         Header: "Item",
-        accessor: "item", // accessor is the "key" in the data
+        accessor: "item",
       },
       {
         Header: "Description",
@@ -41,7 +49,9 @@ const Summary = ({ selectedMonth }) => {
   return (
     <div>
       <div>
-        <div className="tw-mb-10px">Summary for month: {strDate}</div>
+        <div className="tw-flex tw-flex-wrap tw-mb-10px">
+          Summary for month: {strDate}
+        </div>
         <DataTable
           columns={columns}
           data={data}

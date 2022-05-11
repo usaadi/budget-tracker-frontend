@@ -6,7 +6,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-//import setupAxios from "./services/api/setupAxios";
+//import setupAxios from "./api/setupAxios";
 
 const queryClient = new QueryClient();
 //setupAxios();

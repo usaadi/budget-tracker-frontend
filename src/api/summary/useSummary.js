@@ -6,15 +6,19 @@ import { defaultQueryStaleTimeMs } from "../../constants/queryParameters";
 
 const baseUrl = process.env.REACT_APP_BASE_API_URL;
 
-const useCategories = (transactionTypeName) => {
+const useSummary = (fromDate, toDate) => {
   const { getApiConfig } = useApiConfig();
 
   return useQuery(
-    ["categories", transactionTypeName],
+    ["summary", fromDate, toDate],
     async () => {
-      const url = `${baseUrl}categories/${transactionTypeName}`;
+      const url = `${baseUrl}summary`;
       const config = await getApiConfig();
-      return await axios.get(url, config);
+      const data = {
+        fromDate,
+        toDate,
+      };
+      return await axios.post(url, data, config);
     },
     {
       keepPreviousData: true,
@@ -23,4 +27,4 @@ const useCategories = (transactionTypeName) => {
   );
 };
 
-export default useCategories;
+export default useSummary;
