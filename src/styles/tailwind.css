@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .tw-flex-center {
+    @apply tw-flex tw-justify-center tw-items-center;
+  }
+  .tw-inline-flex-center {
+    @apply tw-inline-flex tw-justify-center tw-items-center;
+  }
+  .tw-border-black-1 {
+    @apply tw-border tw-border-solid tw-border-black;
+  }
+  .tw-modal-overlay {
+    @apply tw-fixed tw-w-full tw-h-full tw-top-0 tw-left-0 tw-z-1000 
+    tw-bg-black/50 tw-flex tw-justify-center tw-items-center tw-overflow-y-auto;
+  }
+  .rp-container {
+    @apply tw-flex tw-justify-center tw-items-center tw-gap-[12px];
+  }  
+  .rp-page-item {
+    @apply tw-rounded-[8px] tw-bg-white tw-text-db-black-3 tw-text-[13px];
+  }  
+  .rp-page-item.active {
+    @apply tw-bg-standard-btn-gradient-blue tw-text-white;
+  }  
+  .rp-page-link {
+    @apply tw-min-w-[40px] tw-min-h-[40px] tw-flex tw-justify-center tw-items-center;
+  }
+}
+
+.form-select .react-select-container {
+  flex-grow: 1;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  /* margin: 0 18px !important; */
+}
+
+.form-select .react-select-container>div:first-of-type {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
