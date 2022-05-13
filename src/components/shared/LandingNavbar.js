@@ -5,7 +5,13 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../lib/components/buttons/Button";
 import AuthenticationButton from "./AuthenticationButton";
 
-const bgColorClass = "tw-bg-bt-beige-1";
+import logo from "../shared/images/logo.svg";
+import { useEffect } from "react";
+
+const title = "Budgeteeer";
+//const bgColorClass = "tw-bg-bt-beige-1";
+const spacingClass = "tw-py-24px tw-px-40px";
+const bgColorClass = "";
 const textColorClass = "tw-text-black/80";
 const linkHoverColorClass = "hover:tw-bg-black/20";
 const hamburgerSmBgColorClass = "sm-max:tw-bg-bt-dark-beige";
@@ -20,14 +26,16 @@ const LandingNavbar = () => {
   const navigate = useNavigate();
 
   const onAppClick = () => {
-    navigate("/app");
+    navigate("/app/summary");
   };
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/app/summary");
+    }
+  }, [isAuthenticated]);
+
   const items = [
-    {
-      title: "Home",
-      url: "/",
-    },
     {
       isHidden: !isAuthenticated,
       isComponent: true,
@@ -50,17 +58,18 @@ const LandingNavbar = () => {
   ];
 
   return (
-    <div>
-      <NavbarResponsive
-        bgColorClass={bgColorClass}
-        textColorClass={textColorClass}
-        linkHoverColorClass={linkHoverColorClass}
-        hamburgerSmBgColorClass={hamburgerSmBgColorClass}
-        hamburgerSmHoverBgColorClass={hamburgerSmHoverBgColorClass}
-        hamburgerSmBorderColorClass={hamburgerSmBorderColorClass}
-        items={items}
-      />
-    </div>
+    <NavbarResponsive
+      title={title}
+      logo={logo}
+      spacingClass={spacingClass}
+      bgColorClass={bgColorClass}
+      textColorClass={textColorClass}
+      linkHoverColorClass={linkHoverColorClass}
+      hamburgerSmBgColorClass={hamburgerSmBgColorClass}
+      hamburgerSmHoverBgColorClass={hamburgerSmHoverBgColorClass}
+      hamburgerSmBorderColorClass={hamburgerSmBorderColorClass}
+      items={items}
+    />
   );
 };
 

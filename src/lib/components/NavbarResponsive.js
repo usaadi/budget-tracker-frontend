@@ -40,6 +40,9 @@ const hamburgerSmBorderColorClassSample = "sm-max:tw-border-black/80";
 /// (sm-max) which should be the inverse of (md)
 
 const NavbarResponsive = ({
+  title,
+  logo,
+  spacingClass = "",
   bgColorClass = bgColorClassSample,
   textColorClass = textColorClassSample,
   linkHoverColorClass = linkHoverColorClassSample,
@@ -66,10 +69,15 @@ const NavbarResponsive = ({
 
   return (
     <div
-      className={`${bgColorClass} ${textColorClass} tw-h-50px tw-relative tw-flex tw-items-center`}
+      className={`${spacingClass} ${bgColorClass} ${textColorClass} tw-relative tw-flex tw-items-center`}
     >
       <div className={`tw-inline-flex-center tw-h-full tw-px-10px`}>
-        <div className={`tw-inline-block tw-text-20px`}>Budget Tracker</div>
+        <img src={logo} className="tw-w-39px tw-mr-10px" />
+        <div
+          className={`tw-inline-block tw-text-20px tw-font-semibold tw-mt-minus5px`}
+        >
+          {title}
+        </div>
       </div>
       <div
         className={`tw-hidden sm-max:tw-inline-block sm-max:tw-absolute 

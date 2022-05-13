@@ -25,6 +25,7 @@ module.exports = {
         "27.5px": "27.5px",
         "28px": "28px",
         "38px": "38px",
+        "56px": "56px",
       },
       colors: {
         "wf-royal-blue": "#0068f2",
@@ -136,6 +137,10 @@ module.exports = {
         "bt-white-2": "#eaede0",
         "bt-beige-1": "#e0e4ce",
         "bt-dark-beige": "#B3B6A5",
+        "bt-blue-100": "#f7f8fc",
+        "bt-blue-500": "#1232DB",
+        "bt-orange": "#cc4421",
+        "bt-gray-600": "#545C7A",
       },
       backgroundImage: {
         "wf-search-lens":
@@ -158,6 +163,8 @@ module.exports = {
           "linear-gradient(to right, rgba(13,90,229,0.2), rgba(13,90,229,0.02))",
         "horizontal-gradient-blue":
           "linear-gradient(to right, #0087f8 2%, #0062f2 102%)",
+        "landing-page-gradient":
+          "linear-gradient(to bottom, rgba(70, 219, 201, 1), rgba(18, 50, 219, 0.5))",
       },
       gridTemplateRows: {
         "8-2": "8fr 2fr",
@@ -181,6 +188,8 @@ module.exports = {
       spacing: {
         minus1px: "-1px",
         minus2px: "-2px",
+        minus4px: "-4px",
+        minus5px: "-5px",
         minus6px: "-6px",
         minus38px: "-38px",
         "2px": "2px",
@@ -241,6 +250,7 @@ module.exports = {
         "200px": "200px",
         "208px": "208px",
         "220px": "220px",
+        "225px": "225px",
         "231px": "231px",
         "240px": "240px",
         "250px": "250px",
