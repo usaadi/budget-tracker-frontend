@@ -58,18 +58,29 @@ const LandingNavbar = () => {
   ];
 
   return (
-    <NavbarResponsive
-      title={title}
-      logo={logo}
-      spacingClass={spacingClass}
-      bgColorClass={bgColorClass}
-      textColorClass={textColorClass}
-      linkHoverColorClass={linkHoverColorClass}
-      hamburgerSmBgColorClass={hamburgerSmBgColorClass}
-      hamburgerSmHoverBgColorClass={hamburgerSmHoverBgColorClass}
-      hamburgerSmBorderColorClass={hamburgerSmBorderColorClass}
-      items={items}
-    />
+    // <NavbarResponsive
+    //   title={title}
+    //   logo={logo}
+    //   spacingClass={spacingClass}
+    //   bgColorClass={bgColorClass}
+    //   textColorClass={textColorClass}
+    //   linkHoverColorClass={linkHoverColorClass}
+    //   hamburgerSmBgColorClass={hamburgerSmBgColorClass}
+    //   hamburgerSmHoverBgColorClass={hamburgerSmHoverBgColorClass}
+    //   hamburgerSmBorderColorClass={hamburgerSmBorderColorClass}
+    //   items={items}
+    // />
+    <nav className="tw-py-24px tw-px-40px tw-text-black tw-flex tw-items-center tw-justify-between">
+      <div className={`tw-inline-flex-center tw-h-full tw-px-10px`}>
+        <img src={logo} className="tw-w-39px tw-mr-10px" />
+        <div
+          className={`tw-inline-block tw-text-20px tw-font-semibold tw-mt-minus5px`}
+        >
+          {title}
+        </div>
+      </div>
+      <AuthenticationButton />
+    </nav>
   );
 };
 

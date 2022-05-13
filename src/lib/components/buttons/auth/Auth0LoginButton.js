@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import Button from "../Button";
+import TextButton from "../Button";
 
 const Auth0LoginButton = ({
   children = "Log In",
@@ -13,7 +13,7 @@ const Auth0LoginButton = ({
   const { loginWithRedirect } = useAuth0();
   const redirectUri = window.location.origin + "/app/summary";
   return (
-    <Button
+    <TextButton
       onClick={() => loginWithRedirect({ redirectUri: redirectUri })}
       disabled={disabled}
       className={className}
@@ -21,7 +21,7 @@ const Auth0LoginButton = ({
       enabledClassName={enabledClassName}
     >
       {children}
-    </Button>
+    </TextButton>
   );
 };
 

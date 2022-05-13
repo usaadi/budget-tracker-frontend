@@ -16,7 +16,7 @@ const LandingPage = () => {
   return (
     <div>
       <heading className="tw-mt-70px tw-flex tw-flex-col tw-items-center">
-        <h1 className="tw-w-[22ch] tw-text-56px tw-text-center tw-leading-tight">
+        <h1 className="tw-w-[22ch] tw-text-24px md:tw-text-38px lg:tw-text-56px tw-text-center tw-leading-tight">
           Be aware of what happens to{" "}
           <span
             className="tw-relative tw-z-10 tw-inline-block after:tw-absolute after:tw-block after:tw-h-12px after:tw-w-100pct 
@@ -25,14 +25,17 @@ const LandingPage = () => {
             your budget
           </span>
         </h1>
-        <p className="tw-w-[35ch] tw-text-center tw-mt-30px">
+        <p className="tw-w-[35ch] tw-text-14px md:tw-text-16px lg:tw-text-18px tw-text-center tw-mt-30px">
           {appTitle} offers everyone the possibility to better track their
           budget.
         </p>
       </heading>
       <div className="tw-mt-30px tw-flex tw-flex-col tw-items-center">
         <XButton onClick={onGetStarted}>Get started</XButton>
-        <img src={screenShot} className="tw-mt-48px tw-mb-64px" />
+        <img
+          src={screenShot}
+          className="tw-mt-48px tw-mb-64px tw-w-90pct md:tw-w-fit"
+        />
       </div>
     </div>
   );

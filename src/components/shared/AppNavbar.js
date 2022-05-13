@@ -49,10 +49,11 @@ const AppNavbar = ({ className }) => {
         const icon = active ? item.activeIcon : item.icon;
         const bgClass = active ? "tw-bg-bt-orange" : "";
         const textColor = active ? "tw-text-white" : "tw-text-bt-gray-600";
+        const hoverClass = active ? "" : "hover:tw-bg-black/10";
         return (
           <Link
             to={item.url}
-            className={`${bgClass} ${textColor} tw-flex tw-items-center tw-h-48px tw-pl-18px
+            className={`${bgClass} ${textColor} ${hoverClass} tw-flex tw-items-center tw-h-48px tw-pl-18px
             tw-mr-16px tw-rounded-r-5px tw-text-20px`}
           >
             <img src={icon} className="tw-mr-15px" />

@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        roboto: ["Roboto", "sans-serif"],
-        "arial-rounded": ["ArialRounded", "sans-serif"],
+        satoshi: ["Satoshi", "sans-serif"],
+        // "arial-rounded": ["ArialRounded", "sans-serif"],
         arial: ["Artimo", "Arial", "Helvetica", "sans-serif"],
         lato: ["Lato", "sans-serif"],
       },
@@ -141,6 +141,7 @@ module.exports = {
         "bt-blue-500": "#1232DB",
         "bt-orange": "#cc4421",
         "bt-gray-600": "#545C7A",
+        "bt-black": "#13141C",
       },
       backgroundImage: {
         "wf-search-lens":
@@ -164,7 +165,7 @@ module.exports = {
         "horizontal-gradient-blue":
           "linear-gradient(to right, #0087f8 2%, #0062f2 102%)",
         "landing-page-gradient":
-          "linear-gradient(to bottom, rgba(70, 219, 201, 1), rgba(18, 50, 219, 0.5))",
+          "linear-gradient(to bottom, rgba(70, 219, 201, 0.5), rgba(18, 50, 219, 0.25))",
       },
       gridTemplateRows: {
         "8-2": "8fr 2fr",
@@ -271,6 +272,7 @@ module.exports = {
         "900px": "900px",
         "1000px": "1000px",
         "1006px": "1006px",
+        "5pct": "5%",
         "10pct": "10%",
         "20pct": "20%",
         "30pct": "30%",
@@ -283,6 +285,7 @@ module.exports = {
         "70pct": "70%",
         "80pct": "80%",
         "90pct": "90%",
+        "95pct": "95%",
         "100pct": "100%",
       },
       borderWidth: {

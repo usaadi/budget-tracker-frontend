@@ -3,8 +3,9 @@ import Auth0LogoutButton from "../../lib/components/buttons/auth/Auth0LogoutButt
 import Auth0AuthenticationButton from "../../lib/components/buttons/auth/Auth0AuthenticationButton";
 
 const AuthenticationButton = () => {
-  const loginClass = `tw-bg-bt-blue-500 tw-rounded-5px tw-px-10px 
-      tw-text-16px tw-h-40px tw-text-white`;
+  // const loginClass = `tw-bg-bt-blue-500 tw-rounded-5px tw-px-10px
+  //     tw-text-16px tw-h-40px tw-text-white`;
+  const loginClass = `tw-text-bt-blue-500 tw-text-18px tw-font-bold`;
   const className = "tw-text-14px hover:tw-text-black";
   return (
     <Auth0AuthenticationButton
