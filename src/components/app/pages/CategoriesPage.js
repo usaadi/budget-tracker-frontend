@@ -1,11 +1,7 @@
 import AppLayout from "../../shared/AppLayout";
 
 const CategoriesPage = () => {
-  return (
-    <AppLayout>
-      <div>CategoriesPage</div>
-    </AppLayout>
-  );
+  return <div>CategoriesPage</div>;
 };
 
 export default CategoriesPage;

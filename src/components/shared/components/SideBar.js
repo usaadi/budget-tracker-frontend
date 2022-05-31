@@ -7,8 +7,9 @@ import logo from "../images/logo.svg";
 import signoutIcon from "../images/side-bar/signout.png";
 import closeIcon from "../images/side-bar/close.png";
 
-const SideBar = ({ showPopup = true, onClose }) => {
-  const appTitle = "Budgeteeer";
+import { appTitle } from "../defines/consts";
+
+const SideBar = ({ showPopup, onClose }) => {
   const { logout } = useAuth0();
   const onSignout = () => {
     logout({
@@ -18,29 +19,32 @@ const SideBar = ({ showPopup = true, onClose }) => {
   const className = "tw-w-auto tw-h-auto";
   const hiddenClass = showPopup ? "tw-flex" : "tw-hidden";
   const overlayClass = showPopup
-    ? "tw-absolute tw-w-full tw-h-full tw-bg-bt-black/50 md:tw-static md:tw-w-auto md:tw-h-auto md:tw-bg-transparent"
+    ? "tw-absolute tw-w-full tw-h-full tw-bg-bt-black/50 lg:tw-static lg:tw-w-auto lg:tw-h-auto lg:tw-bg-transparent"
     : "";
   return (
     <div className={`${overlayClass} tw-flex`}>
       <div
-        className={`${hiddenClass} tw-absolute tw-flex tw-items-stretch md:tw-static tw-w-95pct tw-left-0 tw-right-0 tw-mx-auto
-      md:tw-flex tw-flex-col md:tw-w-225px tw-bg-bt-blue-100 tw-m-8px tw-rounded-5px`}
+        className={`${hiddenClass} tw-absolute tw-flex tw-items-stretch lg:tw-static tw-w-95pct tw-left-0 tw-right-0 tw-mx-auto
+      lg:tw-flex tw-flex-col lg:tw-w-225px tw-bg-bt-blue-100 tw-m-8px tw-rounded-5px`}
       >
-        <div className="tw-inline-flex tw-items-center tw-pt-24px tw-pl-16px">
-          <img src={logo} className="tw-w-39px tw-mr-10px" />
+        <div className="tw-inline-flex tw-items-center tw-pt-8px tw-pl-8px lg:tw-pt-24px lg:tw-pl-16px">
+          <img src={logo} className="tw-w-31px lg:tw-w-39px tw-mr-10px" />
           <div
-            className={`tw-inline-block tw-text-20px tw-font-semibold tw-mt-minus5px`}
+            className={`tw-inline-block tw-text-16px lg:tw-text-20px tw-font-semibold tw-select-none`}
           >
             {appTitle}
           </div>
           <Button
             onClick={onClose}
-            className="md:tw-hidden tw-ml-auto tw-mr-20px tw-top-[-10px] tw-relative"
+            className="lg:tw-hidden tw-ml-auto tw-mr-14px tw-mt-[-5px]"
           >
             <img src={closeIcon} />
           </Button>
         </div>
-        <AppNavbar className="tw-mt-30px tw-mb-48px tw-self-stretch tw-select-none" />
+        <AppNavbar
+          closeMenu={onClose}
+          className="tw-mt-30px tw-mb-48px tw-self-stretch tw-select-none"
+        />
         <div className="tw-mt-auto tw-ml-20px tw-mb-24px tw-flex tw-items-center">
           <Button onClick={onSignout}>
             <img src={signoutIcon} />

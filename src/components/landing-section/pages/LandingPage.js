@@ -15,7 +15,7 @@ const LandingPage = () => {
 
   return (
     <div>
-      <heading className="tw-mt-70px tw-flex tw-flex-col tw-items-center">
+      <header className="tw-mt-70px tw-flex tw-flex-col tw-items-center">
         <h1 className="tw-w-[22ch] tw-text-24px md:tw-text-38px lg:tw-text-56px tw-text-center tw-leading-tight">
           Be aware of what happens to{" "}
           <span
@@ -29,7 +29,7 @@ const LandingPage = () => {
           {appTitle} offers everyone the possibility to better track their
           budget.
         </p>
-      </heading>
+      </header>
       <div className="tw-mt-30px tw-flex tw-flex-col tw-items-center">
         <XButton onClick={onGetStarted}>Get started</XButton>
         <img

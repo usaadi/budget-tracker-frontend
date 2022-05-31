@@ -1,4 +1,6 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+
+import Button from "../../lib/components/buttons/Button";
 
 import summaryIcon from "./images/app-nav/summary.png";
 import summaryIconActive from "./images/app-nav/summary-active.png";
@@ -36,11 +38,18 @@ const menuItems = [
   },
 ];
 
-const AppNavbar = ({ className }) => {
+const AppNavbar = ({ className, closeMenu }) => {
   const location = useLocation();
   const currentPage = location.pathname.substring(
     location.pathname.lastIndexOf("/") + 1
   );
+
+  const navigate = useNavigate();
+
+  const onItemClick = (url) => {
+    closeMenu();
+    navigate(url);
+  };
 
   return (
     <nav className={`${className}`}>
@@ -51,14 +60,15 @@ const AppNavbar = ({ className }) => {
         const textColor = active ? "tw-text-white" : "tw-text-bt-gray-600";
         const hoverClass = active ? "" : "hover:tw-bg-black/10";
         return (
-          <Link
-            to={item.url}
-            className={`${bgClass} ${textColor} ${hoverClass} tw-flex tw-items-center tw-h-48px tw-pl-18px
-            tw-mr-16px tw-rounded-r-5px tw-text-20px`}
+          <Button
+            key={index}
+            onClick={() => onItemClick(item.url)}
+            className={`${bgClass} ${textColor} ${hoverClass} tw-w-full tw-flex tw-items-center tw-h-48px tw-pl-18px
+            lg:tw-mr-16px lg:tw-rounded-r-5px tw-text-20px`}
           >
-            <img src={icon} className="tw-mr-15px" />
+            <img src={icon} className="tw-mr-15px" alt="menu item" />
             <span>{item.title}</span>
-          </Link>
+          </Button>
         );
       })}
     </nav>

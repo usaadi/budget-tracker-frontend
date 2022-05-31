@@ -1,6 +1,7 @@
 import { useTable, usePagination } from "react-table";
 
 const DataTable = ({
+  className,
   columns,
   data,
   hiddenColumns = [],
@@ -47,7 +48,7 @@ const DataTable = ({
 
   const ddata = showPagination ? page : rows;
 
-  const className = "tw-bg-zinc-200/50";
+  // const className = "tw-bg-zinc-200/50";
 
   const tableClass = "tw-min-w-full";
   const theadClass = "tw-bg-zinc-200/50 tw-select-none";
@@ -60,7 +61,9 @@ const DataTable = ({
   const paginationClass = "tw-mt-10px tw-flex tw-gap-5px tw-flex-wrap";
 
   return (
-    <div className="tw-border tw-border-solid tw-border-black/30 tw-rounded tw-p-8px">
+    <div
+      className={`${className} tw-border tw-border-solid tw-border-black/30 tw-rounded tw-p-8px`}
+    >
       <div className="tw-overflow-y-auto">
         <table {...getTableProps()} className={`${tableClass}`}>
           {showHeader && (

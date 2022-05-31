@@ -1,11 +1,7 @@
 import AppLayout from "../../shared/AppLayout";
 
 const IncomePage = () => {
-  return (
-    <AppLayout>
-      <div>IncomePage</div>
-    </AppLayout>
-  );
+  return <div>IncomePage</div>;
 };
 
 export default IncomePage;

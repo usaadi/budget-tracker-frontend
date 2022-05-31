@@ -24,6 +24,7 @@ module.exports = {
         "24px": "24px",
         "27.5px": "27.5px",
         "28px": "28px",
+        "34px": "34px",
         "38px": "38px",
         "56px": "56px",
       },
@@ -140,8 +141,11 @@ module.exports = {
         "bt-blue-100": "#f7f8fc",
         "bt-blue-500": "#1232DB",
         "bt-orange": "#cc4421",
+        "bt-gray-100": "#CFD2DC",
         "bt-gray-600": "#545C7A",
+        "bt-gray-1": "#F5F6FC",
         "bt-black": "#13141C",
+        "bt-spring-green": "#3EC2B2",
       },
       backgroundImage: {
         "wf-search-lens":
@@ -185,6 +189,7 @@ module.exports = {
         2: "2px 2px 11px 2px rgba(0, 0, 0, 0.15)",
         3: "0 10px 60px -5px rgba(0, 0, 0, 0.05)",
         4: "0 2px 14px 0 rgba(0, 0, 0, 0.1)",
+        5: "0 4px 40px rgba(84, 92, 122, 0.07)",
       },
       spacing: {
         minus1px: "-1px",
@@ -219,6 +224,7 @@ module.exports = {
         "27px": "27px",
         "28px": "28px",
         "30px": "30px",
+        "31px": "31px",
         "32px": "32px",
         "33px": "33px",
         "34px": "34px",
@@ -239,6 +245,7 @@ module.exports = {
         "70px": "70px",
         "100px": "100px",
         "102px": "102px",
+        "104px": "104px",
         "110px": "110px",
         "122px": "122px",
         "135px": "135px",
