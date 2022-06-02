@@ -48,10 +48,10 @@ const DataTable = ({
 
   const ddata = showPagination ? page : rows;
 
-  // const className = "tw-bg-zinc-200/50";
+  //const className = "tw-text-16px tw-font-medium";
 
   const tableClass = "tw-min-w-full";
-  const theadClass = "tw-bg-zinc-200/50 tw-select-none";
+  const theadClass = "tw-select-none tw-text-16px tw-font-medium tw-text-black";
   const thClass = `tw-py-2 tw-px-6 tw-text-xs tw-font-medium tw-tracking-wider 
     tw-text-gray-700 tw-uppercase tw-text-left`;
   const rowClass = "tw-border-b odd:tw-bg-white/40 even:tw-bg-zinc-200/50";
@@ -64,7 +64,7 @@ const DataTable = ({
     <div
       className={`${className} tw-border tw-border-solid tw-border-black/30 tw-rounded tw-p-8px`}
     >
-      <div className="tw-overflow-y-auto">
+      <div className="tw-overflow-y-visible">
         <table {...getTableProps()} className={`${tableClass}`}>
           {showHeader && (
             <thead className={`${theadClass}`}>

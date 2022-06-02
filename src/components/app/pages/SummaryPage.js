@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
 import DataTable from "../../../lib/components/DataTable";
-import List from "../../../lib/components/List";
+import XList from "../../shared/components/XList";
 import AmountDisplay from "../../shared/components/AmountDisplay";
 
 import noDataImg from "../../../components/shared/images/no-data.png";
@@ -116,7 +116,7 @@ const SummaryPage = () => {
   return (
     <>
       {data ? (
-        <div className="tw-flex tw-flex-col tw-items-stretch">
+        <div className="tw-flex tw-flex-col tw-items-stretch tw-overflow-hidden lg:tw-overflow-visible">
           <div className="tw-flex tw-gap-8px lg:tw-gap-20px tw-mb-42px">
             <AmountDisplay
               title="Income"
@@ -145,7 +145,7 @@ const SummaryPage = () => {
             columns={columns}
             data={expensesData}
           />
-          <List className="lg:tw-hidden" data={expensesData} />
+          <XList className="lg:tw-hidden tw-grow" data={expensesData} />
         </div>
       ) : (
         <div className="tw-flex-center tw-flex-col tw-h-full tw-gap-32px">
