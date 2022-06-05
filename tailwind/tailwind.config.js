@@ -139,11 +139,15 @@ module.exports = {
         "bt-beige-1": "#e0e4ce",
         "bt-dark-beige": "#B3B6A5",
         "bt-blue-100": "#f7f8fc",
+        "bt-blue-200": "#D4E1FA",
         "bt-blue-500": "#1232DB",
         "bt-orange": "#cc4421",
         "bt-gray-100": "#CFD2DC",
+        "bt-gray-500": "#60698B",
         "bt-gray-600": "#545C7A",
+        "bt-gray-700": "#454C64",
         "bt-gray-1": "#F5F6FC",
+        "bt-gray-2": "rgb(96, 105, 139)",
         "bt-black": "#13141C",
         "bt-spring-green": "#3EC2B2",
       },
@@ -170,6 +174,14 @@ module.exports = {
           "linear-gradient(to right, #0087f8 2%, #0062f2 102%)",
         "landing-page-gradient":
           "linear-gradient(to bottom, rgba(70, 219, 201, 0.5), rgba(18, 50, 219, 0.25))",
+        "dropdown-arrow":
+          "linear-gradient(45deg, transparent 50%, #60698B 50%), linear-gradient(135deg, #60698B 50%, transparent 50%)",
+      },
+      backgroundPosition: {
+        "dropdown-arrow": "right 15px top 1em, right 10px top 1em",
+      },
+      backgroundSize: {
+        "dropdown-arrow": "5px 5px, 5px 5px",
       },
       gridTemplateRows: {
         "8-2": "8fr 2fr",
@@ -243,6 +255,7 @@ module.exports = {
         "60px": "60px",
         "64px": "64px",
         "70px": "70px",
+        "96px": "96px",
         "100px": "100px",
         "102px": "102px",
         "104px": "104px",
