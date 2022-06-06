@@ -1,7 +1,8 @@
-import AppLayout from "../../shared/AppLayout";
+import { transactionTypeEnum } from "../../../constants/enums";
+import TransactionsPage from "./TransactionsPage";
 
 const ExpensesPage = () => {
-  return <div>ExpensesPage</div>;
+  return <TransactionsPage transactionType={transactionTypeEnum.expenses} />;
 };
 
 export default ExpensesPage;

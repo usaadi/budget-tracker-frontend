@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { useTable, usePagination } from "react-table";
+import { useTable, usePagination } from "@tanstack/react-table";
 import ReactPaginate from "react-paginate";
 
 import PagingSelect from "./select/PagingSelect";

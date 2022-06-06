@@ -19,16 +19,16 @@ const menuItems = [
     activeIcon: summaryIconActive,
   },
   {
-    title: "Expenses",
-    url: "/app/expenses",
-    icon: expensesIcon,
-    activeIcon: expensesIconActive,
-  },
-  {
     title: "Income",
     url: "/app/income",
     icon: incomeIcon,
     activeIcon: incomeIconActive,
+  },
+  {
+    title: "Expenses",
+    url: "/app/expenses",
+    icon: expensesIcon,
+    activeIcon: expensesIconActive,
   },
   {
     title: "Categories",
