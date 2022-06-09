@@ -17,19 +17,39 @@ const AppRouter = ({ activeDateRange, setActiveDateRange }) => {
       <Routes>
         <Route
           path="summary"
-          element={<ProtectedRoute component={SummaryPage} />}
+          element={
+            <ProtectedRoute
+              component={SummaryPage}
+              activeDateRange={activeDateRange}
+            />
+          }
         />
         <Route
           path="expenses"
-          element={<ProtectedRoute component={ExpensesPage} />}
+          element={
+            <ProtectedRoute
+              component={ExpensesPage}
+              activeDateRange={activeDateRange}
+            />
+          }
         />
         <Route
           path="income"
-          element={<ProtectedRoute component={IncomePage} />}
+          element={
+            <ProtectedRoute
+              component={IncomePage}
+              activeDateRange={activeDateRange}
+            />
+          }
         />
         <Route
           path="categories"
-          element={<ProtectedRoute component={CategoriesPage} />}
+          element={
+            <ProtectedRoute
+              component={CategoriesPage}
+              activeDateRange={activeDateRange}
+            />
+          }
         />
       </Routes>
     </AppLayout>

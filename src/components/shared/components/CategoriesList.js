@@ -1,7 +1,6 @@
 import List from "../../../lib/components/List";
-import { kFormatter } from "../../../lib/util/formatting/numberFormatting";
 
-const XList = ({ data, className }) => {
+const CategoriesList = ({ data, className }) => {
   const transformFn = (index, key) => {
     const item = data[index];
     return (
@@ -18,13 +17,10 @@ const XList = ({ data, className }) => {
             {item.description}
           </span>
         </div>
-        <div className="tw-ml-auto tw-text-24px tw-font-medium tw-leading-none">{`$${kFormatter(
-          item.amount
-        )}`}</div>
       </div>
     );
   };
   return <List data={data} transformFn={transformFn} className={className} />;
 };
 
-export default XList;
+export default CategoriesList;

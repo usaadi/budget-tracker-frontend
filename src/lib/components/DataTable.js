@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { useTable, usePagination } from "@tanstack/react-table";
+import { useTable, usePagination } from "react-table";
 import ReactPaginate from "react-paginate";
 
 import PagingSelect from "./select/PagingSelect";
@@ -12,6 +12,9 @@ const DataTable = ({
   className,
   columns,
   data,
+  fetchData,
+  loading,
+  pageCount: controlledPageCount,
   hiddenColumns = [],
   noHeader,
   noPagination,
@@ -24,7 +27,7 @@ const DataTable = ({
   const showHeader = !noHeader;
   const showPagination =
     !noPagination && (data_data?.length > 10 || !noPaginationForTenItems);
-  const initialState = { hiddenColumns };
+  const initialState = { hiddenColumns, pageIndex: 0 };
 
   const tableInstance = useTable(
     {
@@ -32,6 +35,8 @@ const DataTable = ({
       data: data_data,
       initialState,
       autoResetHiddenColumns: false,
+      manualPagination: true,
+      pageCount: controlledPageCount,
     },
     usePagination
   );
@@ -56,6 +61,10 @@ const DataTable = ({
     setPageSize,
     state: { pageIndex, pageSize },
   } = tableInstance;
+
+  useEffect(() => {
+    fetchData({ pageIndex, pageSize });
+  }, [fetchData, pageIndex, pageSize]);
 
   const currentPage = pageIndex;
   const start = pageIndex * pageSize + 1;

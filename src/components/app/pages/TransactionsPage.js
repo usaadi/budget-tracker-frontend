@@ -1,12 +1,18 @@
-import { useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import DataTable from "../../../lib/components/DataTable";
-import XList from "../../shared/components/XList";
+import TransactionList from "../../shared/components/TransactionList";
+import Button from "../../../lib/components/buttons/Button";
 
 import noDataImg from "../../shared/images/no-data.png";
+import editIcon from "../../shared/images/edit-icon.png";
+import deleteIcon from "../../shared/images/delete-icon.png";
 
 import { transactionTypeEnum } from "../../../constants/enums";
 import { shortDateFormatter } from "../../../lib/util/formatting/dateFormatting";
+import { getTransactionTypeName } from "../../../util/getEnumName";
+import useTransactions from "../../../api/transactions/useTransactions";
+import { act } from "react-dom/test-utils";
 
 const sampleIncome = [
   {
@@ -14,7 +20,7 @@ const sampleIncome = [
     amount: 1000,
     categoryId: 1,
     categoryName: "Salary",
-    description: "",
+    description: "description",
   },
 ];
 
@@ -24,21 +30,44 @@ const sampleExpenses = [
     amount: 50,
     categoryId: 1,
     categoryName: "Food",
-    description: "",
+    description: "description",
   },
 ];
 
-const TransactionsPage = ({ transactionType }) => {
-  const data =
-    transactionType === transactionTypeEnum.income
-      ? sampleIncome
-      : sampleExpenses;
-  const formattedData = useMemo(() => {
-    return data.map((x) => ({
+const TransactionsPage = ({ transactionType, activeDateRange = {} }) => {
+  const [pageSize, setPageSize] = useState(0);
+  const [pageNumber, setPageNumber] = useState(0);
+
+  const { startDate: fromDate, endDate: toDate } = activeDateRange;
+
+  console.log(activeDateRange);
+
+  const transactionTypeName = getTransactionTypeName(transactionType);
+
+  const transactionsInfo = useTransactions(
+    transactionTypeName,
+    fromDate,
+    toDate,
+    pageSize,
+    pageNumber
+  );
+  const transactions = transactionsInfo.data?.data?.items ?? [];
+
+  const totalCount = transactionsInfo.data?.data?.totalCount;
+  const pageCount = pageSize > 0 ? Math.ceil(totalCount / pageSize) : 0;
+
+  const fetchData = useCallback(({ pageIndex, pageSize }) => {
+    setPageNumber(pageIndex + 1);
+    setPageSize(pageSize);
+    //transactionsInfo.refetch();
+  }, []);
+
+  const data = useMemo(() => {
+    return transactions.map((x) => ({
       transactionDateStr: shortDateFormatter(x.transactionDate),
       ...x,
     }));
-  }, [data]);
+  }, [transactions]);
   const columns = useMemo(
     () => [
       {
@@ -59,7 +88,16 @@ const TransactionsPage = ({ transactionType }) => {
       },
       {
         Header: "Actions",
-        accessor: "",
+        Cell: ({ cell }) => (
+          <>
+            <Button>
+              <img src={editIcon} />
+            </Button>
+            <Button className="tw-ml-21px">
+              <img src={deleteIcon} />
+            </Button>
+          </>
+        ),
       },
     ],
     []
@@ -71,9 +109,11 @@ const TransactionsPage = ({ transactionType }) => {
           <DataTable
             className="tw-hidden lg:tw-block"
             columns={columns}
-            data={formattedData}
+            data={data}
+            fetchData={fetchData}
+            pageCount={pageCount}
           />
-          <XList className="lg:tw-hidden tw-grow" data={formattedData} />
+          <TransactionList className="lg:tw-hidden tw-grow" data={data} />
         </div>
       ) : (
         <div className="tw-flex-center tw-flex-col tw-h-full tw-gap-32px">
