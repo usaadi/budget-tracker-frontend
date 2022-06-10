@@ -9,10 +9,15 @@ import LandingPage from "./components/landing-section/pages/LandingPage";
 import LandingLayout from "./components/shared/LandingLayout";
 import ConfirmPopup from "./components/shared/ConfirmPopup";
 
+import { transactionTypeEnum } from "./constants/enums";
+
 import "./styles/tailwind-output.css";
 
 const App = () => {
   const [activeDateRange, setActiveDateRange] = useState(null);
+  const [selectedTxType, setSelectedTxType] = useState(
+    transactionTypeEnum.income
+  );
 
   return (
     <ConfirmContextProvider>
@@ -32,6 +37,8 @@ const App = () => {
             <AppRouter
               activeDateRange={activeDateRange}
               setActiveDateRange={setActiveDateRange}
+              selectedTxType={selectedTxType}
+              setSelectedTxType={setSelectedTxType}
             />
           }
         />

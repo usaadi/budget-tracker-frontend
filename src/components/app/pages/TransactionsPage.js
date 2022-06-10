@@ -34,13 +34,15 @@ const sampleExpenses = [
   },
 ];
 
-const TransactionsPage = ({ transactionType, activeDateRange = {} }) => {
+const TransactionsPage = ({ transactionType, activeDateRange }) => {
   const [pageSize, setPageSize] = useState(0);
   const [pageNumber, setPageNumber] = useState(0);
 
-  const { startDate: fromDate, endDate: toDate } = activeDateRange;
+  if (!activeDateRange) {
+    activeDateRange = {};
+  }
 
-  console.log(activeDateRange);
+  const { startDate: fromDate, endDate: toDate } = activeDateRange;
 
   const transactionTypeName = getTransactionTypeName(transactionType);
 
@@ -65,6 +67,7 @@ const TransactionsPage = ({ transactionType, activeDateRange = {} }) => {
   const data = useMemo(() => {
     return transactions.map((x) => ({
       transactionDateStr: shortDateFormatter(x.transactionDate),
+      categoryName: x.category.name,
       ...x,
     }));
   }, [transactions]);

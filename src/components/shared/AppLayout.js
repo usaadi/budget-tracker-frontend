@@ -5,11 +5,17 @@ import Header from "./components/Header";
 
 import { transactionTypeEnum } from "../../constants/enums";
 
-const AppLayout = ({ children, activeDateRange, setActiveDateRange }) => {
+const AppLayout = ({
+  children,
+  activeDateRange,
+  setActiveDateRange,
+  selectedTxType,
+  setSelectedTxType,
+}) => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  const [selectedTxType, setSelectedTxType] = useState(
-    transactionTypeEnum.income
-  );
+  // const [selectedTxType, setSelectedTxType] = useState(
+  //   transactionTypeEnum.income
+  // );
 
   return (
     <div className="tw-flex tw-min-h-[100vh] tw-max-h-[100vh] tw-font-satoshi">

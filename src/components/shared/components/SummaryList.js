@@ -19,7 +19,7 @@ const SummaryList = ({ data, className }) => {
           </span>
         </div>
         <div className="tw-ml-auto tw-text-24px tw-font-medium tw-leading-none">{`$${kFormatter(
-          item.amount
+          item.sum
         )}`}</div>
       </div>
     );

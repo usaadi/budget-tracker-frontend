@@ -1,8 +1,13 @@
 import { transactionTypeEnum } from "../../../constants/enums";
 import TransactionsPage from "./TransactionsPage";
 
-const ExpensesPage = () => {
-  return <TransactionsPage transactionType={transactionTypeEnum.expenses} />;
+const ExpensesPage = ({ activeDateRange }) => {
+  return (
+    <TransactionsPage
+      transactionType={transactionTypeEnum.expenses}
+      activeDateRange={activeDateRange}
+    />
+  );
 };
 
 export default ExpensesPage;
