@@ -150,30 +150,21 @@ module.exports = {
         "bt-gray-2": "rgb(96, 105, 139)",
         "bt-black": "#13141C",
         "bt-spring-green": "#3EC2B2",
+        "bt-red": "#DC2626",
       },
       backgroundImage: {
-        "wf-search-lens":
-          "url('/src/components/shared/images/24-px-search.png')",
-        "wf-search-lens-dark":
-          "url('/src/components/shared/images/24-px-search-dark.svg')",
+        "wf-search-lens": "url('/src/components/shared/images/24-px-search.png')",
+        "wf-search-lens-dark": "url('/src/components/shared/images/24-px-search-dark.svg')",
         "wf-input-close-x": "url('/src/components/shared/images/close-3.svg')",
-        "wf-calendar-icon":
-          "url('/src/components/shared/images/24-px-calendar-2.svg')",
-        "standard-btn-gradient-blue":
-          "linear-gradient(to bottom, #0087f8, #0062f2)",
-        "standard-btn-gradient-green":
-          "linear-gradient(to bottom, #0fb269, #0fb269)",
-        "standard-btn-gradient-green-2":
-          "linear-gradient(to bottom, #8d9660, #8da660)",
-        "standard-btn-gradient-red":
-          "linear-gradient(to bottom, #d8202e, #d8202e)",
+        "wf-calendar-icon": "url('/src/components/shared/images/24-px-calendar-2.svg')",
+        "standard-btn-gradient-blue": "linear-gradient(to bottom, #0087f8, #0062f2)",
+        "standard-btn-gradient-green": "linear-gradient(to bottom, #0fb269, #0fb269)",
+        "standard-btn-gradient-green-2": "linear-gradient(to bottom, #8d9660, #8da660)",
+        "standard-btn-gradient-red": "linear-gradient(to bottom, #d8202e, #d8202e)",
         "blue-label-gradient": "linear-gradient(to bottom, #1a89f0, #1065e8)",
-        "menu-item-gradient-1":
-          "linear-gradient(to right, rgba(13,90,229,0.2), rgba(13,90,229,0.02))",
-        "horizontal-gradient-blue":
-          "linear-gradient(to right, #0087f8 2%, #0062f2 102%)",
-        "landing-page-gradient":
-          "linear-gradient(to bottom, rgba(70, 219, 201, 0.5), rgba(18, 50, 219, 0.25))",
+        "menu-item-gradient-1": "linear-gradient(to right, rgba(13,90,229,0.2), rgba(13,90,229,0.02))",
+        "horizontal-gradient-blue": "linear-gradient(to right, #0087f8 2%, #0062f2 102%)",
+        "landing-page-gradient": "linear-gradient(to bottom, rgba(70, 219, 201, 0.5), rgba(18, 50, 219, 0.25))",
         "dropdown-arrow":
           "linear-gradient(45deg, transparent 50%, #60698B 50%), linear-gradient(135deg, #60698B 50%, transparent 50%)",
       },

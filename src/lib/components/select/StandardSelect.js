@@ -15,6 +15,7 @@ const StandardSelect = ({
   placeholderColor = "#7d86a9",
   menuPosition = "fixed",
   menuPlacement = "auto",
+  textColor = "#000",
 }) => {
   return (
     <MySelect
@@ -28,7 +29,7 @@ const StandardSelect = ({
       errorMessage={errorMessage}
       validationRules={validationRules}
       allowCreate={allowCreate}
-      textColor="#000"
+      textColor={textColor}
       placeholderColor={placeholderColor}
       fontFamily={fontFamily}
       fontSize={fontSize}

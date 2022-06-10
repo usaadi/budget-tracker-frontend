@@ -11,17 +11,15 @@ import Button from "../../../lib/components/buttons/Button";
 const AddNewPopup = ({ onClose }) => {
   const [selectedTabNumber, setSelectedTabNumber] = useState(1);
 
-  const isTab1 = selectedTabNumber === 1;
-  const isTab2 = selectedTabNumber === 2;
-  const isTab3 = selectedTabNumber === 3;
+  const isTab = (num) => selectedTabNumber === num;
 
   const commonTabButtonClass = "tw-border-b tw-border-solid tw-h-40px tw-text-18px tw-font-medium";
   const activeTabButtonClass = "tw-border-bt-orange tw-text-bt-orange";
   const inactiveTabButtonClass = "tw-border-bt-blue-200 tw-text-bt-gray-600";
 
-  const tab1ButtonClass = isTab1 ? activeTabButtonClass : inactiveTabButtonClass;
-  const tab2ButtonClass = isTab2 ? activeTabButtonClass : inactiveTabButtonClass;
-  const tab3ButtonClass = isTab3 ? activeTabButtonClass : inactiveTabButtonClass;
+  const tab1ButtonClass = isTab(1) ? activeTabButtonClass : inactiveTabButtonClass;
+  const tab2ButtonClass = isTab(2) ? activeTabButtonClass : inactiveTabButtonClass;
+  const tab3ButtonClass = isTab(3) ? activeTabButtonClass : inactiveTabButtonClass;
 
   return (
     <ModalOverlay>
@@ -40,9 +38,11 @@ const AddNewPopup = ({ onClose }) => {
             Categories
           </Button>
         </div>
-        <AddTransactionForm isHidden={!isTab1} />
-        <AddTransactionForm isHidden={!isTab2} />
-        <AddCategoryForm isHidden={!isTab3} />
+        <div className="tw-pt-22px tw-pb-32px tw-px-32px">
+          <AddTransactionForm isHidden={!isTab(1)} />
+          <AddTransactionForm isHidden={!isTab(2)} />
+          <AddCategoryForm isHidden={!isTab(3)} />
+        </div>
       </XModal>
     </ModalOverlay>
   );

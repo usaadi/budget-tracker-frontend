@@ -12,7 +12,10 @@ import StandardDatePicker from "../../../lib/components/date-picker/StandardDate
 
 import buildErrorMessage from "../../../util/buildErrorMessage";
 
+import XButton from "../../shared/components/buttons/XButton";
 import Spinner from "../../../lib/components/Spinner";
+import whiteCrossIcon from "../../shared/images/white-cross.png";
+
 import { getTransactionTypeName } from "../../../util/getEnumName";
 import patterns from "../../../constants/patterns";
 
@@ -99,12 +102,19 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit, onErrorSubmit)}
-      className={`${displayClass} tw-flex-col tw-items-stretch lg:tw-w-668px tw-mt-40px tw-pb-36px`}
-    >
+    <form onSubmit={handleSubmit(onSubmit, onErrorSubmit)} className={`${displayClass} tw-flex-col tw-items-stretch`}>
+      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">Date</label>
+      <StandardDatePicker
+        //openToDate={openToDate}
+        control={control}
+        validationRules={{ required: "This field is required" }}
+        name="transactionDate"
+        errorMessage={errors.transactionDate?.message}
+        className="tw-mb-20px"
+      />
+      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">Amount</label>
       <StandardInput
-        placeholder="Amount"
+        // placeholder="Amount"
         register={register("amount", {
           required: { value: true, message: "This field is required" },
           pattern: {
@@ -118,16 +128,27 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
         placeholderClass="placeholder:tw-text-db-gray-27"
         className="tw-mb-20px"
       />
-      <StandardDatePicker
-        //openToDate={openToDate}
+      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">Category</label>
+      <StandardSelect
+        options={categoriesOptions}
         control={control}
+        name="categoryUniqueId"
         validationRules={{ required: "This field is required" }}
-        name="transactionDate"
-        errorMessage={errors.transactionDate?.message}
+        allowCreate={false}
+        // placeholder="Category"
+        errorMessage={errors.categoryUniqueId?.message}
+        borderColorClass="tw-border-db-blue-gray-1/50"
+        fontSize="18px"
+        fontFamily="Satoshi"
+        placeholderColor="#7d86a9"
+        textColor="#13141C"
         className="tw-mb-20px"
       />
+      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">
+        Description (Optional)
+      </label>
       <StandardInput
-        placeholder="Description"
+        // placeholder="Description"
         register={register("description")}
         errorMessage={errors.description?.message}
         borderColorClass="tw-border-db-blue-gray-1/50"
@@ -135,24 +156,13 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
         placeholderClass="placeholder:tw-text-db-gray-27"
         className="tw-mb-20px"
       />
-      <StandardSelect
-        options={categoriesOptions}
-        control={control}
-        name="categoryUniqueId"
-        validationRules={{ required: "This field is required" }}
-        allowCreate={false}
-        placeholder="Category"
-        errorMessage={errors.categoryUniqueId?.message}
-        borderColorClass="tw-border-db-blue-gray-1/50"
-        fontSize="16px"
-        fontFamily="Roboto"
-        placeholderColor="#7d86a9"
-        className="tw-mb-20px"
-      />
-      <button type="submit" className="tw-self-center tw-bg-standard-btn-gradient-green-2 tw-px-10px tw-rounded-md">
-        {isLoading && <Spinner strokeColor="black" />}
-        ADD
-      </button>
+      <XButton type="submit" className="tw-text-18px tw-font-bold">
+        <span className="tw-flex tw-justify-center tw-items-center tw-gap-10px">
+          {isLoading && <Spinner strokeColor="white" />}
+          <img src={whiteCrossIcon} />
+          <span>Add new</span>
+        </span>
+      </XButton>
       {errorMessage && <div>{errorMessage}</div>}
     </form>
   );

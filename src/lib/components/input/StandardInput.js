@@ -21,17 +21,19 @@ const StandardInput = ({
     //setInput("");
   };
   const type = isPassword ? "password" : "text";
+
+  const extraBorderClass = errorMessage ? "tw-border tw-border-bt-red" : "tw-border-bt-blue-500";
+
+  const inputClass = `${extraBorderClass} tw-h-40px tw-bg-bt-blue-100 tw-w-full tw-rounded-5px tw-px-16px tw-text-18px tw-text-bt-black 
+    tw-outline-none hover:tw-border focus:tw-border tw-border-solid`;
+
   return (
-    <div
-      className={`form-element form-input ${className} ${
-        value ? "has-text" : ""
-      }`}
-    >
+    <div className={`form-element form-input ${className} ${value ? "has-text" : ""}`}>
       <div
-        className={`${borderColorClass} form-input-container tw-flex tw-flex-row tw-justify-between tw-items-center tw-h-[50px] 
-      tw-border tw-border-solid tw-rounded-[25px] tw-bg-white`}
+      //   className={`${borderColorClass} form-input-container tw-flex tw-flex-row tw-justify-between tw-items-center tw-h-40px
+      // tw-border tw-border-solid tw-rounded-[25px] tw-bg-white`}
       >
-        <div className="tw-w-[26px] tw-h-[50px]"></div>
+        {/* <div className="tw-w-[26px] tw-h-[50px]"></div> */}
         <input
           size={1}
           //value={input}
@@ -41,21 +43,11 @@ const StandardInput = ({
           type={type}
           //name={name}
           {...register}
-          className={`${textClass} ${placeholderClass}
-          tw-grow tw-border-none tw-outline-none tw-bg-transparent ${
-            value ? "tw-text-black" : "tw-text-wf-light-slate-grey-2"
-          }`}
+          className={`${inputClass} ${textClass} ${placeholderClass}`}
         />
         <div className="clear-btn" onClick={onClear}></div>
       </div>
-      {errorMessage && (
-        <div
-          className="tw-bg-wf-warning-bg tw-text-wf-warning-text tw-text-[0.938rem] 
-          tw-p-[15px] tw-rounded-[2px] tw-font-ar"
-        >
-          {errorMessage}
-        </div>
-      )}
+      {errorMessage && <div className="tw-absolute tw-text-bt-red tw-text-12px">{errorMessage}</div>}
     </div>
   );
 };
