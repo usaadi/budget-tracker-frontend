@@ -281,6 +281,7 @@ module.exports = {
         "350px": "350px",
         "360px": "360px",
         "408px": "408px",
+        "464px": "464px",
         "500px": "500px",
         "560px": "560px",
         "600px": "600px",
@@ -327,6 +328,7 @@ module.exports = {
         "20px": "20px",
         "25px": "25px",
         "30px": "30px",
+        circle: "50%",
       },
       // width: {
       //   "20px": "20px",
@@ -346,6 +348,7 @@ module.exports = {
         "35px": "35px",
         "60px": "60px",
         "173px": "173px",
+        "200px": "200px",
         "303px": "303px",
         "50pct": "50%",
       },
