@@ -6,9 +6,14 @@ import useCreateCategory from "../../../api/categories/useCreateCategory";
 import buildErrorMessage from "../../../util/buildErrorMessage";
 
 import StandardInput from "../../../lib/components/input/StandardInput";
-import Spinner from "../../../lib/components/Spinner";
+import StandardSelect from "../../../lib/components/select/StandardSelect";
 
-const AddCategoryForm = ({ isHidden, transactionType, closeMe }) => {
+import XButton from "../../shared/components/buttons/XButton";
+import Spinner from "../../../lib/components/Spinner";
+import whiteCrossIcon from "../../shared/images/white-cross.png";
+import { transactionTypeEnum } from "../../../constants/enums";
+
+const AddCategoryForm = ({ isHidden, closeMe }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,6 +33,7 @@ const AddCategoryForm = ({ isHidden, transactionType, closeMe }) => {
     defaultValues: {
       name: "",
       description: "",
+      transactionType: null,
     },
   });
 
@@ -36,12 +42,13 @@ const AddCategoryForm = ({ isHidden, transactionType, closeMe }) => {
     setErrorMessage("");
     const result = await createCategoryMutation.mutateAsync(
       {
-        transactionType: transactionType,
+        transactionType: data.transactionType,
         name: data.name,
         description: data.description,
       },
       {
         onSuccess: async (data) => {
+          setIsLoading(false);
           closeMe();
         },
         onError: async (error) => {
@@ -57,22 +64,44 @@ const AddCategoryForm = ({ isHidden, transactionType, closeMe }) => {
     // SetSubmitTriggered(true);
   };
 
+  const transactionTypeOptions = [
+    { value: transactionTypeEnum.income, label: "Income" },
+    { value: transactionTypeEnum.expenses, label: "Expenses" },
+  ];
+
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit, onErrorSubmit)}
-      className={`${displayClass} tw-flex-col tw-items-stretch lg:tw-w-668px tw-mt-40px tw-pb-36px`}
-    >
+    <form onSubmit={handleSubmit(onSubmit, onErrorSubmit)} className={`${displayClass} tw-flex-col tw-items-stretch`}>
+      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">Type</label>
+      <StandardSelect
+        options={transactionTypeOptions}
+        control={control}
+        name="transactionType"
+        validationRules={{ required: "This field is required" }}
+        allowCreate={false}
+        // placeholder="Category"
+        errorMessage={errors.transactionType?.message}
+        borderColorClass="tw-border-db-blue-gray-1/50"
+        fontSize="18px"
+        fontFamily="Satoshi"
+        placeholderColor="#7d86a9"
+        textColor="#13141C"
+        className="tw-mb-20px"
+      />
+      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">Name</label>
       <StandardInput
-        placeholder="Category Name"
-        register={register("name")}
+        // placeholder="Category Name"
+        register={register("name", { required: { value: true, message: "This field is required" } })}
         errorMessage={errors.name?.message}
         borderColorClass="tw-border-db-blue-gray-1/50"
         textClass="tw-font-roboto tw-text-16px"
         placeholderClass="placeholder:tw-text-db-gray-27"
         className="tw-mb-20px"
       />
+      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">
+        Description (Optional)
+      </label>
       <StandardInput
-        placeholder="Category Description"
+        // placeholder="Category Description"
         register={register("description")}
         errorMessage={errors.description?.message}
         borderColorClass="tw-border-db-blue-gray-1/50"
@@ -80,10 +109,13 @@ const AddCategoryForm = ({ isHidden, transactionType, closeMe }) => {
         placeholderClass="placeholder:tw-text-db-gray-27"
         className="tw-mb-20px"
       />
-      <button type="submit" className="tw-self-center tw-bg-standard-btn-gradient-green-2 tw-px-10px tw-rounded-md">
-        {isLoading && <Spinner strokeColor="black" />}
-        ADD
-      </button>
+      <XButton type="submit" className="tw-text-18px tw-font-bold">
+        <span className="tw-flex tw-justify-center tw-items-center tw-gap-10px">
+          {isLoading && <Spinner strokeColor="white" />}
+          <img src={whiteCrossIcon} />
+          <span>Add new</span>
+        </span>
+      </XButton>
       {errorMessage && <div>{errorMessage}</div>}
     </form>
   );

@@ -11,6 +11,8 @@ import balanceIcon from "../../../components/shared/images/summary/balance.png";
 import incomeSmIcon from "../../../components/shared/images/summary/income-sm.png";
 import expensesSmIcon from "../../../components/shared/images/summary/expenses-sm.png";
 import balanceSmIcon from "../../../components/shared/images/summary/balance-sm.png";
+import noDataImg from "../../shared/images/no-data.png";
+
 import { transactionTypeEnum } from "../../../constants/enums";
 
 const summarySampleData = {
@@ -308,7 +310,7 @@ const summarySampleData = {
   ],
 };
 
-const SummaryPage = ({ activeDateRange, selectedTxType }) => {
+const SummaryPage = ({ activeDateRange, transactionType }) => {
   if (!activeDateRange) {
     activeDateRange = {};
   }
@@ -344,16 +346,12 @@ const SummaryPage = ({ activeDateRange, selectedTxType }) => {
         />
       </div>
       <TransactionSummary
-        className={
-          selectedTxType !== transactionTypeEnum.income ? "tw-hidden" : ""
-        }
+        className={transactionType !== transactionTypeEnum.income ? "tw-hidden" : ""}
         transactionType={transactionTypeEnum.income}
         activeDateRange={activeDateRange}
       />
       <TransactionSummary
-        className={
-          selectedTxType !== transactionTypeEnum.expenses ? "tw-hidden" : ""
-        }
+        className={transactionType !== transactionTypeEnum.expenses ? "tw-hidden" : ""}
         transactionType={transactionTypeEnum.expenses}
         activeDateRange={activeDateRange}
       />

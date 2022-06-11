@@ -12,7 +12,6 @@ import { transactionTypeEnum } from "../../../constants/enums";
 import { shortDateFormatter } from "../../../lib/util/formatting/dateFormatting";
 import { getTransactionTypeName } from "../../../util/getEnumName";
 import useTransactions from "../../../api/transactions/useTransactions";
-import { act } from "react-dom/test-utils";
 
 const sampleIncome = [
   {
@@ -35,8 +34,8 @@ const sampleExpenses = [
 ];
 
 const TransactionsPage = ({ transactionType, activeDateRange }) => {
-  const [pageSize, setPageSize] = useState(0);
-  const [pageNumber, setPageNumber] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
+  const [pageNumber, setPageNumber] = useState(1);
 
   if (!activeDateRange) {
     activeDateRange = {};
@@ -46,13 +45,7 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
 
   const transactionTypeName = getTransactionTypeName(transactionType);
 
-  const transactionsInfo = useTransactions(
-    transactionTypeName,
-    fromDate,
-    toDate,
-    pageSize,
-    pageNumber
-  );
+  const transactionsInfo = useTransactions(transactionTypeName, fromDate, toDate, pageSize, pageNumber);
   const transactions = transactionsInfo.data?.data?.items ?? [];
 
   const totalCount = transactionsInfo.data?.data?.totalCount;
@@ -105,20 +98,24 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
     ],
     []
   );
+
+  const isEmpty = data.length === 0;
+  const extraTableClass = isEmpty ? "" : "lg:tw-block";
+  const extraListClass = isEmpty ? "tw-hidden" : "";
+
   return (
     <>
-      {data ? (
-        <div className="tw-flex tw-flex-col tw-items-stretch tw-overflow-hidden lg:tw-overflow-visible">
-          <DataTable
-            className="tw-hidden lg:tw-block"
-            columns={columns}
-            data={data}
-            fetchData={fetchData}
-            pageCount={pageCount}
-          />
-          <TransactionList className="lg:tw-hidden tw-grow" data={data} />
-        </div>
-      ) : (
+      <div className="tw-flex tw-flex-col tw-items-stretch tw-overflow-hidden lg:tw-overflow-visible">
+        <DataTable
+          className={`${extraTableClass} tw-hidden`}
+          columns={columns}
+          data={data}
+          fetchData={fetchData}
+          pageCount={pageCount}
+        />
+        <TransactionList className={`${extraListClass} lg:tw-hidden tw-grow`} data={data} />
+      </div>
+      {isEmpty && (
         <div className="tw-flex-center tw-flex-col tw-h-full tw-gap-32px">
           <img src={noDataImg} />
           <h1 className="tw-text-34px tw-font-medium">No data to display</h1>

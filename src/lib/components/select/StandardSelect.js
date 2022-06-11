@@ -8,7 +8,6 @@ const StandardSelect = ({
   name,
   validationRules,
   errorMessage,
-  allowCreate,
   borderColorClass,
   fontFamily = "Roboto",
   fontSize = "1rem",
@@ -16,6 +15,7 @@ const StandardSelect = ({
   menuPosition = "fixed",
   menuPlacement = "auto",
   textColor = "#000",
+  allowCreate = false,
 }) => {
   return (
     <MySelect

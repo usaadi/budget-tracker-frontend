@@ -7,6 +7,7 @@ import AddTransactionForm from "../forms/AddTransactionForm";
 import AddCategoryForm from "../forms/AddCategoryForm";
 
 import Button from "../../../lib/components/buttons/Button";
+import { transactionTypeEnum } from "../../../constants/enums";
 
 const AddNewPopup = ({ onClose }) => {
   const [selectedTabNumber, setSelectedTabNumber] = useState(1);
@@ -39,9 +40,9 @@ const AddNewPopup = ({ onClose }) => {
           </Button>
         </div>
         <div className="tw-pt-22px tw-pb-32px tw-px-32px">
-          <AddTransactionForm isHidden={!isTab(1)} />
-          <AddTransactionForm isHidden={!isTab(2)} />
-          <AddCategoryForm isHidden={!isTab(3)} />
+          <AddTransactionForm transactionType={transactionTypeEnum.income} isHidden={!isTab(1)} closeMe={onClose} />
+          <AddTransactionForm transactionType={transactionTypeEnum.expenses} isHidden={!isTab(2)} closeMe={onClose} />
+          <AddCategoryForm isHidden={!isTab(3)} closeMe={onClose} />
         </div>
       </XModal>
     </ModalOverlay>

@@ -1,11 +1,6 @@
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
-export const ProtectedRoute = ({
-  component,
-  activeDateRange,
-  selectedTxType,
-  setSelectedTxType,
-}) => {
+export const ProtectedRoute = ({ component, activeDateRange, transactionType, setSelectedTxType }) => {
   const Component = withAuthenticationRequired(component, {
     onRedirecting: () => <div>Loading...</div>,
   });
@@ -13,7 +8,7 @@ export const ProtectedRoute = ({
   return (
     <Component
       activeDateRange={activeDateRange}
-      selectedTxType={selectedTxType}
+      transactionType={transactionType}
       setSelectedTxType={setSelectedTxType}
     />
   );

@@ -86,6 +86,7 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
       },
       {
         onSuccess: async (data) => {
+          setIsLoading(false);
           closeMe();
         },
         onError: async (error) => {
@@ -134,7 +135,7 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
         control={control}
         name="categoryUniqueId"
         validationRules={{ required: "This field is required" }}
-        allowCreate={false}
+        allowCreate={true}
         // placeholder="Category"
         errorMessage={errors.categoryUniqueId?.message}
         borderColorClass="tw-border-db-blue-gray-1/50"

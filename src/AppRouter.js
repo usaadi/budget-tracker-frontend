@@ -8,12 +8,7 @@ import IncomePage from "./components/app/pages/IncomePage";
 import CategoriesPage from "./components/app/pages/CategoriesPage";
 import AppLayout from "./components/shared/AppLayout";
 
-const AppRouter = ({
-  activeDateRange,
-  setActiveDateRange,
-  selectedTxType,
-  setSelectedTxType,
-}) => {
+const AppRouter = ({ activeDateRange, setActiveDateRange, selectedTxType, setSelectedTxType }) => {
   return (
     <AppLayout
       activeDateRange={activeDateRange}
@@ -28,35 +23,22 @@ const AppRouter = ({
             <ProtectedRoute
               component={SummaryPage}
               activeDateRange={activeDateRange}
-              selectedTxType={selectedTxType}
+              transactionType={selectedTxType}
             />
           }
         />
         <Route
           path="expenses"
-          element={
-            <ProtectedRoute
-              component={ExpensesPage}
-              activeDateRange={activeDateRange}
-            />
-          }
+          element={<ProtectedRoute component={ExpensesPage} activeDateRange={activeDateRange} />}
         />
-        <Route
-          path="income"
-          element={
-            <ProtectedRoute
-              component={IncomePage}
-              activeDateRange={activeDateRange}
-            />
-          }
-        />
+        <Route path="income" element={<ProtectedRoute component={IncomePage} activeDateRange={activeDateRange} />} />
         <Route
           path="categories"
           element={
             <ProtectedRoute
               component={CategoriesPage}
               activeDateRange={activeDateRange}
-              selectedTxType={selectedTxType}
+              transactionType={selectedTxType}
             />
           }
         />
