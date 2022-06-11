@@ -26,3 +26,13 @@ Focused todo list:
  - Add ability to select preferred time zone
  - Add Compare page to compare months with charts
  - Add currencies
+
+Todo - 2022-06-06
+=================
+ ✅ Income page - initial w/static data (06-06-2022)
+ ✅ Expenses page - initial w/static data (07-06-2022)
+ ✅ Categories - initial w/static data (07-06-2022)
+ ✅ Hook up above pages with api ((07-09)-06-2022)
+ ✅ Add ability to clear the date-range selector and show "all time" when empty.
+ - Hook up the List elements with the api.
+ - Add/Edit/Delete for above pages ((10-12)-06-2022)

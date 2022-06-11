@@ -1,18 +1,33 @@
+import { useEffect, useRef, useState } from "react";
+
 import { useTable, usePagination } from "react-table";
+import ReactPaginate from "react-paginate";
+
+import PagingSelect from "./select/PagingSelect";
+
+import leftArrow from "../../components/shared/images/pagination/left-arrow.png";
+import rightArrow from "../../components/shared/images/pagination/right-arrow.png";
 
 const DataTable = ({
+  className,
   columns,
   data,
+  fetchData,
+  loading,
+  pageCount: controlledPageCount,
   hiddenColumns = [],
   noHeader,
   noPagination,
   noPaginationForTenItems,
 }) => {
+  // const [currentPage, setCurrentPage] = useState(0);
+
+  const paginationRef = useRef();
   const data_data = data ?? [];
   const showHeader = !noHeader;
   const showPagination =
     !noPagination && (data_data?.length > 10 || !noPaginationForTenItems);
-  const initialState = { hiddenColumns };
+  const initialState = { hiddenColumns, pageIndex: 0 };
 
   const tableInstance = useTable(
     {
@@ -20,6 +35,8 @@ const DataTable = ({
       data: data_data,
       initialState,
       autoResetHiddenColumns: false,
+      manualPagination: true,
+      pageCount: controlledPageCount,
     },
     usePagination
   );
@@ -45,33 +62,70 @@ const DataTable = ({
     state: { pageIndex, pageSize },
   } = tableInstance;
 
+  useEffect(() => {
+    fetchData({ pageIndex, pageSize });
+  }, [fetchData, pageIndex, pageSize]);
+
+  const currentPage = pageIndex;
+  const start = pageIndex * pageSize + 1;
+  const end = start + pageSize - 1;
+  const total = rows.length;
+  const realEnd = end <= total ? end : total;
+
   const ddata = showPagination ? page : rows;
 
-  const className = "tw-bg-zinc-200/50";
+  const scrollToPagination = () => {
+    setTimeout(
+      () =>
+        paginationRef.current.scrollIntoView({
+          behavior: "auto",
+          block: "start",
+        }),
+      200
+    );
+  };
+
+  const handlePageClick = (event) => {
+    gotoPage(event.selected);
+    //setCurrentPage(event.selected);
+    scrollToPagination();
+  };
+
+  //const className = "tw-cursor-default";
 
   const tableClass = "tw-min-w-full";
-  const theadClass = "tw-bg-zinc-200/50 tw-select-none";
-  const thClass = `tw-py-2 tw-px-6 tw-text-xs tw-font-medium tw-tracking-wider 
-    tw-text-gray-700 tw-uppercase tw-text-left`;
-  const rowClass = "tw-border-b odd:tw-bg-white/40 even:tw-bg-zinc-200/50";
+  const theadClass = "";
+  const thClass = `tw-py-12px tw-font-medium tw-tracking-wider 
+    tw-text-16px tw-font-medium tw-text-black tw-uppercase tw-text-left`;
+  const rowClass = "tw-border-b tw-border-bt-blue-200";
   const cellClass =
-    "tw-py-2 tw-px-6 tw-text-sm tw-font-medium tw-text-gray-900 tw-whitespace-nowrap";
+    "tw-py-15px tw-text-18px tw-text-bt-gray-700 tw-whitespace-nowrap";
 
-  const paginationClass = "tw-mt-10px tw-flex tw-gap-5px tw-flex-wrap";
+  const paginationClass = `tw-mt-10px tw-flex tw-justify-end tw-gap-5px tw-flex-wrap tw-text-14px tw-text-bt-gray-500 tw-mb-32px 
+    tw-mt-38px tw-items-center`;
 
   return (
-    <div className="tw-border tw-border-solid tw-border-black/30 tw-rounded tw-p-8px">
-      <div className="tw-overflow-y-auto">
+    <div className={`${className} `}>
+      <div className="tw-overflow-y-visible">
         <table {...getTableProps()} className={`${tableClass}`}>
           {showHeader && (
             <thead className={`${theadClass}`}>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th className={`${thClass}`} {...column.getHeaderProps()}>
-                      {column.render("Header")}
-                    </th>
-                  ))}
+                  {headerGroup.headers.map((column, i) => {
+                    let alignClass = "";
+                    if (i === headerGroup.headers.length - 1) {
+                      alignClass = "tw-text-right";
+                    }
+                    return (
+                      <th
+                        className={`${thClass} ${alignClass}`}
+                        {...column.getHeaderProps()}
+                      >
+                        {column.render("Header")}
+                      </th>
+                    );
+                  })}
                 </tr>
               ))}
             </thead>
@@ -81,9 +135,16 @@ const DataTable = ({
               prepareRow(row);
               return (
                 <tr className={`${rowClass}`} {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
+                  {row.cells.map((cell, idx) => {
+                    let alignClass = "";
+                    if (idx === row.cells.length - 1) {
+                      alignClass = "tw-text-right";
+                    }
                     return (
-                      <td className={`${cellClass}`} {...cell.getCellProps()}>
+                      <td
+                        className={`${cellClass} ${alignClass}`}
+                        {...cell.getCellProps()}
+                      >
                         {cell.render("Cell")}
                       </td>
                     );
@@ -95,53 +156,67 @@ const DataTable = ({
         </table>
       </div>
       {showPagination && (
-        <div className={`${paginationClass}`}>
-          <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-            {"<<"}
-          </button>{" "}
-          <button onClick={() => previousPage()} disabled={!canPreviousPage}>
-            {"<"}
-          </button>{" "}
-          <button onClick={() => nextPage()} disabled={!canNextPage}>
-            {">"}
-          </button>{" "}
-          <button
-            onClick={() => gotoPage(pageCount - 1)}
-            disabled={!canNextPage}
-          >
-            {">>"}
-          </button>{" "}
+        <div ref={paginationRef} className={`${paginationClass}`}>
           <span>
-            Page{" "}
-            <strong>
-              {pageIndex + 1} of {pageOptions.length}
-            </strong>{" "}
+            Results {start} - {realEnd} of {total}
           </span>
-          <span>
-            | Go to page:{" "}
-            <input
-              type="number"
-              defaultValue={pageIndex + 1}
-              onChange={(e) => {
-                const page = e.target.value ? Number(e.target.value) - 1 : 0;
-                gotoPage(page);
-              }}
-              style={{ width: "100px" }}
-            />
-          </span>{" "}
-          <select
-            className="tw-ml-5px"
+          <PagingSelect
+            className="tw-ml-5px tw-mr-36px"
             value={pageSize}
             onChange={(e) => {
               setPageSize(Number(e.target.value));
+              scrollToPagination();
             }}
-          >
-            {[10, 20, 30, 40, 50].map((pageSize) => (
-              <option key={pageSize} value={pageSize}>
-                Show {pageSize}
-              </option>
-            ))}
-          </select>
+            options={[
+              { value: 10, text: "10" },
+              { value: 20, text: "20" },
+              { value: 30, text: "30" },
+              { value: 40, text: "40" },
+              { value: 50, text: "50" },
+            ]}
+          />
+          <ReactPaginate
+            forcePage={pageIndex}
+            breakLabel="..."
+            nextLabel={
+              <div>
+                <img src={rightArrow} />
+              </div>
+            }
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={5}
+            pageCount={pageCount}
+            previousLabel={<img src={leftArrow} />}
+            renderOnZeroPageCount={null}
+            containerClassName="tw-inline-block"
+            pageClassName="tw-inline-block tw-text-bt-gray-600"
+            previousClassName="tw-inline-block"
+            nextClassName="tw-inline-block"
+            breakClassName="tw-inline-block"
+            pageLinkClassName="tw-inline-flex tw-justify-center tw-items-center tw-text-14px 
+            tw-w-40px tw-h-40px tw-rounded-full"
+            activeLinkClassName="tw-bg-bt-orange tw-text-white tw-font-medium"
+            previousLinkClassName="tw-inline-flex tw-justify-center tw-items-center 
+            tw-w-40px tw-h-40px tw-rounded-full tw-bg-bt-blue-100"
+            nextLinkClassName="tw-inline-flex tw-justify-center tw-items-center 
+            tw-w-40px tw-h-40px tw-rounded-full tw-bg-bt-blue-100"
+            disabledLinkClassName="tw-bg-transparent tw-cursor-default"
+          />
+          <span className="tw-font-medium tw-text-bt-gray-600 tw-ml-20px tw-mr-10px">
+            Go to
+          </span>
+          <input
+            placeholder={`e.g. 43`}
+            onChange={(e) => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0;
+              if (!isNaN(page)) {
+                gotoPage(page);
+                scrollToPagination();
+              }
+            }}
+            className="tw-h-40px tw-bg-bt-blue-100 tw-w-96px tw-text-18px tw-text-bt-gray-600 
+            tw-outline-none tw-px-8px tw-rounded-5px"
+          />
         </div>
       )}
     </div>
