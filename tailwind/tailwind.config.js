@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        roboto: ["Roboto", "sans-serif"],
-        "arial-rounded": ["ArialRounded", "sans-serif"],
+        satoshi: ["Satoshi", "sans-serif"],
+        // "arial-rounded": ["ArialRounded", "sans-serif"],
         arial: ["Artimo", "Arial", "Helvetica", "sans-serif"],
         lato: ["Lato", "sans-serif"],
       },
@@ -24,7 +24,9 @@ module.exports = {
         "24px": "24px",
         "27.5px": "27.5px",
         "28px": "28px",
+        "34px": "34px",
         "38px": "38px",
+        "56px": "56px",
       },
       colors: {
         "wf-royal-blue": "#0068f2",
@@ -136,28 +138,41 @@ module.exports = {
         "bt-white-2": "#eaede0",
         "bt-beige-1": "#e0e4ce",
         "bt-dark-beige": "#B3B6A5",
+        "bt-blue-100": "#f7f8fc",
+        "bt-blue-200": "#D4E1FA",
+        "bt-blue-500": "#1232DB",
+        "bt-orange": "#cc4421",
+        "bt-gray-100": "#CFD2DC",
+        "bt-gray-500": "#60698B",
+        "bt-gray-600": "#545C7A",
+        "bt-gray-700": "#454C64",
+        "bt-gray-1": "#F5F6FC",
+        "bt-gray-2": "rgb(96, 105, 139)",
+        "bt-black": "#13141C",
+        "bt-spring-green": "#3EC2B2",
+        "bt-red": "#DC2626",
       },
       backgroundImage: {
-        "wf-search-lens":
-          "url('/src/components/shared/images/24-px-search.png')",
-        "wf-search-lens-dark":
-          "url('/src/components/shared/images/24-px-search-dark.svg')",
+        "wf-search-lens": "url('/src/components/shared/images/24-px-search.png')",
+        "wf-search-lens-dark": "url('/src/components/shared/images/24-px-search-dark.svg')",
         "wf-input-close-x": "url('/src/components/shared/images/close-3.svg')",
-        "wf-calendar-icon":
-          "url('/src/components/shared/images/24-px-calendar-2.svg')",
-        "standard-btn-gradient-blue":
-          "linear-gradient(to bottom, #0087f8, #0062f2)",
-        "standard-btn-gradient-green":
-          "linear-gradient(to bottom, #0fb269, #0fb269)",
-        "standard-btn-gradient-green-2":
-          "linear-gradient(to bottom, #8d9660, #8da660)",
-        "standard-btn-gradient-red":
-          "linear-gradient(to bottom, #d8202e, #d8202e)",
+        "wf-calendar-icon": "url('/src/components/shared/images/24-px-calendar-2.svg')",
+        "standard-btn-gradient-blue": "linear-gradient(to bottom, #0087f8, #0062f2)",
+        "standard-btn-gradient-green": "linear-gradient(to bottom, #0fb269, #0fb269)",
+        "standard-btn-gradient-green-2": "linear-gradient(to bottom, #8d9660, #8da660)",
+        "standard-btn-gradient-red": "linear-gradient(to bottom, #d8202e, #d8202e)",
         "blue-label-gradient": "linear-gradient(to bottom, #1a89f0, #1065e8)",
-        "menu-item-gradient-1":
-          "linear-gradient(to right, rgba(13,90,229,0.2), rgba(13,90,229,0.02))",
-        "horizontal-gradient-blue":
-          "linear-gradient(to right, #0087f8 2%, #0062f2 102%)",
+        "menu-item-gradient-1": "linear-gradient(to right, rgba(13,90,229,0.2), rgba(13,90,229,0.02))",
+        "horizontal-gradient-blue": "linear-gradient(to right, #0087f8 2%, #0062f2 102%)",
+        "landing-page-gradient": "linear-gradient(to bottom, rgba(70, 219, 201, 0.5), rgba(18, 50, 219, 0.25))",
+        "dropdown-arrow":
+          "linear-gradient(45deg, transparent 50%, #60698B 50%), linear-gradient(135deg, #60698B 50%, transparent 50%)",
+      },
+      backgroundPosition: {
+        "dropdown-arrow": "right 15px top 1em, right 10px top 1em",
+      },
+      backgroundSize: {
+        "dropdown-arrow": "5px 5px, 5px 5px",
       },
       gridTemplateRows: {
         "8-2": "8fr 2fr",
@@ -177,10 +192,13 @@ module.exports = {
         2: "2px 2px 11px 2px rgba(0, 0, 0, 0.15)",
         3: "0 10px 60px -5px rgba(0, 0, 0, 0.05)",
         4: "0 2px 14px 0 rgba(0, 0, 0, 0.1)",
+        5: "0 4px 40px rgba(84, 92, 122, 0.07)",
       },
       spacing: {
         minus1px: "-1px",
         minus2px: "-2px",
+        minus4px: "-4px",
+        minus5px: "-5px",
         minus6px: "-6px",
         minus38px: "-38px",
         "2px": "2px",
@@ -209,6 +227,7 @@ module.exports = {
         "27px": "27px",
         "28px": "28px",
         "30px": "30px",
+        "31px": "31px",
         "32px": "32px",
         "33px": "33px",
         "34px": "34px",
@@ -227,8 +246,10 @@ module.exports = {
         "60px": "60px",
         "64px": "64px",
         "70px": "70px",
+        "96px": "96px",
         "100px": "100px",
         "102px": "102px",
+        "104px": "104px",
         "110px": "110px",
         "122px": "122px",
         "135px": "135px",
@@ -241,6 +262,7 @@ module.exports = {
         "200px": "200px",
         "208px": "208px",
         "220px": "220px",
+        "225px": "225px",
         "231px": "231px",
         "240px": "240px",
         "250px": "250px",
@@ -250,6 +272,7 @@ module.exports = {
         "350px": "350px",
         "360px": "360px",
         "408px": "408px",
+        "464px": "464px",
         "500px": "500px",
         "560px": "560px",
         "600px": "600px",
@@ -261,6 +284,7 @@ module.exports = {
         "900px": "900px",
         "1000px": "1000px",
         "1006px": "1006px",
+        "5pct": "5%",
         "10pct": "10%",
         "20pct": "20%",
         "30pct": "30%",
@@ -273,6 +297,7 @@ module.exports = {
         "70pct": "70%",
         "80pct": "80%",
         "90pct": "90%",
+        "95pct": "95%",
         "100pct": "100%",
       },
       borderWidth: {
@@ -294,6 +319,7 @@ module.exports = {
         "20px": "20px",
         "25px": "25px",
         "30px": "30px",
+        circle: "50%",
       },
       // width: {
       //   "20px": "20px",
@@ -313,6 +339,7 @@ module.exports = {
         "35px": "35px",
         "60px": "60px",
         "173px": "173px",
+        "200px": "200px",
         "303px": "303px",
         "50pct": "50%",
       },

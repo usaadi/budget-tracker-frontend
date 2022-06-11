@@ -8,4 +8,6 @@ const appSections = {
   incomeCategories: "incomeCategories",
 };
 
-export { appSections };
+const appTitle = "Budgeteeer";
+
+export { appSections, appTitle };

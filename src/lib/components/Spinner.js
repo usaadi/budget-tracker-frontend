@@ -1,9 +1,9 @@
 const Spinner = ({
   className,
   strokeColor,
-  strokeWidth = "10",
-  widthClass = "tw-w-[25px]",
-  marginClass = "tw-mr-[10px]",
+  strokeWidth = "8",
+  widthClass = "tw-w-22px",
+  marginClass = "tw-mr-10px",
   spinClass = "tw-animate-spin",
 }) => {
   let sColor;

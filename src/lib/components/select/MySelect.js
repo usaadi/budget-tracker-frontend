@@ -52,11 +52,14 @@ const MySelect = ({
     }),
     indicatorSeparator: (provided) => ({ display: "none" }),
   };
+
+  const extraBorderClass = errorMessage ? "tw-border tw-border-bt-red" : "tw-border-bt-blue-500";
+
   return (
     <div className={`form-element form-select ${className ? className : ""}`}>
       <div
-        className={`${borderColorClass} form-select-container tw-flex tw-flex-row tw-justify-between tw-items-center
-      tw-h-[50px] tw-border tw-border-solid tw-rounded-[25px] tw-bg-white tw-px-18px`}
+        className={`${extraBorderClass} tw-h-40px tw-bg-bt-blue-100 tw-w-full tw-rounded-5px tw-px-6px 
+    tw-outline-none hover:tw-border focus:tw-border tw-border-solid`}
       >
         <Controller
           control={control}
@@ -71,7 +74,7 @@ const MySelect = ({
               isClearable
               //openMenuOnClick={false}
               allowCreate={allowCreate}
-              className="react-select-container"
+              className={`react-select-container`}
               classNamePrefix="rs-"
               value={options.find((c) => c.value === value)}
               onChange={(val) => onChange(val?.value)}
@@ -79,14 +82,7 @@ const MySelect = ({
           )}
         />
       </div>
-      {errorMessage && (
-        <div
-          className="tw-bg-wf-warning-bg tw-text-wf-warning-text tw-text-[0.938rem] 
-          tw-p-[15px] tw-rounded-[2px] tw-font-ar"
-        >
-          {errorMessage}
-        </div>
-      )}
+      {errorMessage && <div className="tw-absolute tw-text-bt-red tw-text-12px">{errorMessage}</div>}
     </div>
   );
 };

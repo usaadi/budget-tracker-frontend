@@ -6,17 +6,32 @@ import { defaultQueryStaleTimeMs } from "../../constants/queryParameters";
 
 const baseUrl = process.env.REACT_APP_BASE_API_URL;
 
-const useTransactionsSummary = (transactionTypeName, fromDate, toDate) => {
+const useTransactionsSummary = (
+  transactionTypeName,
+  fromDate,
+  toDate,
+  pageSize,
+  pageNumber
+) => {
   const { getApiConfig } = useApiConfig();
 
   return useQuery(
-    ["transactions-summary", transactionTypeName, fromDate, toDate],
+    [
+      "transactions-summary",
+      transactionTypeName,
+      fromDate,
+      toDate,
+      pageSize,
+      pageNumber,
+    ],
     async () => {
       const url = `${baseUrl}transactionssummary/${transactionTypeName}`;
       const config = await getApiConfig();
       const data = {
         fromDate,
         toDate,
+        pageSize,
+        pageNumber,
       };
       return await axios.post(url, data, config);
     },
