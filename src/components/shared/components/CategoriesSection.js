@@ -29,7 +29,6 @@ const CategoriesSection = ({ transactionType, className }) => {
 
   const columns = useMemo(
     () => [
-      { Header: "Id", accessor: "uniqueId" },
       {
         Header: "Category",
         accessor: "name",

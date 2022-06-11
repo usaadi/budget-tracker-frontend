@@ -26,18 +26,14 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
   const displayClass = isHidden ? "tw-hidden" : "tw-flex";
 
   const transactionTypeName = getTransactionTypeName(transactionType);
-  console.log(transactionType);
-  console.log(transactionTypeName);
 
-  const categoriesInfo = useCategories(transactionTypeName);
+  const categoriesInfo = useCategories(transactionTypeName, 0, 0, true);
   const categories = categoriesInfo.isSuccess ? categoriesInfo.data.data.items : [];
 
   const categoriesOptions = categories.map((category) => ({
     value: category.uniqueId,
     label: category.name,
   }));
-
-  console.log(categoriesOptions);
 
   const createTransactionMutation = useCreateTransaction();
 

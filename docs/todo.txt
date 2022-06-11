@@ -35,4 +35,5 @@ Todo - 2022-06-06
  ✅ Hook up above pages with api ((07-09)-06-2022)
  ✅ Add ability to clear the date-range selector and show "all time" when empty.
  - Hook up the List elements with the api.
+ - add Sorting
  - Add/Edit/Delete for above pages ((10-12)-06-2022)
