@@ -5,18 +5,14 @@ import _ from "lodash";
 
 import Button from "../../../lib/components/buttons/Button";
 import calendarIcon from "../../shared/images/calendar-icon.png";
+import closeIcon from "../../shared/images/gray-close-icon.png";
 
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 
 import { shortDateFormatter } from "../../../lib/util/formatting/dateFormatting";
 
-const CalendarPicker = ({
-  containerClassName,
-  onApply,
-  activeDateRange,
-  locale = "en-us",
-}) => {
+const CalendarPicker = ({ containerClassName, onApply, activeDateRange, locale = "en-us" }) => {
   const [datePickerState, setDatePickerState] = useState([
     {
       startDate: new Date(),
@@ -39,18 +35,13 @@ const CalendarPicker = ({
     }
   }, [showDropDown]);
   const handleClick = (e) => {
-    if (
-      refDropdown &&
-      refDropdown.current &&
-      refDropdown.current.contains(e.target)
-    ) {
+    if (refDropdown && refDropdown.current && refDropdown.current.contains(e.target)) {
       return;
     }
     setShowDropDown(false);
   };
 
-  const pickerStateItem =
-    datePickerState?.length > 0 ? datePickerState[0] : null;
+  const pickerStateItem = datePickerState?.length > 0 ? datePickerState[0] : null;
 
   const selectedRange = pickerStateItem
     ? {
@@ -65,9 +56,14 @@ const CalendarPicker = ({
     onApply(selectedRange);
   };
 
+  const clearDates = (e) => {
+    e.stopPropagation();
+    onApply(null);
+  };
+
   const dateRangeText = useMemo(() => {
     if (!activeDateRange) {
-      return "";
+      return "(All time)";
     }
     const startDateText = shortDateFormatter(activeDateRange.startDate, locale);
     const endDateText = shortDateFormatter(activeDateRange.endDate, locale);
@@ -85,9 +81,12 @@ const CalendarPicker = ({
         onClick={() => toggleShowDropDown()}
         className="tw-h-40px tw-bg-bt-gray-1 tw-rounded-5px tw-text-18px tw-w-320px"
       >
-        <span className="tw-px-16px tw-flex tw-justify-between tw-items-center">
+        <span className="tw-px-16px tw-flex tw-items-center">
           <span>{dateRangeText}</span>
-          <img src={calendarIcon} />
+          <div className="tw-ml-auto tw-flex tw-items-center">
+            {activeDateRange && <img onClick={clearDates} src={closeIcon} className="tw-mr-10px" />}
+            <img src={calendarIcon} />
+          </div>
         </span>
       </Button>
       {
