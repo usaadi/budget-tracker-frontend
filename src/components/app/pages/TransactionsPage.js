@@ -4,6 +4,9 @@ import DataTable from "../../../lib/components/DataTable";
 import TransactionList from "../../shared/components/TransactionList";
 import Button from "../../../lib/components/buttons/Button";
 
+import useTransactions from "../../../api/transactions/useTransactions";
+import useInfiniteTransactions from "../../../api/transactions/useInfiniteTransactions";
+
 import noDataImg from "../../shared/images/no-data.png";
 import editIcon from "../../shared/images/edit-icon.png";
 import deleteIcon from "../../shared/images/delete-icon.png";
@@ -11,7 +14,6 @@ import deleteIcon from "../../shared/images/delete-icon.png";
 import { transactionTypeEnum } from "../../../constants/enums";
 import { shortDateFormatter } from "../../../lib/util/formatting/dateFormatting";
 import { getTransactionTypeName } from "../../../util/getEnumName";
-import useTransactions from "../../../api/transactions/useTransactions";
 
 const sampleIncome = [
   {
@@ -56,6 +58,13 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
     setPageSize(pageSize);
     //transactionsInfo.refetch();
   }, []);
+
+  const infiniteTxPageSize = 10;
+  const infiniteTransactionsInfo = useInfiniteTransactions(transactionTypeName, fromDate, toDate, infiniteTxPageSize);
+  const infiniteTxPages = infiniteTransactionsInfo.data?.pages;
+  const loadMore = () => {
+    infiniteTransactionsInfo.fetchNextPage();
+  };
 
   const data = useMemo(() => {
     return transactions.map((x) => ({
@@ -114,7 +123,12 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
           pageCount={pageCount}
           totalCount={totalCount}
         />
-        <TransactionList className={`${extraListClass} lg:tw-hidden tw-grow`} data={data} />
+        <TransactionList
+          className={`${extraListClass} lg:tw-hidden tw-grow`}
+          pages={infiniteTxPages}
+          pageSize={infiniteTxPageSize}
+          loadMore={loadMore}
+        />
       </div>
       {isEmpty && (
         <div className="tw-flex-center tw-flex-col tw-h-full tw-gap-32px">

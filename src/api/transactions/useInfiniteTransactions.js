@@ -5,9 +5,8 @@ import useApiConfig from "../useApiConfig";
 import { defaultQueryStaleTimeMs } from "../../constants/queryParameters";
 
 const baseUrl = process.env.REACT_APP_BASE_API_URL;
-const pageSize = 20;
 
-const useInfiniteTransactions = (transactionTypeName, fromDate, toDate) => {
+const useInfiniteTransactions = (transactionTypeName, fromDate, toDate, pageSize) => {
   const { getApiConfig } = useApiConfig();
 
   return useInfiniteQuery(
@@ -26,7 +25,7 @@ const useInfiniteTransactions = (transactionTypeName, fromDate, toDate) => {
     {
       keepPreviousData: true,
       staleTime: defaultQueryStaleTimeMs,
-      getNextPageParam,
+      getNextPageParam: (page) => (page.data.hasMore ? page.data.nextPageNumber : undefined),
     }
   );
 };
