@@ -64,6 +64,7 @@ const CategoriesSection = ({ transactionType, className }) => {
           data={categories}
           fetchData={fetchData}
           pageCount={pageCount}
+          totalCount={totalCount}
         />
         <CategoriesList className={`${extraListClass} lg:tw-hidden tw-grow`} data={categories} />
       </div>

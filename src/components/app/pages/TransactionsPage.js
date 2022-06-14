@@ -112,6 +112,7 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
           data={data}
           fetchData={fetchData}
           pageCount={pageCount}
+          totalCount={totalCount}
         />
         <TransactionList className={`${extraListClass} lg:tw-hidden tw-grow`} data={data} />
       </div>

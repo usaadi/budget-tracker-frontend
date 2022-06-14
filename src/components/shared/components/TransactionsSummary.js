@@ -59,6 +59,7 @@ const TransactionsSummary = ({ transactionType, className, activeDateRange }) =>
           data={transactionsSummaryItems}
           fetchData={fetchData}
           pageCount={pageCount}
+          totalCount={totalCount}
         />
         <SummaryList className={`${extraListClass} lg:tw-hidden tw-grow`} data={transactionsSummaryItems} />
       </div>
