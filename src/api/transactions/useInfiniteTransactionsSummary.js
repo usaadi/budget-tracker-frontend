@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useInfiniteQuery } from "react-query";
 import axios from "axios";
 import useApiConfig from "../useApiConfig";
 
@@ -6,29 +6,28 @@ import { defaultQueryStaleTimeMs } from "../../constants/queryParameters";
 
 const baseUrl = process.env.REACT_APP_BASE_API_URL;
 
-const useTransactionsSummary = (transactionTypeName, fromDate, toDate, pageSize, pageNumber, sortBy, isDesc) => {
+const useInfiniteTransactionsSummary = (transactionTypeName, fromDate, toDate, pageSize) => {
   const { getApiConfig } = useApiConfig();
 
-  return useQuery(
-    ["transactions-summary", transactionTypeName, fromDate, toDate, pageSize, pageNumber, sortBy, isDesc],
-    async () => {
+  return useInfiniteQuery(
+    ["infinte-transactions-summary", transactionTypeName, fromDate, toDate, pageSize],
+    async ({ pageParam = 1 }) => {
       const url = `${baseUrl}transactionssummary/${transactionTypeName}`;
       const config = await getApiConfig();
       const data = {
         fromDate,
         toDate,
         pageSize,
-        pageNumber,
-        sortBy,
-        isDesc,
+        pageNumber: pageParam,
       };
       return await axios.post(url, data, config);
     },
     {
       keepPreviousData: true,
       staleTime: defaultQueryStaleTimeMs,
+      getNextPageParam: (page) => (page.data.hasMore ? page.data.nextPageNumber : undefined),
     }
   );
 };
 
-export default useTransactionsSummary;
+export default useInfiniteTransactionsSummary;

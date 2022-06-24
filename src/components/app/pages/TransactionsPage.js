@@ -38,6 +38,8 @@ const sampleExpenses = [
 const TransactionsPage = ({ transactionType, activeDateRange }) => {
   const [pageSize, setPageSize] = useState(10);
   const [pageNumber, setPageNumber] = useState(1);
+  const [sortBy, setSortBy] = useState(null);
+  const [isDesc, setIsDesc] = useState(false);
 
   if (!activeDateRange) {
     activeDateRange = {};
@@ -47,15 +49,38 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
 
   const transactionTypeName = getTransactionTypeName(transactionType);
 
-  const transactionsInfo = useTransactions(transactionTypeName, fromDate, toDate, pageSize, pageNumber);
+  const transactionsInfo = useTransactions(transactionTypeName, fromDate, toDate, pageSize, pageNumber, sortBy, isDesc);
   const transactions = transactionsInfo.data?.data?.items ?? [];
 
   const totalCount = transactionsInfo.data?.data?.totalCount;
   const pageCount = pageSize > 0 ? Math.ceil(totalCount / pageSize) : 0;
 
-  const fetchData = useCallback(({ pageIndex, pageSize }) => {
+  const setSorting = (sortBy) => {
+    if (sortBy && sortBy.length > 0) {
+      const fieldStr = sortBy[0].id;
+      let field;
+      switch (fieldStr) {
+        case "transactionDateStr":
+          field = "transactionDate";
+          break;
+        case "categoryName":
+          field = "category";
+          break;
+        default:
+          field = fieldStr;
+          break;
+      }
+      setSortBy(field);
+      const isDesc = sortBy[0].desc ? true : false;
+      setIsDesc(isDesc);
+    }
+  };
+
+  const fetchData = useCallback(({ pageIndex, pageSize, sortBy }) => {
     setPageNumber(pageIndex + 1);
     setPageSize(pageSize);
+    console.log(sortBy);
+    setSorting(sortBy);
     //transactionsInfo.refetch();
   }, []);
 

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { useTable, usePagination } from "react-table";
+import { useTable, usePagination, useSortBy } from "react-table";
 import ReactPaginate from "react-paginate";
 
 import PagingSelect from "./select/PagingSelect";
@@ -36,8 +36,10 @@ const DataTable = ({
       initialState,
       autoResetHiddenColumns: false,
       manualPagination: true,
+      manualSortBy: true,
       pageCount: controlledPageCount,
     },
+    useSortBy,
     usePagination
   );
 
@@ -59,12 +61,12 @@ const DataTable = ({
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
+    state: { pageIndex, pageSize, sortBy },
   } = tableInstance;
 
   useEffect(() => {
-    fetchData({ pageIndex, pageSize });
-  }, [fetchData, pageIndex, pageSize]);
+    fetchData({ pageIndex, pageSize, sortBy });
+  }, [fetchData, pageIndex, pageSize, sortBy]);
 
   const currentPage = pageIndex;
   const start = pageIndex * pageSize + 1;
@@ -94,7 +96,7 @@ const DataTable = ({
   //const className = "tw-cursor-default";
 
   const tableClass = "tw-min-w-full";
-  const theadClass = "";
+  const theadClass = "tw-select-none";
   const thClass = `tw-py-12px tw-font-medium tw-tracking-wider 
     tw-text-16px tw-font-medium tw-text-black tw-uppercase tw-text-left`;
   const rowClass = "tw-border-b tw-border-bt-blue-200";
@@ -117,8 +119,12 @@ const DataTable = ({
                       alignClass = "tw-text-right";
                     }
                     return (
-                      <th className={`${thClass} ${alignClass}`} {...column.getHeaderProps()}>
+                      <th
+                        className={`${thClass} ${alignClass}`}
+                        {...column.getHeaderProps(column.getSortByToggleProps())}
+                      >
                         {column.render("Header")}
+                        <span>{column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}</span>
                       </th>
                     );
                   })}

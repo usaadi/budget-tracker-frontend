@@ -6,21 +6,15 @@ import { defaultQueryStaleTimeMs } from "../../constants/queryParameters";
 
 const baseUrl = process.env.REACT_APP_BASE_API_URL;
 
-const useInfiniteTransactions = (transactionTypeName, fromDate, toDate, pageSize) => {
+const useInfiniteCategories = (transactionTypeName, pageSize) => {
   const { getApiConfig } = useApiConfig();
 
   return useInfiniteQuery(
-    ["infinite-transactions", transactionTypeName, fromDate, toDate, pageSize],
+    ["infinite-categories", transactionTypeName, pageSize],
     async ({ pageParam = 1 }) => {
-      const url = `${baseUrl}transactions/${transactionTypeName}`;
+      const url = `${baseUrl}categories/${transactionTypeName}/${pageSize}/${pageParam}`;
       const config = await getApiConfig();
-      const data = {
-        fromDate,
-        toDate,
-        pageSize,
-        pageNumber: pageParam,
-      };
-      return await axios.post(url, data, config);
+      return await axios.get(url, config);
     },
     {
       keepPreviousData: true,
@@ -30,4 +24,4 @@ const useInfiniteTransactions = (transactionTypeName, fromDate, toDate, pageSize
   );
 };
 
-export default useInfiniteTransactions;
+export default useInfiniteCategories;
