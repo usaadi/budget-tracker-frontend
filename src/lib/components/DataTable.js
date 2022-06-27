@@ -16,7 +16,7 @@ const DataTable = ({
   loading,
   pageCount: controlledPageCount,
   totalCount,
-  hiddenColumns = [],
+  hiddenColumns = null,
   noHeader,
   noPagination,
   noPaginationForTenItems,
@@ -27,7 +27,7 @@ const DataTable = ({
   const data_data = data ?? [];
   const showHeader = !noHeader;
   const showPagination = !noPagination && (data_data?.length > 10 || !noPaginationForTenItems);
-  const initialState = { hiddenColumns, pageIndex: 0 };
+  const initialState = { pageIndex: 0 };
 
   const tableInstance = useTable(
     {
@@ -61,8 +61,18 @@ const DataTable = ({
     nextPage,
     previousPage,
     setPageSize,
+    setHiddenColumns,
     state: { pageIndex, pageSize, sortBy },
   } = tableInstance;
+
+  useEffect(() => {
+    console.log("abc");
+    if (hiddenColumns) {
+      setHiddenColumns(hiddenColumns);
+    } else {
+      setHiddenColumns([]);
+    }
+  }, [hiddenColumns]);
 
   useEffect(() => {
     fetchData({ pageIndex, pageSize, sortBy });

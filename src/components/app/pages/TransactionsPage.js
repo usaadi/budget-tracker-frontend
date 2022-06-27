@@ -1,11 +1,14 @@
 import { useCallback, useMemo, useState } from "react";
 
+import useConfirm from "../../../lib/components/confirm/useConfirm";
+
 import DataTable from "../../../lib/components/DataTable";
 import TransactionList from "../../shared/components/TransactionList";
 import Button from "../../../lib/components/buttons/Button";
 
 import useTransactions from "../../../api/transactions/useTransactions";
 import useInfiniteTransactions from "../../../api/transactions/useInfiniteTransactions";
+import useDeleteTransaction from "../../../api/transactions/useDeleteTransaction";
 
 import noDataImg from "../../shared/images/no-data.png";
 import editIcon from "../../shared/images/edit-icon.png";
@@ -49,7 +52,15 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
 
   const transactionTypeName = getTransactionTypeName(transactionType);
 
-  const transactionsInfo = useTransactions(transactionTypeName, fromDate, toDate, pageSize, pageNumber, sortBy, isDesc);
+  const transactionsInfo = useTransactions(
+    transactionTypeName,
+    fromDate,
+    toDate,
+    pageSize,
+    pageNumber,
+    sortBy,
+    isDesc
+  );
   const transactions = transactionsInfo.data?.data?.items ?? [];
 
   const totalCount = transactionsInfo.data?.data?.totalCount;
@@ -85,10 +96,38 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
   }, []);
 
   const infiniteTxPageSize = 10;
-  const infiniteTransactionsInfo = useInfiniteTransactions(transactionTypeName, fromDate, toDate, infiniteTxPageSize);
+  const infiniteTransactionsInfo = useInfiniteTransactions(
+    transactionTypeName,
+    fromDate,
+    toDate,
+    infiniteTxPageSize
+  );
   const infiniteTxPages = infiniteTransactionsInfo.data?.pages;
   const loadMore = () => {
     infiniteTransactionsInfo.fetchNextPage();
+  };
+
+  const { isConfirmed } = useConfirm();
+
+  const deleteTransactionMutation = useDeleteTransaction(transactionTypeName);
+
+  const handleDeleteRow = async (row) => {
+    const ok = await isConfirmed(
+      "Delete",
+      `Are you sure you want to delete this ${transactionTypeName}?`,
+      "Delete",
+      "Cancel"
+    );
+    if (ok) {
+      deleteTransactionMutation.mutateAsync(
+        { uniqueId: row.values.uniqueId },
+        {
+          onError: async (error) => {
+            console.log(error);
+          },
+        }
+      );
+    }
   };
 
   const data = useMemo(() => {
@@ -98,8 +137,13 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
       ...x,
     }));
   }, [transactions]);
+
   const columns = useMemo(
     () => [
+      {
+        Header: "uniqueId",
+        accessor: "uniqueId",
+      },
       {
         Header: "Date",
         accessor: "transactionDateStr",
@@ -123,14 +167,14 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
             <Button>
               <img src={editIcon} />
             </Button>
-            <Button className="tw-ml-21px">
+            <Button className="tw-ml-21px" onClick={() => handleDeleteRow(cell.row)}>
               <img src={deleteIcon} />
             </Button>
           </>
         ),
       },
     ],
-    []
+    [data]
   );
 
   const isEmpty = data.length === 0;
@@ -147,6 +191,7 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
           fetchData={fetchData}
           pageCount={pageCount}
           totalCount={totalCount}
+          hiddenColumns={["uniqueId"]}
         />
         <TransactionList
           className={`${extraListClass} lg:tw-hidden tw-grow`}
