@@ -5,6 +5,8 @@ import useConfirm from "../../../lib/components/confirm/useConfirm";
 import DataTable from "../../../lib/components/DataTable";
 import TransactionList from "../../shared/components/TransactionList";
 import Button from "../../../lib/components/buttons/Button";
+import ModalPopup from "../../../lib/components/ModalPopup";
+import EditTransactionForm from "../../shared/forms/EditTransactionForm";
 
 import useTransactions from "../../../api/transactions/useTransactions";
 import useInfiniteTransactions from "../../../api/transactions/useInfiniteTransactions";
@@ -43,6 +45,8 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [sortBy, setSortBy] = useState(null);
   const [isDesc, setIsDesc] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [currentTransaction, setCurrentTransaction] = useState("");
 
   if (!activeDateRange) {
     activeDateRange = {};
@@ -130,6 +134,16 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
     }
   };
 
+  const handleEditRow = (row) => {
+    const transaction = transactions.find((x) => x.uniqueId === row.values.uniqueId);
+    if (!transaction) {
+      return;
+    }
+
+    setCurrentTransaction(transaction);
+    setShowEdit(true);
+  };
+
   const data = useMemo(() => {
     return transactions.map((x) => ({
       transactionDateStr: shortDateFormatter(x.transactionDate),
@@ -165,7 +179,7 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
         Cell: ({ cell }) => (
           <>
             <Button>
-              <img src={editIcon} />
+              <img src={editIcon} onClick={() => handleEditRow(cell.row)} />
             </Button>
             <Button className="tw-ml-21px" onClick={() => handleDeleteRow(cell.row)}>
               <img src={deleteIcon} />
@@ -205,6 +219,15 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
           <img src={noDataImg} />
           <h1 className="tw-text-34px tw-font-medium">No data to display</h1>
         </div>
+      )}
+      {showEdit && (
+        <ModalPopup removePopup={() => setShowEdit(false)}>
+          <EditTransactionForm
+            transactionType={transactionType}
+            transaction={currentTransaction}
+            closeMe={() => setShowEdit(false)}
+          />
+        </ModalPopup>
       )}
     </>
   );
