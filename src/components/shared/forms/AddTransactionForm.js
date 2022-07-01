@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useForm } from "react-hook-form";
 
 import { validate as isValidUUID } from "uuid";
@@ -30,10 +30,14 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
   const categoriesInfo = useCategories(transactionTypeName, 0, 0, true);
   const categories = categoriesInfo.isSuccess ? categoriesInfo.data.data.items : [];
 
-  const categoriesOptions = categories.map((category) => ({
-    value: category.uniqueId,
-    label: category.name,
-  }));
+  const categoriesOptions = useMemo(
+    () =>
+      categories.map((category) => ({
+        value: category.uniqueId,
+        label: category.name,
+      })),
+    [categories]
+  );
 
   const createTransactionMutation = useCreateTransaction();
 
@@ -99,8 +103,13 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit, onErrorSubmit)} className={`${displayClass} tw-flex-col tw-items-stretch`}>
-      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">Date</label>
+    <form
+      onSubmit={handleSubmit(onSubmit, onErrorSubmit)}
+      className={`${displayClass} tw-flex-col tw-items-stretch`}
+    >
+      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">
+        Date
+      </label>
       <StandardDatePicker
         //openToDate={openToDate}
         control={control}
@@ -109,7 +118,9 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
         errorMessage={errors.transactionDate?.message}
         className="tw-mb-20px"
       />
-      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">Amount</label>
+      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">
+        Amount
+      </label>
       <StandardInput
         // placeholder="Amount"
         register={register("amount", {
@@ -125,7 +136,9 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
         placeholderClass="placeholder:tw-text-db-gray-27"
         className="tw-mb-20px"
       />
-      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">Category</label>
+      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">
+        Category
+      </label>
       <StandardSelect
         options={categoriesOptions}
         control={control}

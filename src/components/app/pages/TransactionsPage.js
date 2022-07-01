@@ -5,8 +5,7 @@ import useConfirm from "../../../lib/components/confirm/useConfirm";
 import DataTable from "../../../lib/components/DataTable";
 import TransactionList from "../../shared/components/TransactionList";
 import Button from "../../../lib/components/buttons/Button";
-import ModalPopup from "../../../lib/components/ModalPopup";
-import EditTransactionForm from "../../shared/forms/EditTransactionForm";
+import EditTransactionPopup from "../../shared/components/EditTransactionPopup";
 
 import useTransactions from "../../../api/transactions/useTransactions";
 import useInfiniteTransactions from "../../../api/transactions/useInfiniteTransactions";
@@ -221,13 +220,7 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
         </div>
       )}
       {showEdit && (
-        <ModalPopup removePopup={() => setShowEdit(false)}>
-          <EditTransactionForm
-            transactionType={transactionType}
-            transaction={currentTransaction}
-            closeMe={() => setShowEdit(false)}
-          />
-        </ModalPopup>
+        <EditTransactionPopup transaction={currentTransaction} onClose={() => setShowEdit(false)} />
       )}
     </>
   );

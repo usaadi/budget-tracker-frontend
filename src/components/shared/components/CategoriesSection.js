@@ -9,6 +9,8 @@ import useDeleteCategory from "../../../api/categories/useDeleteCategory";
 import DataTable from "../../../lib/components/DataTable";
 import Button from "../../../lib/components/buttons/Button";
 
+import EditCategoryPopup from "./EditCategoryPopup";
+
 import CategoriesList from "./CategoriesList";
 
 import noDataImg from "../../shared/images/no-data.png";
@@ -22,6 +24,9 @@ const CategoriesSection = ({ transactionType, className }) => {
   const [pageNumber, setPageNumber] = useState(1);
   const [sortBy, setSortBy] = useState(null);
   const [isDesc, setIsDesc] = useState(false);
+
+  const [showEdit, setShowEdit] = useState(false);
+  const [currentCategory, setCurrentCategory] = useState("");
 
   const transactionTypeName = getTransactionTypeName(transactionType);
 
@@ -113,6 +118,11 @@ const CategoriesSection = ({ transactionType, className }) => {
     }
   };
 
+  const handleEditRow = (row) => {
+    setCurrentCategory(row.values);
+    setShowEdit(true);
+  };
+
   const columns = useMemo(
     () => [
       {
@@ -131,7 +141,7 @@ const CategoriesSection = ({ transactionType, className }) => {
         Header: "Actions",
         Cell: ({ cell }) => (
           <>
-            <Button>
+            <Button onClick={() => handleEditRow(cell.row)}>
               <img src={editIcon} />
             </Button>
             <Button className="tw-ml-21px" onClick={() => handleDeleteRow(cell.row)}>
@@ -173,6 +183,9 @@ const CategoriesSection = ({ transactionType, className }) => {
           <img src={noDataImg} />
           <h1 className="tw-text-34px tw-font-medium">No data to display</h1>
         </div>
+      )}
+      {showEdit && (
+        <EditCategoryPopup category={currentCategory} onClose={() => setShowEdit(false)} />
       )}
     </div>
   );
