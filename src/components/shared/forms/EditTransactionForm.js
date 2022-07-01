@@ -110,10 +110,14 @@ const EditTransactionForm = ({ transaction, closeMe }) => {
       onSubmit={handleSubmit(onSubmit, onErrorSubmit)}
       className="tw-flex tw-flex-col tw-items-stretch"
     >
-      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">
+      <label
+        htmlFor="transaction-date"
+        className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
+      >
         Date
       </label>
       <StandardDatePicker
+        id="transaction-date"
         //openToDate={openToDate}
         control={control}
         validationRules={{ required: "This field is required" }}
@@ -121,10 +125,14 @@ const EditTransactionForm = ({ transaction, closeMe }) => {
         errorMessage={errors.transactionDate?.message}
         className="tw-mb-20px"
       />
-      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">
+      <label
+        htmlFor="amount"
+        className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
+      >
         Amount
       </label>
       <StandardInput
+        id="amount"
         // placeholder="Amount"
         register={register("amount", {
           required: { value: true, message: "This field is required" },
@@ -139,15 +147,20 @@ const EditTransactionForm = ({ transaction, closeMe }) => {
         placeholderClass="placeholder:tw-text-db-gray-27"
         className="tw-mb-20px"
       />
-      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">
+      <label
+        htmlFor="category"
+        className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
+      >
         Category
       </label>
       <StandardSelect
+        id="category"
         options={categoriesOptions}
         control={control}
         name="categoryUniqueId"
         validationRules={{ required: "This field is required" }}
         allowCreate={true}
+        isClearable={false}
         // placeholder="Category"
         errorMessage={errors.categoryUniqueId?.message}
         borderColorClass="tw-border-db-blue-gray-1/50"
@@ -157,10 +170,14 @@ const EditTransactionForm = ({ transaction, closeMe }) => {
         textColor="#13141C"
         className="tw-mb-20px"
       />
-      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">
+      <label
+        htmlFor="description"
+        className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
+      >
         Description (Optional)
       </label>
       <StandardInput
+        id="description"
         // placeholder="Description"
         register={register("description")}
         errorMessage={errors.description?.message}

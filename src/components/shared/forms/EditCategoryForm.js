@@ -61,10 +61,14 @@ const EditCategoryForm = ({ category, closeMe }) => {
       onSubmit={handleSubmit(onSubmit, onErrorSubmit)}
       className="tw-flex tw-flex-col tw-items-stretch"
     >
-      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">
+      <label
+        htmlFor="name"
+        className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
+      >
         Category Name
       </label>
       <StandardInput
+        id="name"
         // placeholder="Category Name"
         register={register("name", { required: "This is required" })}
         value={watch("name")}
@@ -74,10 +78,14 @@ const EditCategoryForm = ({ category, closeMe }) => {
         placeholderClass="placeholder:tw-text-db-gray-27"
         className="tw-mb-20px"
       />
-      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">
+      <label
+        htmlFor="description"
+        className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
+      >
         Category Description
       </label>
       <StandardInput
+        id="description"
         // placeholder="Category Description"
         register={register("description")}
         value={watch("description")}
