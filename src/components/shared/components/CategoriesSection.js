@@ -17,7 +17,7 @@ import noDataImg from "../../shared/images/no-data.png";
 import editIcon from "../../shared/images/edit-icon.png";
 import deleteIcon from "../../shared/images/delete-icon.png";
 
-import { getTransactionTypeName } from "../../../util/getEnumName";
+import { getTransactionTypeName, getTransactionTypeSingularName } from "../../../util/getEnumName";
 
 const CategoriesSection = ({ transactionType, className }) => {
   const [pageSize, setPageSize] = useState(10);
@@ -29,6 +29,7 @@ const CategoriesSection = ({ transactionType, className }) => {
   const [currentCategory, setCurrentCategory] = useState("");
 
   const transactionTypeName = getTransactionTypeName(transactionType);
+  const txTypeSingularName = getTransactionTypeSingularName(transactionType);
 
   const categoriesInfo = useCategories(
     transactionTypeName,
@@ -74,20 +75,24 @@ const CategoriesSection = ({ transactionType, className }) => {
 
   const { isConfirmed } = useConfirm();
 
-  const handleDeleteRow = async (row) => {
+  const handleDeleteRow = (row) => {
+    onDeleteItem(row.values);
+  };
+
+  const onDeleteItem = async (category) => {
     const ok = await isConfirmed(
       "Delete",
-      `Are you sure you want to delete this ${transactionTypeName} category?`,
+      `Are you sure you want to delete this ${txTypeSingularName} category?`,
       "Delete",
       "Cancel"
     );
     if (ok) {
       deleteCategoryMutation.mutateAsync(
-        { uniqueId: row.values.uniqueId },
+        { uniqueId: category.uniqueId },
         {
           onError: async (error) => {
             if (error?.response?.data?.status === 409) {
-              handleConfirmDeleteRelatedData(row);
+              handleConfirmDeleteRelatedData(category);
             } else {
               console.log(error);
             }
@@ -97,7 +102,7 @@ const CategoriesSection = ({ transactionType, className }) => {
     }
   };
 
-  const handleConfirmDeleteRelatedData = async (row) => {
+  const handleConfirmDeleteRelatedData = async (category) => {
     const ok = await isConfirmed(
       "Delete",
       "This category contains related transactions and will also be deleted. Are you sure you want to delete this category and all related transactions?",
@@ -106,7 +111,7 @@ const CategoriesSection = ({ transactionType, className }) => {
     );
     if (ok) {
       deleteCategoryMutation.mutateAsync(
-        { uniqueId: row.values.uniqueId, allowDeleteRelatedData: true },
+        { uniqueId: category.uniqueId, allowDeleteRelatedData: true },
         {
           onError: async (error) => {
             console.log(error);
@@ -177,6 +182,7 @@ const CategoriesSection = ({ transactionType, className }) => {
         pages={infiniteCategoriesPages}
         pageSize={infiniteCategoriesPageSize}
         loadMore={loadMore}
+        onDeleteItem={onDeleteItem}
       />
       {isEmpty && (
         <div className="tw-flex-center tw-flex-col tw-h-full tw-gap-32px">

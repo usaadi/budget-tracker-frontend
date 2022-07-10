@@ -17,7 +17,7 @@ import deleteIcon from "../../shared/images/delete-icon.png";
 
 import { transactionTypeEnum } from "../../../constants/enums";
 import { shortDateFormatter } from "../../../lib/util/formatting/dateFormatting";
-import { getTransactionTypeName } from "../../../util/getEnumName";
+import { getTransactionTypeName, getTransactionTypeSingularName } from "../../../util/getEnumName";
 
 const sampleIncome = [
   {
@@ -54,6 +54,7 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
   const { startDate: fromDate, endDate: toDate } = activeDateRange;
 
   const transactionTypeName = getTransactionTypeName(transactionType);
+  const txTypeSingularName = getTransactionTypeSingularName(transactionType);
 
   const transactionsInfo = useTransactions(
     transactionTypeName,
@@ -114,16 +115,36 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
 
   const deleteTransactionMutation = useDeleteTransaction(transactionTypeName);
 
-  const handleDeleteRow = async (row) => {
+  const handleDeleteRow = (row) => {
+    onDeleteItem(row.values);
+    // const ok = await isConfirmed(
+    //   "Delete",
+    //   `Are you sure you want to delete this ${transactionTypeName}?`,
+    //   "Delete",
+    //   "Cancel"
+    // );
+    // if (ok) {
+    //   deleteTransactionMutation.mutateAsync(
+    //     { uniqueId: row.values.uniqueId },
+    //     {
+    //       onError: async (error) => {
+    //         console.log(error);
+    //       },
+    //     }
+    //   );
+    // }
+  };
+
+  const onDeleteItem = async (transaction) => {
     const ok = await isConfirmed(
       "Delete",
-      `Are you sure you want to delete this ${transactionTypeName}?`,
+      `Are you sure you want to delete this ${txTypeSingularName}?`,
       "Delete",
       "Cancel"
     );
     if (ok) {
       deleteTransactionMutation.mutateAsync(
-        { uniqueId: row.values.uniqueId },
+        { uniqueId: transaction.uniqueId },
         {
           onError: async (error) => {
             console.log(error);
@@ -211,6 +232,7 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
           pages={infiniteTxPages}
           pageSize={infiniteTxPageSize}
           loadMore={loadMore}
+          onDeleteItem={onDeleteItem}
         />
       </div>
       {isEmpty && (

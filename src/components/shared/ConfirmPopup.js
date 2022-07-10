@@ -23,7 +23,7 @@ const ConfirmPopup = () => {
           ref={popupRef}
           className="tw-w-[600px] tw-bg-white tw-rounded-5px tw-overflow-hidden
             tw-flex tw-flex-col tw-pt-35px tw-pr-32px tw-pb-32px tw-pl-32px tw-gap-15px
-            tw-select-none tw-relative tw-font-satoshi"
+            tw-select-none tw-relative tw-font-satoshi tw-mx-10px"
         >
           <img
             className="tw-absolute tw-cursor-pointer tw-right-15px tw-top-12px tw-w-12px"

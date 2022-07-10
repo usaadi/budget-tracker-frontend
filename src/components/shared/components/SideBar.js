@@ -19,7 +19,7 @@ const SideBar = ({ showPopup, onClose }) => {
   const className = "tw-w-auto tw-h-auto";
   const hiddenClass = showPopup ? "tw-flex" : "tw-hidden";
   const overlayClass = showPopup
-    ? "tw-absolute tw-w-full tw-h-full tw-bg-bt-black/50 lg:tw-static lg:tw-w-auto lg:tw-h-auto lg:tw-bg-transparent"
+    ? "tw-absolute tw-w-full tw-h-full tw-bg-bt-black/50 lg:tw-static lg:tw-w-auto lg:tw-h-auto lg:tw-bg-transparent tw-z-100"
     : "";
   return (
     <div className={`${overlayClass} tw-flex`}>
@@ -34,10 +34,7 @@ const SideBar = ({ showPopup, onClose }) => {
           >
             {appTitle}
           </div>
-          <Button
-            onClick={onClose}
-            className="lg:tw-hidden tw-ml-auto tw-mr-14px tw-mt-[-5px]"
-          >
+          <Button onClick={onClose} className="lg:tw-hidden tw-ml-auto tw-mr-14px tw-mt-[-5px]">
             <img src={closeIcon} />
           </Button>
         </div>

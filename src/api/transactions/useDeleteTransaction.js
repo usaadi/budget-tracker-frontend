@@ -17,6 +17,7 @@ const useDeleteTransaction = (transactionTypeName) => {
     {
       onSuccess: (_, variables) => {
         queryClient.refetchQueries("transactions", transactionTypeName);
+        queryClient.refetchQueries("infinite-transactions", transactionTypeName);
         queryClient.refetchQueries("transactions-summary", transactionTypeName);
         queryClient.refetchQueries("summary", transactionTypeName);
       },

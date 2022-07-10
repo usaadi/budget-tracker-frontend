@@ -10,11 +10,19 @@ import AddNewPopup from "./AddNewPopup";
 
 import whiteCrossIcon from "../../shared/images/white-cross.png";
 
-const Header = ({ selectedTxType, setSelectedTxType, onMenuClick, setActiveDateRange, activeDateRange }) => {
+const Header = ({
+  selectedTxType,
+  setSelectedTxType,
+  onMenuClick,
+  setActiveDateRange,
+  activeDateRange,
+}) => {
   const [showAddNewPopup, setShowAddNewPopup] = useState(false);
   const { pathname } = useLocation();
 
-  const showIncExpSwitch = ["/app/summary", "/app/categories"].find((x) => pathname.toLowerCase().match(x));
+  const showIncExpSwitch = ["/app/summary", "/app/categories"].find((x) =>
+    pathname.toLowerCase().match(x)
+  );
 
   const showFilterSortButton = ["/app/summary", "/app/income", "/app/expenses"].find((x) =>
     pathname.toLowerCase().match(x)
@@ -41,7 +49,10 @@ const Header = ({ selectedTxType, setSelectedTxType, onMenuClick, setActiveDateR
             containerClassName="tw-hidden lg:tw-block"
           />
         )}
-        <XButton onClick={() => setShowAddNewPopup(true)} className="tw-ml-auto tw-hidden lg:tw-block">
+        <XButton
+          onClick={() => setShowAddNewPopup(true)}
+          className="tw-ml-auto tw-hidden lg:tw-block"
+        >
           <span className="tw-flex tw-items-center tw-gap-10px">
             <img src={whiteCrossIcon} />
             <span>Add new</span>
@@ -49,7 +60,7 @@ const Header = ({ selectedTxType, setSelectedTxType, onMenuClick, setActiveDateR
         </XButton>
         <XButton
           onClick={() => setShowAddNewPopup(true)}
-          className="tw-ml-auto lg:tw-hidden tw-rounded-circle tw-fixed tw-bottom-24px tw-right-35px"
+          className="tw-ml-auto lg:tw-hidden tw-rounded-circle tw-fixed tw-bottom-24px tw-right-35px tw-z-10"
         >
           <span className="tw-flex tw-items-center tw-justify-center">
             <img src={whiteCrossIcon} />

@@ -1,8 +1,14 @@
 import List from "../../../lib/components/List";
+
 import { kFormatter } from "../../../lib/util/formatting/numberFormatting";
 import { shortDateFormatter } from "../../../lib/util/formatting/dateFormatting";
 
-const TransactionList = ({ pages, pageSize, className, loadMore }) => {
+import Button from "../../../lib/components/buttons/Button";
+
+import deleteIcon from "../../shared/images/delete-icon.svg";
+import editIcon from "../../shared/images/edit-icon.svg";
+
+const TransactionList = ({ pages, pageSize, className, loadMore, onDeleteItem }) => {
   const itemsCount = pages
     ? pages.reduce((prev, current) => {
         return prev + current.data.items.length;
@@ -18,19 +24,36 @@ const TransactionList = ({ pages, pageSize, className, loadMore }) => {
           tw-flex tw-flex-col"
       >
         <div className="tw-px-12px tw-py-5px tw-flex tw-text-12px tw-text-bt-gray-700 tw-border-b tw-border-solid tw-border-bt-blue-200">
-          {shortDateFormatter(item.transactionDate)}
+          <span>{shortDateFormatter(item.transactionDate)}</span>
+          <Button onClick={() => null} className="tw-ml-auto tw-mr-5px">
+            <img src={editIcon} className="tw-w-15px tw-opacity-50 hover:tw-opacity-100" />
+          </Button>
+          <Button onClick={() => onDeleteItem(item)}>
+            <img src={deleteIcon} className="tw-w-15px tw-opacity-50 hover:tw-opacity-100" />
+          </Button>
         </div>
         <div className="tw-px-12px tw-pt-18px tw-pb-14px tw-flex">
           <div className="tw-flex tw-flex-col tw-items-start tw-gap-8px">
-            <span className="tw-text-18px tw-font-medium tw-leading-none">{item.category.name}</span>
+            <span className="tw-text-18px tw-font-medium tw-leading-none">
+              {item.category.name}
+            </span>
             <span className="tw-text-14px tw-leading-none">{item.description}</span>
           </div>
-          <div className="tw-ml-auto tw-text-24px tw-font-medium tw-leading-none">{`$${kFormatter(item.amount)}`}</div>
+          <div className="tw-ml-auto tw-text-24px tw-font-medium tw-leading-none">{`$${kFormatter(
+            item.amount
+          )}`}</div>
         </div>
       </div>
     );
   };
-  return <List transformFn={transformFn} className={className} loadMore={loadMore} itemsCount={itemsCount} />;
+  return (
+    <List
+      transformFn={transformFn}
+      className={className}
+      loadMore={loadMore}
+      itemsCount={itemsCount}
+    />
+  );
 };
 
 export default TransactionList;
