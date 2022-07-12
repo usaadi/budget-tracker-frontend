@@ -19,6 +19,7 @@ const useEditTransaction = () => {
       onSuccess: (data) => {
         const transactionTypeName = getTransactionTypeName(data.transactionType);
         queryClient.refetchQueries("transactions", transactionTypeName);
+        queryClient.refetchQueries("infinite-transactions", transactionTypeName);
         queryClient.refetchQueries("transactions-summary", transactionTypeName);
         queryClient.refetchQueries("summary", transactionTypeName);
         queryClient.refetchQueries("categories", transactionTypeName);

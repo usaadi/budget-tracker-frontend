@@ -8,7 +8,7 @@ import Button from "../../../lib/components/buttons/Button";
 import deleteIcon from "../../shared/images/delete-icon.svg";
 import editIcon from "../../shared/images/edit-icon.svg";
 
-const CategoriesList = ({ pages, pageSize, className, loadMore, onDeleteItem }) => {
+const CategoriesList = ({ pages, pageSize, className, loadMore, onDeleteItem, onEditItem }) => {
   const itemsCount = pages
     ? pages.reduce((prev, current) => {
         return prev + current.data.items.length;
@@ -24,7 +24,7 @@ const CategoriesList = ({ pages, pageSize, className, loadMore, onDeleteItem }) 
           tw-flex tw-relative`}
       >
         <div className="tw-absolute tw-right-10px tw-top-10px">
-          <Button onClick={() => null} className="tw-ml-auto tw-mr-5px">
+          <Button onClick={() => onEditItem(item)} className="tw-ml-auto tw-mr-5px">
             <img src={editIcon} className="tw-w-15px tw-opacity-50 hover:tw-opacity-100" />
           </Button>
           <Button onClick={() => onDeleteItem(item)}>

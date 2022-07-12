@@ -8,7 +8,7 @@ import Button from "../../../lib/components/buttons/Button";
 import deleteIcon from "../../shared/images/delete-icon.svg";
 import editIcon from "../../shared/images/edit-icon.svg";
 
-const TransactionList = ({ pages, pageSize, className, loadMore, onDeleteItem }) => {
+const TransactionList = ({ pages, pageSize, className, loadMore, onDeleteItem, onEditItem }) => {
   const itemsCount = pages
     ? pages.reduce((prev, current) => {
         return prev + current.data.items.length;
@@ -25,7 +25,7 @@ const TransactionList = ({ pages, pageSize, className, loadMore, onDeleteItem })
       >
         <div className="tw-px-12px tw-py-5px tw-flex tw-text-12px tw-text-bt-gray-700 tw-border-b tw-border-solid tw-border-bt-blue-200">
           <span>{shortDateFormatter(item.transactionDate)}</span>
-          <Button onClick={() => null} className="tw-ml-auto tw-mr-5px">
+          <Button onClick={() => onEditItem(item)} className="tw-ml-auto tw-mr-5px">
             <img src={editIcon} className="tw-w-15px tw-opacity-50 hover:tw-opacity-100" />
           </Button>
           <Button onClick={() => onDeleteItem(item)}>

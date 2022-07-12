@@ -159,7 +159,10 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
     if (!transaction) {
       return;
     }
+    onEditItem(transaction);
+  };
 
+  const onEditItem = (transaction) => {
     setCurrentTransaction(transaction);
     setShowEdit(true);
   };
@@ -233,6 +236,7 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
           pageSize={infiniteTxPageSize}
           loadMore={loadMore}
           onDeleteItem={onDeleteItem}
+          onEditItem={onEditItem}
         />
       </div>
       {isEmpty && (

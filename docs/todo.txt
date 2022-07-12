@@ -40,6 +40,6 @@ Todo - 2022-06-06
 
 Todo - 2022-07-10
 =================
- - Edit/Delete for mobile
+ ✅ Edit/Delete for mobile
  - Filter/Sort for mobile
  - Add Settings page to include displayed currency sign

@@ -17,11 +17,11 @@ const useEditCategory = () => {
     },
     {
       onSuccess: (data) => {
-        const transactionTypeName = getTransactionTypeName(
-          data.transactionType
-        );
+        const transactionTypeName = getTransactionTypeName(data.transactionType);
         queryClient.refetchQueries("categories", transactionTypeName);
+        queryClient.refetchQueries("infinite-categories", transactionTypeName);
         queryClient.refetchQueries("transactions", transactionTypeName);
+        queryClient.refetchQueries("infinite-transactions", transactionTypeName);
         queryClient.refetchQueries("transactions-summary", transactionTypeName);
         queryClient.refetchQueries("summary", transactionTypeName);
       },

@@ -124,7 +124,12 @@ const CategoriesSection = ({ transactionType, className }) => {
   };
 
   const handleEditRow = (row) => {
-    setCurrentCategory(row.values);
+    const category = row.values;
+    onEditItem(category);
+  };
+
+  const onEditItem = (category) => {
+    setCurrentCategory(category);
     setShowEdit(true);
   };
 
@@ -183,6 +188,7 @@ const CategoriesSection = ({ transactionType, className }) => {
         pageSize={infiniteCategoriesPageSize}
         loadMore={loadMore}
         onDeleteItem={onDeleteItem}
+        onEditItem={onEditItem}
       />
       {isEmpty && (
         <div className="tw-flex-center tw-flex-col tw-h-full tw-gap-32px">
