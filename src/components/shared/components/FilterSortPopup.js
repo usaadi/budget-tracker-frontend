@@ -9,7 +9,7 @@ import FilterSortForm from "../forms/FilterSortForm";
 import Button from "../../../lib/components/buttons/Button";
 import { transactionTypeEnum } from "../../../constants/enums";
 
-const FilterSortPopup = ({ onClose }) => {
+const FilterSortPopup = ({ activeDateRange, setActiveDateRange, onClose }) => {
   const isExpenses = useMatch("app/expenses");
   const isCategories = useMatch("app/categories");
 
@@ -20,10 +20,16 @@ const FilterSortPopup = ({ onClose }) => {
         onClose={onClose}
       >
         <div className="tw-flex tw-justify-center tw-items-center tw-py-20px">
-          <div className="tw-leading-none tw-text-20px tw-font-medium">Filter and Sort</div>
+          <div className="tw-leading-none tw-text-20px tw-font-medium">
+            Filter and Sort
+          </div>
         </div>
         <div className="tw-pt-22px tw-pb-32px tw-px-32px">
-          <FilterSortForm />
+          <FilterSortForm
+            closeMe={onClose}
+            activeDateRange={activeDateRange}
+            setActiveDateRange={setActiveDateRange}
+          />
         </div>
       </XModal>
     </ModalOverlay>

@@ -22,12 +22,21 @@ const useDeleteCategory = () => {
     },
     {
       onSuccess: (_, variables) => {
-        const transactionTypeName = getTransactionTypeName(variables.transactionType);
+        const transactionTypeName = getTransactionTypeName(
+          variables.transactionType
+        );
         queryClient.refetchQueries("categories", transactionTypeName);
         queryClient.refetchQueries("infinite-categories", transactionTypeName);
         queryClient.refetchQueries("transactions", transactionTypeName);
-        queryClient.refetchQueries("infinite-transactions", transactionTypeName);
+        queryClient.refetchQueries(
+          "infinite-transactions",
+          transactionTypeName
+        );
         queryClient.refetchQueries("transactions-summary", transactionTypeName);
+        queryClient.refetchQueries(
+          "infinite-transactions-summary",
+          transactionTypeName
+        );
         queryClient.refetchQueries("summary", transactionTypeName);
       },
     }
