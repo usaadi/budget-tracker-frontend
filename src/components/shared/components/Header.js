@@ -7,6 +7,7 @@ import FilterSortButton from "./buttons/FilterSortButton";
 import CalendarPicker from "./CalendarPicker";
 import XButton from "./buttons/XButton";
 import AddNewPopup from "./AddNewPopup";
+import FilterSortPopup from "./FilterSortPopup";
 
 import whiteCrossIcon from "../../shared/images/white-cross.png";
 
@@ -18,6 +19,7 @@ const Header = ({
   activeDateRange,
 }) => {
   const [showAddNewPopup, setShowAddNewPopup] = useState(false);
+  const [showFilterSortPopup, setShowFilterSortPopup] = useState(false);
   const { pathname } = useLocation();
 
   const showIncExpSwitch = ["/app/summary", "/app/categories"].find((x) =>
@@ -30,6 +32,10 @@ const Header = ({
 
   const showDateRange = showFilterSortButton;
 
+  const toggleFilterSort = () => {
+    setShowFilterSortPopup((prev) => !prev);
+  };
+
   return (
     <div className="tw-flex tw-flex-col tw-items-stretch tw-mb-16px lg:tw-mb-32px">
       <MobileHeader onMenuClick={onMenuClick} className="tw-mb-18px" />
@@ -41,7 +47,9 @@ const Header = ({
             setSelectedTxType={setSelectedTxType}
           />
         )}
-        {showFilterSortButton && <FilterSortButton className="lg:tw-hidden" />}
+        {showFilterSortButton && (
+          <FilterSortButton onClick={toggleFilterSort} className="lg:tw-hidden" />
+        )}
         {showDateRange && (
           <CalendarPicker
             activeDateRange={activeDateRange}
@@ -67,6 +75,13 @@ const Header = ({
           </span>
         </XButton>
         {showAddNewPopup && <AddNewPopup onClose={() => setShowAddNewPopup(false)} />}
+        {showFilterSortPopup && (
+          <FilterSortPopup
+            activeDateRange={activeDateRange}
+            setActiveDateRange={setActiveDateRange}
+            onClose={() => setShowFilterSortPopup(false)}
+          />
+        )}
       </div>
     </div>
   );
