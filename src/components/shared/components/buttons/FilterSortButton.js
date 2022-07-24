@@ -3,7 +3,7 @@ import Button from "../../../../lib/components/buttons/Button";
 import filterIcon from "../../images/filter-icon.png";
 
 const FilterSortButton = ({ className, onClick }) => {
-  const text = "Filter and sort";
+  const text = "Filter";
   return (
     <Button
       onClick={onClick}

@@ -1,7 +1,15 @@
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const DatePicker = ({ id, onChange, value, openToDate, className, name }) => {
+const DatePicker = ({
+  id,
+  onChange,
+  value,
+  openToDate,
+  className,
+  name,
+  isClearable = false,
+}) => {
   const convertUTCToLocalDate = (date) => {
     if (!date) {
       return date;
@@ -37,6 +45,7 @@ const DatePicker = ({ id, onChange, value, openToDate, className, name }) => {
         onChange={(date) => onChange(convertLocalToUTCDate(date))}
         selected={convertUTCToLocalDate(value)}
         openToDate={openToDate}
+        isClearable={isClearable}
       />
     </div>
   );

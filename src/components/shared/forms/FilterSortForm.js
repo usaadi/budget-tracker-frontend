@@ -1,4 +1,6 @@
 import { useState, useMemo } from "react";
+import { useMatch } from "react-router-dom";
+
 import { useForm } from "react-hook-form";
 
 import { validate as isValidUUID } from "uuid";
@@ -31,7 +33,11 @@ const FilterSortForm = ({ closeMe, setActiveDateRange, activeDateRange }) => {
   // const endDate = activeDateRange?.endDate;
 
   const onApply = () => {
-    setActiveDateRange({ startDate, endDate });
+    if (!startDate && !endDate) {
+      setActiveDateRange(null);
+    } else {
+      setActiveDateRange({ startDate, endDate });
+    }
     closeMe();
   };
 
@@ -48,7 +54,11 @@ const FilterSortForm = ({ closeMe, setActiveDateRange, activeDateRange }) => {
         //openToDate={openToDate}
         name="fromDate"
         value={startDate}
-        onChange={(value) => setStartDate(value)}
+        isClearable={true}
+        onChange={(value) => {
+          value = value ? value : null;
+          setStartDate(value);
+        }}
         className="tw-mb-20px"
       />
       <label
@@ -62,7 +72,11 @@ const FilterSortForm = ({ closeMe, setActiveDateRange, activeDateRange }) => {
         //openToDate={openToDate}
         name="toDate"
         value={endDate}
-        onChange={(value) => setEndDate(value)}
+        isClearable={true}
+        onChange={(value) => {
+          value = value ? value : null;
+          setEndDate(value);
+        }}
         className="tw-mb-20px"
       />
 
