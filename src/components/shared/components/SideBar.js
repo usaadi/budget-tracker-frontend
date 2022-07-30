@@ -12,6 +12,7 @@ import { appTitle } from "../defines/consts";
 const SideBar = ({ showPopup, onClose }) => {
   const { logout } = useAuth0();
   const onSignout = () => {
+    localStorage.setItem("isDemoAccount", "");
     logout({
       returnTo: window.location.origin,
     });
@@ -34,7 +35,10 @@ const SideBar = ({ showPopup, onClose }) => {
           >
             {appTitle}
           </div>
-          <Button onClick={onClose} className="lg:tw-hidden tw-ml-auto tw-mr-14px tw-mt-[-5px]">
+          <Button
+            onClick={onClose}
+            className="lg:tw-hidden tw-ml-auto tw-mr-14px tw-mt-[-5px]"
+          >
             <img src={closeIcon} />
           </Button>
         </div>
