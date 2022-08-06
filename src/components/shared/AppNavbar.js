@@ -36,13 +36,17 @@ const menuItems = [
     icon: categoriesIcon,
     activeIcon: categoriesIconActive,
   },
+  {
+    title: "Profile",
+    url: "/app/profile",
+    icon: categoriesIcon,
+    activeIcon: categoriesIconActive,
+  },
 ];
 
 const AppNavbar = ({ className, closeMenu }) => {
   const location = useLocation();
-  const currentPage = location.pathname.substring(
-    location.pathname.lastIndexOf("/") + 1
-  );
+  const currentPage = location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
 
   const navigate = useNavigate();
 

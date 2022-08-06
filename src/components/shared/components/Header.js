@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useMatch } from "react-router-dom";
 
 import MobileHeader from "./MobileHeader";
 import IncomeExpensesSwitch from "./IncomeExpensesSwitch";
@@ -30,6 +30,8 @@ const Header = ({
     pathname.toLowerCase().match(x)
   );
 
+  const hideAddNewButton = useMatch("app/profile");
+
   const showDateRange = showFilterSortButton;
 
   const toggleFilterSort = () => {
@@ -57,23 +59,28 @@ const Header = ({
             containerClassName="tw-hidden lg:tw-block"
           />
         )}
-        <XButton
-          onClick={() => setShowAddNewPopup(true)}
-          className="tw-ml-auto tw-hidden lg:tw-block"
-        >
-          <span className="tw-flex tw-items-center tw-gap-10px">
-            <img src={whiteCrossIcon} />
-            <span>Add new</span>
-          </span>
-        </XButton>
-        <XButton
-          onClick={() => setShowAddNewPopup(true)}
-          className="tw-ml-auto lg:tw-hidden tw-rounded-circle tw-fixed tw-bottom-24px tw-right-35px tw-z-10"
-        >
-          <span className="tw-flex tw-items-center tw-justify-center">
-            <img src={whiteCrossIcon} />
-          </span>
-        </XButton>
+        {!hideAddNewButton && (
+          <>
+            <XButton
+              onClick={() => setShowAddNewPopup(true)}
+              className="tw-ml-auto tw-hidden lg:tw-block"
+            >
+              <span className="tw-flex tw-items-center tw-gap-10px">
+                <img src={whiteCrossIcon} />
+                <span>Add new</span>
+              </span>
+            </XButton>
+            <XButton
+              onClick={() => setShowAddNewPopup(true)}
+              className="tw-ml-auto lg:tw-hidden tw-rounded-circle tw-fixed tw-bottom-24px tw-right-35px tw-z-10"
+            >
+              <span className="tw-flex tw-items-center tw-justify-center">
+                <img src={whiteCrossIcon} />
+              </span>
+            </XButton>
+          </>
+        )}
+
         {showAddNewPopup && <AddNewPopup onClose={() => setShowAddNewPopup(false)} />}
         {showFilterSortPopup && (
           <FilterSortPopup

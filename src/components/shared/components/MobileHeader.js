@@ -12,6 +12,7 @@ const MobileHeader = ({ className, onMenuClick }) => {
   const isIncome = useMatch("app/income");
   const isExpenses = useMatch("app/expenses");
   const isCategories = useMatch("app/categories");
+  const isProfile = useMatch("app/profile");
 
   const pageTitle = isSummary
     ? "Summary"
@@ -21,6 +22,8 @@ const MobileHeader = ({ className, onMenuClick }) => {
     ? "Expenses"
     : isCategories
     ? "Categories"
+    : isProfile
+    ? "Profile"
     : "";
 
   return (

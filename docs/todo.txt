@@ -46,9 +46,10 @@ Todo - 2022-07-10
 
 Todo - 2022-08-06
 =================
- - Show (all time) when no date range selected in mobile.
+ ✅ Show (all time) when no date range selected in mobile.
  - Fix position of action button on mobile.
- - Add profile page and settings page with currency symbol.
+ ✅ Add profile page 
+ - and settings page with currency symbol.
  - Improve auth experience by removing the unnecessary redirect when checking for logged in status,
    or use alternative auth0 flow with a pop-up.
  - Clean up the backend code and adapt to best practices, then share on github.
