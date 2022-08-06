@@ -5,6 +5,7 @@ const DatePicker = ({
   id,
   onChange,
   value,
+  placeholder = "",
   openToDate,
   className,
   name,
@@ -39,6 +40,7 @@ const DatePicker = ({
       <ReactDatePicker
         id={id}
         name={name}
+        placeholderText={placeholder}
         className={`tw-h-40px tw-bg-bt-blue-100 tw-w-full tw-rounded-5px tw-px-16px tw-text-18px tw-text-bt-black
             tw-outline-none hover:tw-border focus:tw-border tw-border-solid`}
         wrapperClassName="bt-date-picker"

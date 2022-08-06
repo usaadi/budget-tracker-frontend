@@ -52,6 +52,7 @@ const FilterSortForm = ({ closeMe, setActiveDateRange, activeDateRange }) => {
       <DatePicker
         id="from-date"
         //openToDate={openToDate}
+        placeholder="From any date"
         name="fromDate"
         value={startDate}
         isClearable={true}
@@ -72,6 +73,7 @@ const FilterSortForm = ({ closeMe, setActiveDateRange, activeDateRange }) => {
         //openToDate={openToDate}
         name="toDate"
         value={endDate}
+        placeholder="To any date"
         isClearable={true}
         onChange={(value) => {
           value = value ? value : null;
