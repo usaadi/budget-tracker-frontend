@@ -1,6 +1,6 @@
 todo list:
 ==========
- - add backend api and database (mongodb)x +(postgres)
+ ✅ add backend api and database (mongodb)x +(postgres)
  ✅ add tabular style to summary page
  ✅ add income page with dummy data
  ✅ add summary by category page
