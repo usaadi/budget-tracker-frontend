@@ -72,7 +72,7 @@ const Header = ({
             </XButton>
             <XButton
               onClick={() => setShowAddNewPopup(true)}
-              className="tw-ml-auto lg:tw-hidden tw-rounded-circle tw-fixed tw-bottom-24px tw-right-35px tw-z-10"
+              className="tw-ml-auto lg:tw-hidden tw-rounded-circle tw-fixed tw-bottom-48px tw-right-35px tw-z-10"
             >
               <span className="tw-flex tw-items-center tw-justify-center">
                 <img src={whiteCrossIcon} />
