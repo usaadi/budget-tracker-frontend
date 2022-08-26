@@ -5,6 +5,7 @@ import SummaryList from "./SummaryList";
 
 import useTransactionsSummary from "../../../api/transactions/useTransactionsSummary";
 import useInfiniteTransactionsSummary from "../../../api/transactions/useInfiniteTransactionsSummary";
+import useUserSettings from "../../../api/userSettings/useUserSettings";
 
 import noDataImg from "../../shared/images/no-data.png";
 
@@ -72,6 +73,10 @@ const TransactionsSummary = ({ transactionType, className, activeDateRange }) =>
   };
   //// End Infinite Query
 
+  const userSettingsInfo = useUserSettings();
+  const userSettings = userSettingsInfo.data?.data;
+  const currencySymbol = userSettings?.currencySymbol;
+
   const columns = useMemo(
     () => [
       {
@@ -85,9 +90,15 @@ const TransactionsSummary = ({ transactionType, className, activeDateRange }) =>
       {
         Header: "Sum",
         accessor: "sum",
+        Cell: ({ cell }) => (
+          <>
+            {currencySymbol}
+            {cell.value}
+          </>
+        ),
       },
     ],
-    []
+    [currencySymbol]
   );
 
   const isEmpty = transactionsSummaryItems.length === 0;
@@ -95,7 +106,9 @@ const TransactionsSummary = ({ transactionType, className, activeDateRange }) =>
   const extraListClass = isEmpty ? "tw-hidden" : "";
 
   return (
-    <div className={`${className} tw-flex tw-flex-col tw-items-stretch tw-overflow-hidden lg:tw-overflow-visible`}>
+    <div
+      className={`${className} tw-flex tw-flex-col tw-items-stretch tw-overflow-hidden lg:tw-overflow-visible`}
+    >
       <DataTable
         className={`${extraTableClass} tw-hidden`}
         columns={columns}

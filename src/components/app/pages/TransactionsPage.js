@@ -10,6 +10,7 @@ import EditTransactionPopup from "../../shared/components/EditTransactionPopup";
 import useTransactions from "../../../api/transactions/useTransactions";
 import useInfiniteTransactions from "../../../api/transactions/useInfiniteTransactions";
 import useDeleteTransaction from "../../../api/transactions/useDeleteTransaction";
+import useUserSettings from "../../../api/userSettings/useUserSettings";
 
 import noDataImg from "../../shared/images/no-data.png";
 import editIcon from "../../shared/images/edit-icon.png";
@@ -167,13 +168,17 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
     setShowEdit(true);
   };
 
+  const userSettingsInfo = useUserSettings();
+  const userSettings = userSettingsInfo.data?.data;
+  const currencySymbol = userSettings?.currencySymbol;
+
   const data = useMemo(() => {
     return transactions.map((x) => ({
       transactionDateStr: shortDateFormatter(x.transactionDate),
       categoryName: x.category.name,
       ...x,
     }));
-  }, [transactions]);
+  }, [transactions, currencySymbol]);
 
   const columns = useMemo(
     () => [
@@ -188,6 +193,12 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
       {
         Header: "Amount",
         accessor: "amount",
+        Cell: ({ cell }) => (
+          <>
+            {currencySymbol}
+            {cell.value}
+          </>
+        ),
       },
       {
         Header: "Category",
@@ -211,7 +222,7 @@ const TransactionsPage = ({ transactionType, activeDateRange }) => {
         ),
       },
     ],
-    [data]
+    [data, currencySymbol]
   );
 
   const isEmpty = data.length === 0;

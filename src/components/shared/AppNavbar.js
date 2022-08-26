@@ -10,6 +10,10 @@ import incomeIcon from "./images/app-nav/income.png";
 import incomeIconActive from "./images/app-nav/income-active.png";
 import categoriesIcon from "./images/app-nav/categories.png";
 import categoriesIconActive from "./images/app-nav/categories-active.png";
+import profileIcon from "./images/app-nav/profile.png";
+import profileIconActive from "./images/app-nav/profile-active.png";
+import settingsIcon from "./images/app-nav/settings.png";
+import settingsIconActive from "./images/app-nav/settings-active.png";
 
 const menuItems = [
   {
@@ -39,8 +43,14 @@ const menuItems = [
   {
     title: "Profile",
     url: "/app/profile",
-    icon: categoriesIcon,
-    activeIcon: categoriesIconActive,
+    icon: profileIcon,
+    activeIcon: profileIconActive,
+  },
+  {
+    title: "Settings",
+    url: "/app/settings",
+    icon: settingsIcon,
+    activeIcon: settingsIconActive,
   },
 ];
 

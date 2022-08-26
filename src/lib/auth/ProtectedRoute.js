@@ -1,4 +1,5 @@
 import { withAuthenticationRequired } from "@auth0/auth0-react";
+//import useIsDemoAccount from "../../components/shared/hooks/useIsDemoAccount";
 
 export const ProtectedRoute = ({
   component,
@@ -6,16 +7,9 @@ export const ProtectedRoute = ({
   transactionType,
   setSelectedTxType,
 }) => {
-  const isDemoAccount = () => {
-    const isDemo = localStorage.getItem("isDemoAccount");
-    return isDemo === "true";
-  };
-
-  const Component = isDemoAccount()
-    ? component
-    : withAuthenticationRequired(component, {
-        onRedirecting: () => <div>Loading...</div>,
-      });
+  const Component = withAuthenticationRequired(component, {
+    onRedirecting: () => <div>Loading...</div>,
+  });
 
   return (
     <Component

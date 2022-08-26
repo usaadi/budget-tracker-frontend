@@ -2,7 +2,7 @@ import { useMatch } from "react-router-dom";
 
 import Button from "../../../lib/components/buttons/Button";
 
-import logo from "../images/logo.svg";
+import logo from "../images/logo.png";
 import menuIcon from "../images/ham-menu.png";
 
 import { appTitle } from "../defines/consts";
@@ -13,6 +13,7 @@ const MobileHeader = ({ className, onMenuClick }) => {
   const isExpenses = useMatch("app/expenses");
   const isCategories = useMatch("app/categories");
   const isProfile = useMatch("app/profile");
+  const isSettings = useMatch("app/settings");
 
   const pageTitle = isSummary
     ? "Summary"
@@ -24,6 +25,8 @@ const MobileHeader = ({ className, onMenuClick }) => {
     ? "Categories"
     : isProfile
     ? "Profile"
+    : isSettings
+    ? "Settings"
     : "";
 
   return (

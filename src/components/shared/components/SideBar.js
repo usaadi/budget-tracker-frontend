@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Button from "../../../lib/components/buttons/Button";
 import AppNavbar from "../AppNavbar";
 
-import logo from "../images/logo.svg";
+import logo from "../images/logo.png";
 import signoutIcon from "../images/side-bar/signout.png";
 import closeIcon from "../images/side-bar/close.png";
 
@@ -35,10 +35,7 @@ const SideBar = ({ showPopup, onClose }) => {
           >
             {appTitle}
           </div>
-          <Button
-            onClick={onClose}
-            className="lg:tw-hidden tw-ml-auto tw-mr-14px tw-mt-[-5px]"
-          >
+          <Button onClick={onClose} className="lg:tw-hidden tw-ml-auto tw-mr-14px tw-mt-[-5px]">
             <img src={closeIcon} />
           </Button>
         </div>

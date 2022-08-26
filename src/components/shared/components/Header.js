@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation, useMatch } from "react-router-dom";
+import { useMatch } from "react-router-dom";
 
 import MobileHeader from "./MobileHeader";
 import IncomeExpensesSwitch from "./IncomeExpensesSwitch";
@@ -20,17 +20,18 @@ const Header = ({
 }) => {
   const [showAddNewPopup, setShowAddNewPopup] = useState(false);
   const [showFilterSortPopup, setShowFilterSortPopup] = useState(false);
-  const { pathname } = useLocation();
 
-  const showIncExpSwitch = ["/app/summary", "/app/categories"].find((x) =>
-    pathname.toLowerCase().match(x)
-  );
+  const isSummaryPage = useMatch("/app/summary");
+  const isCategoriesPage = useMatch("/app/categories");
+  const isIncomePage = useMatch("/app/income");
+  const isExpensesPage = useMatch("/app/expenses");
+  const isProfilePage = useMatch("app/profile");
+  const isSettingsPage = useMatch("app/settings");
 
-  const showFilterSortButton = ["/app/summary", "/app/income", "/app/expenses"].find((x) =>
-    pathname.toLowerCase().match(x)
-  );
+  const showIncExpSwitch = isSummaryPage || isCategoriesPage;
+  const showFilterSortButton = isSummaryPage || isIncomePage || isExpensesPage;
 
-  const hideAddNewButton = useMatch("app/profile");
+  const hideAddNewButton = isProfilePage || isSettingsPage;
 
   const showDateRange = showFilterSortButton;
 
