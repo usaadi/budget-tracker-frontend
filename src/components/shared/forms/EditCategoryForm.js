@@ -5,10 +5,11 @@ import useEditCategory from "../../../api/categories/useEditCategory";
 
 import StandardInput from "../../../lib/components/input/StandardInput";
 import Spinner from "../../../lib/components/Spinner";
+import XButton from "../components/buttons/XButton";
 
 import buildErrorMessage from "../../../util/buildErrorMessage";
 
-const EditCategoryForm = ({ category, transactionType, closeMe }) => {
+const EditCategoryForm = ({ category, closeMe }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -58,10 +59,17 @@ const EditCategoryForm = ({ category, transactionType, closeMe }) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onErrorSubmit)}
-      className="tw-flex tw-flex-col tw-items-stretch lg:tw-w-668px tw-mt-40px tw-pb-36px"
+      className="tw-flex tw-flex-col tw-items-stretch"
     >
+      <label
+        htmlFor="name"
+        className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
+      >
+        Category Name
+      </label>
       <StandardInput
-        placeholder="Category Name"
+        id="name"
+        // placeholder="Category Name"
         register={register("name", { required: "This is required" })}
         value={watch("name")}
         errorMessage={errors.name?.message}
@@ -70,8 +78,15 @@ const EditCategoryForm = ({ category, transactionType, closeMe }) => {
         placeholderClass="placeholder:tw-text-db-gray-27"
         className="tw-mb-20px"
       />
+      <label
+        htmlFor="description"
+        className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
+      >
+        Category Description
+      </label>
       <StandardInput
-        placeholder="Category Description"
+        id="description"
+        // placeholder="Category Description"
         register={register("description")}
         value={watch("description")}
         errorMessage={errors.description?.message}
@@ -80,13 +95,12 @@ const EditCategoryForm = ({ category, transactionType, closeMe }) => {
         placeholderClass="placeholder:tw-text-db-gray-27"
         className="tw-mb-20px"
       />
-      <button
-        type="submit"
-        className="tw-self-center tw-bg-standard-btn-gradient-green-2 tw-px-10px tw-rounded-md"
-      >
-        {isLoading && <Spinner strokeColor="black" />}
-        SAVE
-      </button>
+      <XButton type="submit" className="tw-text-18px tw-font-bold">
+        <span className="tw-flex tw-justify-center tw-items-center tw-gap-10px">
+          {isLoading && <Spinner strokeColor="white" />}
+          <span>Save</span>
+        </span>
+      </XButton>
       {errorMessage && <div>{errorMessage}</div>}
     </form>
   );

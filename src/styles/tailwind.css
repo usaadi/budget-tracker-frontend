@@ -20,13 +20,13 @@
   }
   .rp-container {
     @apply tw-flex tw-justify-center tw-items-center tw-gap-[12px];
-  }  
+  }
   .rp-page-item {
     @apply tw-rounded-[8px] tw-bg-white tw-text-db-black-3 tw-text-[13px];
-  }  
+  }
   .rp-page-item.active {
     @apply tw-bg-standard-btn-gradient-blue tw-text-white;
-  }  
+  }
   .rp-page-link {
     @apply tw-min-w-[40px] tw-min-h-[40px] tw-flex tw-justify-center tw-items-center;
   }
@@ -41,7 +41,7 @@
   background: transparent;
 }
 
-.form-select .react-select-container>div:first-of-type {
+.form-select .react-select-container > div:first-of-type {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
@@ -49,9 +49,26 @@
 }
 
 .bt-date-picker .react-datepicker__input-container::after {
-  content: url('images/calendar-icon.png');
+  content: url("images/calendar-icon.png");
   position: absolute;
   right: 12px;
   top: 10px;
   pointer-events: none;
+}
+
+.bt-date-picker
+  .react-datepicker__input-container
+  button.react-datepicker__close-icon {
+  margin-right: 50px;
+}
+
+.bt-date-picker
+  .react-datepicker__input-container
+  button.react-datepicker__close-icon::after {
+  background-color: transparent;
+  color: black;
+  height: auto;
+  width: auto;
+  padding: 0;
+  font-size: 24px;
 }

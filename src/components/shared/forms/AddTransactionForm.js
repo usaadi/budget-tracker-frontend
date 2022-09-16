@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useForm } from "react-hook-form";
 
 import { validate as isValidUUID } from "uuid";
@@ -26,18 +26,18 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
   const displayClass = isHidden ? "tw-hidden" : "tw-flex";
 
   const transactionTypeName = getTransactionTypeName(transactionType);
-  console.log(transactionType);
-  console.log(transactionTypeName);
 
-  const categoriesInfo = useCategories(transactionTypeName);
+  const categoriesInfo = useCategories(transactionTypeName, 0, 0, true);
   const categories = categoriesInfo.isSuccess ? categoriesInfo.data.data.items : [];
 
-  const categoriesOptions = categories.map((category) => ({
-    value: category.uniqueId,
-    label: category.name,
-  }));
-
-  console.log(categoriesOptions);
+  const categoriesOptions = useMemo(
+    () =>
+      categories.map((category) => ({
+        value: category.uniqueId,
+        label: category.name,
+      })),
+    [categories]
+  );
 
   const createTransactionMutation = useCreateTransaction();
 
@@ -103,9 +103,18 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit, onErrorSubmit)} className={`${displayClass} tw-flex-col tw-items-stretch`}>
-      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">Date</label>
+    <form
+      onSubmit={handleSubmit(onSubmit, onErrorSubmit)}
+      className={`${displayClass} tw-flex-col tw-items-stretch`}
+    >
+      <label
+        htmlFor="transaction-date"
+        className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
+      >
+        Date
+      </label>
       <StandardDatePicker
+        id="transaction-date"
         //openToDate={openToDate}
         control={control}
         validationRules={{ required: "This field is required" }}
@@ -113,8 +122,14 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
         errorMessage={errors.transactionDate?.message}
         className="tw-mb-20px"
       />
-      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">Amount</label>
+      <label
+        htmlFor="amount"
+        className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
+      >
+        Amount
+      </label>
       <StandardInput
+        id="amount"
         // placeholder="Amount"
         register={register("amount", {
           required: { value: true, message: "This field is required" },
@@ -129,8 +144,14 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
         placeholderClass="placeholder:tw-text-db-gray-27"
         className="tw-mb-20px"
       />
-      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">Category</label>
+      <label
+        htmlFor="category"
+        className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
+      >
+        Category
+      </label>
       <StandardSelect
+        id="category"
         options={categoriesOptions}
         control={control}
         name="categoryUniqueId"
@@ -145,10 +166,14 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
         textColor="#13141C"
         className="tw-mb-20px"
       />
-      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">
+      <label
+        htmlFor="description"
+        className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
+      >
         Description (Optional)
       </label>
       <StandardInput
+        id="description"
         // placeholder="Description"
         register={register("description")}
         errorMessage={errors.description?.message}

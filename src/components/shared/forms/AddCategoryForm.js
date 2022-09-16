@@ -70,9 +70,18 @@ const AddCategoryForm = ({ isHidden, closeMe }) => {
   ];
 
   return (
-    <form onSubmit={handleSubmit(onSubmit, onErrorSubmit)} className={`${displayClass} tw-flex-col tw-items-stretch`}>
-      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">Type</label>
+    <form
+      onSubmit={handleSubmit(onSubmit, onErrorSubmit)}
+      className={`${displayClass} tw-flex-col tw-items-stretch`}
+    >
+      <label
+        htmlFor="transaction-type"
+        className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
+      >
+        Type
+      </label>
       <StandardSelect
+        id="transaction-type"
         options={transactionTypeOptions}
         control={control}
         name="transactionType"
@@ -87,20 +96,32 @@ const AddCategoryForm = ({ isHidden, closeMe }) => {
         textColor="#13141C"
         className="tw-mb-20px"
       />
-      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">Name</label>
+      <label
+        htmlFor="name"
+        className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
+      >
+        Name
+      </label>
       <StandardInput
+        id="name"
         // placeholder="Category Name"
-        register={register("name", { required: { value: true, message: "This field is required" } })}
+        register={register("name", {
+          required: { value: true, message: "This field is required" },
+        })}
         errorMessage={errors.name?.message}
         borderColorClass="tw-border-db-blue-gray-1/50"
         textClass="tw-font-roboto tw-text-16px"
         placeholderClass="placeholder:tw-text-db-gray-27"
         className="tw-mb-20px"
       />
-      <label className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none">
+      <label
+        htmlFor="description"
+        className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
+      >
         Description (Optional)
       </label>
       <StandardInput
+        id="description"
         // placeholder="Category Description"
         register={register("description")}
         errorMessage={errors.description?.message}

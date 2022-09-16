@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { useTable, usePagination } from "react-table";
+import { useTable, usePagination, useSortBy } from "react-table";
 import ReactPaginate from "react-paginate";
 
 import PagingSelect from "./select/PagingSelect";
@@ -15,7 +15,8 @@ const DataTable = ({
   fetchData,
   loading,
   pageCount: controlledPageCount,
-  hiddenColumns = [],
+  totalCount,
+  hiddenColumns = null,
   noHeader,
   noPagination,
   noPaginationForTenItems,
@@ -25,9 +26,8 @@ const DataTable = ({
   const paginationRef = useRef();
   const data_data = data ?? [];
   const showHeader = !noHeader;
-  const showPagination =
-    !noPagination && (data_data?.length > 10 || !noPaginationForTenItems);
-  const initialState = { hiddenColumns, pageIndex: 0 };
+  const showPagination = !noPagination && (data_data?.length > 10 || !noPaginationForTenItems);
+  const initialState = { pageIndex: 0 };
 
   const tableInstance = useTable(
     {
@@ -36,8 +36,10 @@ const DataTable = ({
       initialState,
       autoResetHiddenColumns: false,
       manualPagination: true,
+      manualSortBy: true,
       pageCount: controlledPageCount,
     },
+    useSortBy,
     usePagination
   );
 
@@ -59,17 +61,27 @@ const DataTable = ({
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
+    setHiddenColumns,
+    state: { pageIndex, pageSize, sortBy },
   } = tableInstance;
 
   useEffect(() => {
-    fetchData({ pageIndex, pageSize });
-  }, [fetchData, pageIndex, pageSize]);
+    console.log("abc");
+    if (hiddenColumns) {
+      setHiddenColumns(hiddenColumns);
+    } else {
+      setHiddenColumns([]);
+    }
+  }, [hiddenColumns]);
+
+  useEffect(() => {
+    fetchData({ pageIndex, pageSize, sortBy });
+  }, [fetchData, pageIndex, pageSize, sortBy]);
 
   const currentPage = pageIndex;
   const start = pageIndex * pageSize + 1;
   const end = start + pageSize - 1;
-  const total = rows.length;
+  const total = totalCount;
   const realEnd = end <= total ? end : total;
 
   const ddata = showPagination ? page : rows;
@@ -94,12 +106,11 @@ const DataTable = ({
   //const className = "tw-cursor-default";
 
   const tableClass = "tw-min-w-full";
-  const theadClass = "";
+  const theadClass = "tw-select-none";
   const thClass = `tw-py-12px tw-font-medium tw-tracking-wider 
     tw-text-16px tw-font-medium tw-text-black tw-uppercase tw-text-left`;
   const rowClass = "tw-border-b tw-border-bt-blue-200";
-  const cellClass =
-    "tw-py-15px tw-text-18px tw-text-bt-gray-700 tw-whitespace-nowrap";
+  const cellClass = "tw-py-15px tw-text-18px tw-text-bt-gray-700 tw-whitespace-nowrap";
 
   const paginationClass = `tw-mt-10px tw-flex tw-justify-end tw-gap-5px tw-flex-wrap tw-text-14px tw-text-bt-gray-500 tw-mb-32px 
     tw-mt-38px tw-items-center`;
@@ -120,9 +131,10 @@ const DataTable = ({
                     return (
                       <th
                         className={`${thClass} ${alignClass}`}
-                        {...column.getHeaderProps()}
+                        {...column.getHeaderProps(column.getSortByToggleProps())}
                       >
                         {column.render("Header")}
+                        <span>{column.isSorted ? (column.isSortedDesc ? " 🔽" : " 🔼") : ""}</span>
                       </th>
                     );
                   })}
@@ -141,10 +153,7 @@ const DataTable = ({
                       alignClass = "tw-text-right";
                     }
                     return (
-                      <td
-                        className={`${cellClass} ${alignClass}`}
-                        {...cell.getCellProps()}
-                      >
+                      <td className={`${cellClass} ${alignClass}`} {...cell.getCellProps()}>
                         {cell.render("Cell")}
                       </td>
                     );
@@ -202,9 +211,7 @@ const DataTable = ({
             tw-w-40px tw-h-40px tw-rounded-full tw-bg-bt-blue-100"
             disabledLinkClassName="tw-bg-transparent tw-cursor-default"
           />
-          <span className="tw-font-medium tw-text-bt-gray-600 tw-ml-20px tw-mr-10px">
-            Go to
-          </span>
+          <span className="tw-font-medium tw-text-bt-gray-600 tw-ml-20px tw-mr-10px">Go to</span>
           <input
             placeholder={`e.g. 43`}
             onChange={(e) => {

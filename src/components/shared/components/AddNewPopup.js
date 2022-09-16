@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useMatch } from "react-router-dom";
 
 import ModalOverlay from "./ModalOverlay";
 import XModal from "./XModal";
@@ -21,6 +22,15 @@ const AddNewPopup = ({ onClose }) => {
   const tab1ButtonClass = isTab(1) ? activeTabButtonClass : inactiveTabButtonClass;
   const tab2ButtonClass = isTab(2) ? activeTabButtonClass : inactiveTabButtonClass;
   const tab3ButtonClass = isTab(3) ? activeTabButtonClass : inactiveTabButtonClass;
+
+  const isExpenses = useMatch("app/expenses");
+  const isCategories = useMatch("app/categories");
+
+  const openToTab = isExpenses ? 2 : isCategories ? 3 : 1;
+
+  useEffect(() => {
+    setSelectedTabNumber(openToTab);
+  }, [openToTab]);
 
   return (
     <ModalOverlay>

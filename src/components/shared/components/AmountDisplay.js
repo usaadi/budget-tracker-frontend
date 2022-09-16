@@ -1,4 +1,8 @@
+import useUserSettings from "../../../api/userSettings/useUserSettings";
+
 const AmountDisplay = ({ className, title, amount, icon, iconSm }) => {
+  const userSettingsInfo = useUserSettings();
+  const symbol = userSettingsInfo.data?.data?.currencySymbol;
   return (
     <div
       className={`${className} tw-h-[116px] lg:tw-h-104px tw-rounded-5px tw-shadow-5 tw-flex tw-overflow-hidden`}
@@ -8,13 +12,10 @@ const AmountDisplay = ({ className, title, amount, icon, iconSm }) => {
       </div>
       <div className="tw-grow tw-flex tw-items-center tw-px-16px">
         <div className="tw-flex tw-flex-col">
-          <img
-            src={iconSm}
-            alt={title}
-            className="lg:tw-hidden tw-w-[33px] tw-mb-8px"
-          />
+          <img src={iconSm} alt={title} className="lg:tw-hidden tw-w-[33px] tw-mb-8px" />
           <span className="tw-text-20px lg:tw-text-20px tw-font-medium">
-            ${amount}
+            {symbol}
+            {amount}
           </span>
           <span className="tw-text-14px lg:tw-text-18px">{title}</span>
         </div>

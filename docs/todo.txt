@@ -1,6 +1,6 @@
 todo list:
 ==========
- - add backend api and database (mongodb)x +(postgres)
+ ✅ add backend api and database (mongodb)x +(postgres)
  ✅ add tabular style to summary page
  ✅ add income page with dummy data
  ✅ add summary by category page
@@ -34,5 +34,28 @@ Todo - 2022-06-06
  ✅ Categories - initial w/static data (07-06-2022)
  ✅ Hook up above pages with api ((07-09)-06-2022)
  ✅ Add ability to clear the date-range selector and show "all time" when empty.
- - Hook up the List elements with the api.
- - Add/Edit/Delete for above pages ((10-12)-06-2022)
+ ✅ Hook up the List elements with the api.
+ ✅ add Sorting
+ ✅ Add/Edit/Delete for above pages ((10-12)-06-2022)
+
+Todo - 2022-07-10
+=================
+ ✅ Edit/Delete for mobile
+ - Filter/Sort for mobile
+ - Add Settings page to include displayed currency sign
+
+Todo - 2022-08-06
+=================
+ ✅ Show (all time) when no date range selected in mobile.
+ ✅ Fix position of action button on mobile.
+ ✅ Add profile page 
+ ✅ and settings page with currency symbol.
+ (later) Improve auth experience by removing the unnecessary redirect when checking for logged in status,
+   or use alternative auth0 flow with a pop-up.
+ - Clean up the backend code and adapt to best practices, then share on github.
+
+ Finishing up as a model project 2022-09-15
+ ==========================================
+✅ Improve auth experience...
+ - Clean up the backend code
+✅ display currency symbol

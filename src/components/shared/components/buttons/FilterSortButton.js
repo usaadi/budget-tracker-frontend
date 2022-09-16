@@ -2,10 +2,11 @@ import Button from "../../../../lib/components/buttons/Button";
 
 import filterIcon from "../../images/filter-icon.png";
 
-const FilterSortButton = ({ className }) => {
-  const text = "Filter and sort";
+const FilterSortButton = ({ className, onClick }) => {
+  const text = "Filter";
   return (
     <Button
+      onClick={onClick}
       className={`${className} tw-border tw-border-solid tw-border-bt-gray-100
         tw-rounded-5px tw-h-32px`}
     >

@@ -12,7 +12,12 @@ import "react-date-range/dist/theme/default.css";
 
 import { shortDateFormatter } from "../../../lib/util/formatting/dateFormatting";
 
-const CalendarPicker = ({ containerClassName, onApply, activeDateRange, locale = "en-us" }) => {
+const CalendarPicker = ({
+  containerClassName,
+  onApply,
+  activeDateRange,
+  locale = "en-us",
+}) => {
   const [datePickerState, setDatePickerState] = useState([
     {
       startDate: new Date(),
@@ -35,13 +40,18 @@ const CalendarPicker = ({ containerClassName, onApply, activeDateRange, locale =
     }
   }, [showDropDown]);
   const handleClick = (e) => {
-    if (refDropdown && refDropdown.current && refDropdown.current.contains(e.target)) {
+    if (
+      refDropdown &&
+      refDropdown.current &&
+      refDropdown.current.contains(e.target)
+    ) {
       return;
     }
     setShowDropDown(false);
   };
 
-  const pickerStateItem = datePickerState?.length > 0 ? datePickerState[0] : null;
+  const pickerStateItem =
+    datePickerState?.length > 0 ? datePickerState[0] : null;
 
   const selectedRange = pickerStateItem
     ? {
@@ -65,8 +75,12 @@ const CalendarPicker = ({ containerClassName, onApply, activeDateRange, locale =
     if (!activeDateRange) {
       return "(All time)";
     }
-    const startDateText = shortDateFormatter(activeDateRange.startDate, locale);
-    const endDateText = shortDateFormatter(activeDateRange.endDate, locale);
+    const startDateText = activeDateRange.startDate
+      ? shortDateFormatter(activeDateRange.startDate, locale)
+      : "___";
+    const endDateText = activeDateRange.endDate
+      ? shortDateFormatter(activeDateRange.endDate, locale)
+      : "___";
     return `${startDateText} - ${endDateText}`;
   }, [activeDateRange, locale]);
 
@@ -84,7 +98,13 @@ const CalendarPicker = ({ containerClassName, onApply, activeDateRange, locale =
         <span className="tw-px-16px tw-flex tw-items-center">
           <span>{dateRangeText}</span>
           <div className="tw-ml-auto tw-flex tw-items-center">
-            {activeDateRange && <img onClick={clearDates} src={closeIcon} className="tw-mr-10px" />}
+            {activeDateRange && (
+              <img
+                onClick={clearDates}
+                src={closeIcon}
+                className="tw-mr-10px"
+              />
+            )}
             <img src={calendarIcon} />
           </div>
         </span>
