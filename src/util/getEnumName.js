@@ -9,6 +9,15 @@ const getTransactionTypeName = (transactionType) => {
   }
 };
 
+const getTransactionTypeSingularName = (transactionType) => {
+  switch (transactionType) {
+    case transactionTypeEnum.expenses:
+      return "expense";
+    case transactionTypeEnum.income:
+      return "income";
+  }
+};
+
 const getTransactionTypeNameCapital = (transactionType) => {
   switch (transactionType) {
     case transactionTypeEnum.expenses:
@@ -18,4 +27,4 @@ const getTransactionTypeNameCapital = (transactionType) => {
   }
 };
 
-export { getTransactionTypeName, getTransactionTypeNameCapital };
+export { getTransactionTypeName, getTransactionTypeNameCapital, getTransactionTypeSingularName };

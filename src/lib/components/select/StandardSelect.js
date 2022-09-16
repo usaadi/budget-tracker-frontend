@@ -1,6 +1,7 @@
 import MySelect from "./MySelect";
 
 const StandardSelect = ({
+  id,
   options,
   className,
   placeholder,
@@ -16,9 +17,12 @@ const StandardSelect = ({
   menuPlacement = "auto",
   textColor = "#000",
   allowCreate = false,
+  isClearable,
 }) => {
   return (
     <MySelect
+      id={id}
+      isClearable={isClearable}
       options={options}
       menuPosition={menuPosition}
       menuPlacement={menuPlacement}

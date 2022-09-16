@@ -162,9 +162,11 @@ module.exports = {
         "standard-btn-gradient-green-2": "linear-gradient(to bottom, #8d9660, #8da660)",
         "standard-btn-gradient-red": "linear-gradient(to bottom, #d8202e, #d8202e)",
         "blue-label-gradient": "linear-gradient(to bottom, #1a89f0, #1065e8)",
-        "menu-item-gradient-1": "linear-gradient(to right, rgba(13,90,229,0.2), rgba(13,90,229,0.02))",
+        "menu-item-gradient-1":
+          "linear-gradient(to right, rgba(13,90,229,0.2), rgba(13,90,229,0.02))",
         "horizontal-gradient-blue": "linear-gradient(to right, #0087f8 2%, #0062f2 102%)",
-        "landing-page-gradient": "linear-gradient(to bottom, rgba(70, 219, 201, 0.5), rgba(18, 50, 219, 0.25))",
+        "landing-page-gradient":
+          "linear-gradient(to bottom, rgba(70, 219, 201, 0.5), rgba(18, 50, 219, 0.25))",
         "dropdown-arrow":
           "linear-gradient(45deg, transparent 50%, #60698B 50%), linear-gradient(135deg, #60698B 50%, transparent 50%)",
       },
@@ -360,8 +362,9 @@ module.exports = {
         },
       },
       zIndex: {
-        1000000: "1000000",
+        100: "100",
         1000: "1000",
+        1000000: "1000000",
       },
       screens: {
         "sm-max": { max: "767px" },

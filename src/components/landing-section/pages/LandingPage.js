@@ -7,7 +7,7 @@ import screenShot from "../../shared/images/landing/screen.png";
 const LandingPage = () => {
   const appTitle = "Budgeteeer";
 
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
 
   const onGetStarted = () => {
     loginWithRedirect();
@@ -26,16 +26,12 @@ const LandingPage = () => {
           </span>
         </h1>
         <p className="tw-w-[35ch] tw-text-14px md:tw-text-16px lg:tw-text-18px tw-text-center tw-mt-30px">
-          {appTitle} offers everyone the possibility to better track their
-          budget.
+          {appTitle} offers everyone the possibility to better track their budget.
         </p>
       </header>
       <div className="tw-mt-30px tw-flex tw-flex-col tw-items-center">
         <XButton onClick={onGetStarted}>Get started</XButton>
-        <img
-          src={screenShot}
-          className="tw-mt-48px tw-mb-64px tw-w-90pct md:tw-w-fit"
-        />
+        <img src={screenShot} className="tw-mt-48px tw-mb-64px tw-w-90pct md:tw-w-fit" />
       </div>
     </div>
   );

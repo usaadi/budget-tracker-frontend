@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const StandardInput = ({
+  id,
   placeholder,
   className = "",
   name,
@@ -35,6 +36,7 @@ const StandardInput = ({
       >
         {/* <div className="tw-w-[26px] tw-h-[50px]"></div> */}
         <input
+          id={id}
           size={1}
           //value={input}
           //onInput={(e) => setInput(e.target.value)}
@@ -47,7 +49,9 @@ const StandardInput = ({
         />
         <div className="clear-btn" onClick={onClear}></div>
       </div>
-      {errorMessage && <div className="tw-absolute tw-text-bt-red tw-text-12px">{errorMessage}</div>}
+      {errorMessage && (
+        <div className="tw-absolute tw-text-bt-red tw-text-12px">{errorMessage}</div>
+      )}
     </div>
   );
 };
