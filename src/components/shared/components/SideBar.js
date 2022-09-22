@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { useAuth0 } from "@auth0/auth0-react";
 
 import Button from "../../../lib/components/buttons/Button";
@@ -17,7 +19,6 @@ const SideBar = ({ showPopup, onClose }) => {
       returnTo: window.location.origin,
     });
   };
-  const className = "tw-w-auto tw-h-auto";
   const hiddenClass = showPopup ? "tw-flex" : "tw-hidden";
   const overlayClass = showPopup
     ? "tw-absolute tw-w-full tw-h-full tw-bg-bt-black/50 lg:tw-static lg:tw-w-auto lg:tw-h-auto lg:tw-bg-transparent tw-z-100"
@@ -29,14 +30,17 @@ const SideBar = ({ showPopup, onClose }) => {
       lg:tw-flex tw-flex-col lg:tw-w-225px tw-bg-bt-blue-100 tw-m-8px tw-rounded-5px`}
       >
         <div className="tw-inline-flex tw-items-center tw-pt-8px tw-pl-8px lg:tw-pt-24px lg:tw-pl-16px">
-          <img src={logo} className="tw-w-31px lg:tw-w-39px tw-mr-10px" />
-          <div
+          <Link to="/app/summary">
+            <img src={logo} alt="logo" className="tw-w-31px lg:tw-w-39px tw-mr-10px" />
+          </Link>
+          <Link
+            to="/app/summary"
             className={`tw-inline-block tw-text-16px lg:tw-text-20px tw-font-semibold tw-select-none`}
           >
             {appTitle}
-          </div>
+          </Link>
           <Button onClick={onClose} className="lg:tw-hidden tw-ml-auto tw-mr-14px tw-mt-[-5px]">
-            <img src={closeIcon} />
+            <img src={closeIcon} alt="close" />
           </Button>
         </div>
         <AppNavbar
@@ -45,7 +49,7 @@ const SideBar = ({ showPopup, onClose }) => {
         />
         <div className="tw-mt-auto tw-ml-20px tw-mb-24px tw-flex tw-items-center">
           <Button onClick={onSignout}>
-            <img src={signoutIcon} />
+            <img src={signoutIcon} alt="sign out" />
           </Button>
           <Button
             onClick={onSignout}
