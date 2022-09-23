@@ -1,5 +1,6 @@
 // import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
+import Select from "react-select";
 import PropTypes from "prop-types";
 
 import { Controller } from "react-hook-form";
@@ -67,22 +68,41 @@ const MySelect = ({
           control={control}
           name={name}
           rules={validationRules ? validationRules : null}
-          render={({ field: { onChange, value, ref } }) => (
-            <CreatableSelect
-              inputId={id}
-              inputRef={ref}
-              options={options}
-              styles={customStyles}
-              placeholder={placeholder ? placeholder : ""}
-              isClearable={isClearable}
-              //openMenuOnClick={false}
-              allowCreate={allowCreate}
-              className={`react-select-container`}
-              classNamePrefix="rs-"
-              value={options.find((c) => c.value === value)}
-              onChange={(val) => onChange(val?.value)}
-            />
-          )}
+          render={({ field: { onChange, value, ref } }) => {
+            if (allowCreate) {
+              return (
+                <CreatableSelect
+                  inputId={id}
+                  inputRef={ref}
+                  options={options}
+                  styles={customStyles}
+                  placeholder={placeholder ? placeholder : ""}
+                  isClearable={isClearable}
+                  //openMenuOnClick={false}
+                  className={`react-select-container`}
+                  classNamePrefix="rs-"
+                  value={options.find((c) => c.value === value)}
+                  onChange={(val) => onChange(val?.value)}
+                />
+              );
+            } else {
+              return (
+                <Select
+                  inputId={id}
+                  inputRef={ref}
+                  options={options}
+                  styles={customStyles}
+                  placeholder={placeholder ? placeholder : ""}
+                  isClearable={isClearable}
+                  //openMenuOnClick={false}
+                  className={`react-select-container`}
+                  classNamePrefix="rs-"
+                  value={options.find((c) => c.value === value)}
+                  onChange={(val) => onChange(val?.value)}
+                />
+              );
+            }
+          }}
         />
       </div>
       {errorMessage && (

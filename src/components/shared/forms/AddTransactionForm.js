@@ -155,7 +155,9 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
         options={categoriesOptions}
         control={control}
         name="categoryUniqueId"
-        validationRules={{ required: "This field is required" }}
+        validationRules={{
+          required: "This field is required",
+        }}
         allowCreate={true}
         // placeholder="Category"
         errorMessage={errors.categoryUniqueId?.message}

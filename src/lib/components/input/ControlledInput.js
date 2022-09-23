@@ -1,10 +1,9 @@
-import { useState } from "react";
-
 const ControlledInput = ({
   id,
   placeholder,
   className = "",
   value,
+  maxLength = 100,
   onChange,
   errorMessage,
   borderColorClass = "tw-border-wf-light-slate-grey-2",
@@ -39,6 +38,7 @@ const ControlledInput = ({
           placeholder={placeholder}
           autoComplete={autoComplete ? autoComplete : "off"}
           type={type}
+          maxLength={maxLength}
           //name={name}
           className={`${inputClass} ${textClass} ${placeholderClass}`}
         />
