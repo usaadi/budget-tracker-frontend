@@ -107,6 +107,7 @@ const AddCategoryForm = ({ isHidden, closeMe }) => {
         // placeholder="Category Name"
         register={register("name", {
           required: { value: true, message: "This field is required" },
+          maxLength: 20,
         })}
         errorMessage={errors.name?.message}
         borderColorClass="tw-border-db-blue-gray-1/50"
@@ -123,7 +124,9 @@ const AddCategoryForm = ({ isHidden, closeMe }) => {
       <StandardInput
         id="description"
         // placeholder="Category Description"
-        register={register("description")}
+        register={register("description", {
+          maxLength: 50,
+        })}
         errorMessage={errors.description?.message}
         borderColorClass="tw-border-db-blue-gray-1/50"
         textClass="tw-font-roboto tw-text-16px"
@@ -133,7 +136,7 @@ const AddCategoryForm = ({ isHidden, closeMe }) => {
       <XButton type="submit" className="tw-text-18px tw-font-bold">
         <span className="tw-flex tw-justify-center tw-items-center tw-gap-10px">
           {isLoading && <Spinner strokeColor="white" />}
-          <img src={whiteCrossIcon} />
+          <img src={whiteCrossIcon} alt="" />
           <span>Add new</span>
         </span>
       </XButton>
