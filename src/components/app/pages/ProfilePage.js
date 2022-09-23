@@ -12,10 +12,10 @@ const ProfilePage = () => {
   return (
     <div className="lg:tw-w-50pct">
       <div className="tw-grid md:tw-grid-cols-2">
-        <div>Email:</div>
-        <div>{email}</div>
         <div>Name:</div>
         <div>{fullName}</div>
+        <div>Email:</div>
+        <div>{email}</div>
       </div>
     </div>
   );

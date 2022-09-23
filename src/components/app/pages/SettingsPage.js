@@ -36,6 +36,7 @@ const SettingsPage = () => {
           <ControlledInput
             className="tw-flex-grow"
             value={currencySymbol}
+            maxLength={6}
             onChange={(value) => setCurrencySymbol(value)}
           />
           <XButton className="" onClick={updateCurrencySymbol}>

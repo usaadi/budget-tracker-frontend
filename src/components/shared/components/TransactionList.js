@@ -31,10 +31,18 @@ const TransactionList = ({ pages, pageSize, className, loadMore, onDeleteItem, o
         <div className="tw-px-12px tw-py-5px tw-flex tw-text-12px tw-text-bt-gray-700 tw-border-b tw-border-solid tw-border-bt-blue-200">
           <span>{shortDateFormatter(item.transactionDate)}</span>
           <Button onClick={() => onEditItem(item)} className="tw-ml-auto tw-mr-5px">
-            <img src={editIcon} className="tw-w-15px tw-opacity-50 hover:tw-opacity-100" />
+            <img
+              src={editIcon}
+              alt="edit"
+              className="tw-w-15px tw-opacity-50 hover:tw-opacity-100"
+            />
           </Button>
           <Button onClick={() => onDeleteItem(item)}>
-            <img src={deleteIcon} className="tw-w-15px tw-opacity-50 hover:tw-opacity-100" />
+            <img
+              src={deleteIcon}
+              alt="delete"
+              className="tw-w-15px tw-opacity-50 hover:tw-opacity-100"
+            />
           </Button>
         </div>
         <div className="tw-px-12px tw-pt-18px tw-pb-14px tw-flex">
@@ -44,7 +52,7 @@ const TransactionList = ({ pages, pageSize, className, loadMore, onDeleteItem, o
             </span>
             <span className="tw-text-14px tw-leading-none">{item.description}</span>
           </div>
-          <div className="tw-ml-auto tw-text-24px tw-font-medium tw-leading-none">{`${currencySymbol}{kFormatter(
+          <div className="tw-ml-auto tw-text-24px tw-font-medium tw-leading-none">{`${currencySymbol}${kFormatter(
             item.amount
           )}`}</div>
         </div>

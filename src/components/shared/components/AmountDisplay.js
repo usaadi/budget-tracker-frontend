@@ -5,7 +5,7 @@ const AmountDisplay = ({ className, title, amount, icon, iconSm }) => {
   const symbol = userSettingsInfo.data?.data?.currencySymbol;
   return (
     <div
-      className={`${className} tw-h-[116px] lg:tw-h-104px tw-rounded-5px tw-shadow-5 tw-flex tw-overflow-hidden`}
+      className={`${className} lg:tw-h-104px tw-rounded-5px tw-shadow-5 tw-flex tw-overflow-hidden`}
     >
       <div className="tw-bg-bt-spring-green tw-w-104px tw-justify-center tw-items-center tw-hidden lg:tw-flex">
         <img src={icon} alt={title} />
