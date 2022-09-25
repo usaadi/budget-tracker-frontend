@@ -2,8 +2,8 @@ import { useState } from "react";
 
 import SideBar from "./components/SideBar";
 import Header from "./components/Header";
+import AddServer from "./AdServer";
 
-import { transactionTypeEnum } from "../../constants/enums";
 import Footer from "./Footer";
 
 const AppLayout = ({
@@ -23,6 +23,7 @@ const AppLayout = ({
       <SideBar showPopup={showMobileMenu} onClose={() => setShowMobileMenu(!showMobileMenu)} />
       <div className="tw-grow tw-flex tw-max-h-[100vh] lg:tw-overflow-auto">
         <div className="tw-flex tw-flex-col tw-items-stretch tw-w-full tw-h-full tw-pt-12px tw-px-16px lg:tw-pt-32px lg:tw-px-40px">
+          <AddServer />
           <Header
             selectedTxType={selectedTxType}
             setSelectedTxType={setSelectedTxType}
