@@ -4,6 +4,7 @@ import SideBar from "./components/SideBar";
 import Header from "./components/Header";
 
 import { transactionTypeEnum } from "../../constants/enums";
+import Footer from "./Footer";
 
 const AppLayout = ({
   children,
@@ -19,12 +20,9 @@ const AppLayout = ({
 
   return (
     <div className="tw-flex tw-min-h-[100vh] tw-max-h-[100vh] tw-font-satoshi">
-      <SideBar
-        showPopup={showMobileMenu}
-        onClose={() => setShowMobileMenu(!showMobileMenu)}
-      />
+      <SideBar showPopup={showMobileMenu} onClose={() => setShowMobileMenu(!showMobileMenu)} />
       <div className="tw-grow tw-flex tw-max-h-[100vh] lg:tw-overflow-auto">
-        <div className="tw-flex tw-flex-col tw-w-full tw-h-full tw-pt-12px tw-px-16px lg:tw-pt-32px lg:tw-px-40px">
+        <div className="tw-flex tw-flex-col tw-items-stretch tw-w-full tw-h-full tw-pt-12px tw-px-16px lg:tw-pt-32px lg:tw-px-40px">
           <Header
             selectedTxType={selectedTxType}
             setSelectedTxType={setSelectedTxType}
@@ -35,6 +33,7 @@ const AppLayout = ({
           <div className="tw-grow tw-flex tw-flex-col tw-overflow-hidden lg:tw-overflow-visible">
             {children}
           </div>
+          <Footer />
         </div>
       </div>
     </div>
