@@ -191,7 +191,7 @@ const CategoriesSection = ({ transactionType, className }) => {
         onEditItem={onEditItem}
       />
       {isEmpty && (
-        <div className="tw-flex-center tw-flex-col tw-h-full tw-gap-32px">
+        <div className="tw-flex tw-justify-start tw-items-center tw-flex-col tw-h-full tw-gap-32px">
           <img src={noDataImg} />
           <h1 className="tw-text-34px tw-font-medium">No data to display</h1>
         </div>

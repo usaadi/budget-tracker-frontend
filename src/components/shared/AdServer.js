@@ -1,15 +1,35 @@
 const AdServer = () => {
   return (
-    <div className="alignleft">
-      <script type="text/javascript">
-        amzn_assoc_ad_type = "banner"; amzn_assoc_marketplace = "amazon"; amzn_assoc_region = "US";
-        amzn_assoc_placement = "assoc_banner_placement_default"; amzn_assoc_campaigns =
-        "amazonfashion"; amzn_assoc_banner_type = "category"; amzn_assoc_isresponsive = "true";
-        amzn_assoc_banner_id = "16WMC1S47DJG0A0MEW82"; amzn_assoc_tracking_id = "budgeteeer-20";
-        amzn_assoc_linkid = "c43d7c788849d4015cdcdd808db9138c";
-      </script>
-      <script src="//z-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&Operation=GetScript&ID=OneJS&WS=1"></script>
-    </div>
+    <>
+      <div className="tw-hidden md:tw-flex tw-justify-center tw-items-center tw-mb-12px lg:tw-mb-32px">
+        <iframe
+          title="ad-large"
+          src="//rcm-na.amazon-adsystem.com/e/cm?o=1&p=48&l=ur1&category=amazonfashion&banner=16WMC1S47DJG0A0MEW82&f=ifr&linkID=a882b18738729ef877e4dcbc85a750e5&t=budgeteeer-20&tracking_id=budgeteeer-20"
+          width="728"
+          height="90"
+          scrolling="no"
+          border="0"
+          marginwidth="0"
+          style={{ border: "none" }}
+          frameborder="0"
+          sandbox="allow-scripts allow-same-origin allow-popups allow-top-navigation-by-user-activation"
+        ></iframe>
+      </div>
+      <div className="tw-flex md:tw-hidden tw-justify-center tw-items-center tw-mb-12px">
+        <iframe
+          title="ad-small"
+          src="//rcm-na.amazon-adsystem.com/e/cm?o=1&p=288&l=ur1&category=amazonfashion&banner=0TZ9JY8VCY3R51XPP8G2&f=ifr&linkID=3513ece1258baa2393162976519dd3f0&t=budgeteeer-20&tracking_id=budgeteeer-20"
+          width="320"
+          height="50"
+          scrolling="no"
+          border="0"
+          marginwidth="0"
+          style={{ border: "none" }}
+          frameborder="0"
+          sandbox="allow-scripts allow-same-origin allow-popups allow-top-navigation-by-user-activation"
+        ></iframe>
+      </div>
+    </>
   );
 };
 
