@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 
 import XButton from "../../shared/components/buttons/XButton";
 
-import useUserSettimgs from "../../../api/userSettings/useUserSettings";
+import useUserSettings from "../../../api/userSettings/useUserSettings";
 import usePatchUserSettings from "../../../api/userSettings/usePatchUserSettings";
 import ControlledInput from "../../../lib/components/input/ControlledInput";
 
 const SettingsPage = () => {
   const [currencySymbol, setCurrencySymbol] = useState("");
 
-  const userSettingsInfo = useUserSettimgs();
+  const userSettingsInfo = useUserSettings();
   const userSettings = userSettingsInfo?.data?.data;
 
   useEffect(() => {

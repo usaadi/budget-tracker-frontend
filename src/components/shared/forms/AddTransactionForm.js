@@ -5,6 +5,7 @@ import { validate as isValidUUID } from "uuid";
 
 import useCreateTransaction from "../../../api/transactions/useCreateTransaction";
 import useCategories from "../../../api/categories/useCategories";
+import useUserSettings from "../../../api/userSettings/useUserSettings";
 
 import StandardInput from "../../../lib/components/input/StandardInput";
 import StandardSelect from "../../../lib/components/select/StandardSelect";
@@ -102,6 +103,10 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
     // SetSubmitTriggered(true);
   };
 
+  const userSettingsInfo = useUserSettings();
+  const userSettings = userSettingsInfo?.data?.data;
+  const currencySymbol = userSettings?.currencySymbol;
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onErrorSubmit)}
@@ -126,7 +131,7 @@ const AddTransactionForm = ({ isHidden, transactionType, openToDate, closeMe }) 
         htmlFor="amount"
         className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
       >
-        Amount
+        Amount ({currencySymbol})
       </label>
       <StandardInput
         id="amount"

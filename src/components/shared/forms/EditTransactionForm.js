@@ -5,6 +5,7 @@ import { validate as isValidUUID } from "uuid";
 
 import useEditTransaction from "../../../api/transactions/useEditTransaction";
 import useCategories from "../../../api/categories/useCategories";
+import useUserSettings from "../../../api/userSettings/useUserSettings";
 
 import buildErrorMessage from "../../../util/buildErrorMessage";
 
@@ -105,6 +106,10 @@ const EditTransactionForm = ({ transaction, closeMe }) => {
     // SetSubmitTriggered(true);
   };
 
+  const userSettingsInfo = useUserSettings();
+  const userSettings = userSettingsInfo?.data?.data;
+  const currencySymbol = userSettings?.currencySymbol;
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onErrorSubmit)}
@@ -129,7 +134,7 @@ const EditTransactionForm = ({ transaction, closeMe }) => {
         htmlFor="amount"
         className="tw-text-14px tw-text-bt-black tw-font-medium tw-mb-6px tw-leading-none"
       >
-        Amount
+        Amount ({currencySymbol})
       </label>
       <StandardInput
         id="amount"
