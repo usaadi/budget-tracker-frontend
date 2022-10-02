@@ -1,4 +1,4 @@
-import { useMatch } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
 
 import Button from "../../../lib/components/buttons/Button";
 
@@ -31,7 +31,9 @@ const MobileHeader = ({ className, onMenuClick }) => {
 
   return (
     <div className={`${className} tw-flex tw-items-center lg:tw-hidden`}>
-      <img src={logo} className="tw-w-31px tw-mr-9px" />
+      <Link to="/app/summary">
+        <img src={logo} alt="logo" className="tw-w-31px tw-mr-9px" />
+      </Link>
       <div>
         <span className={`tw-inline tw-text-16px tw-font-semibold tw-select-none`}>{appTitle}</span>
         <span
@@ -41,7 +43,7 @@ const MobileHeader = ({ className, onMenuClick }) => {
         </span>
       </div>
       <Button onClick={onMenuClick} className="tw-ml-auto tw-mr-5px">
-        <img src={menuIcon} />
+        <img src={menuIcon} alt="menu" />
       </Button>
     </div>
   );

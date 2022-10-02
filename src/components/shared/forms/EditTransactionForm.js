@@ -108,7 +108,7 @@ const EditTransactionForm = ({ transaction, closeMe }) => {
 
   const userSettingsInfo = useUserSettings();
   const userSettings = userSettingsInfo?.data?.data;
-  const currencySymbol = userSettings?.currencySymbol;
+  const currencySymbol = userSettings?.currencySymbol?.trim();
 
   return (
     <form
